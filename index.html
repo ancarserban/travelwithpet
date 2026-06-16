@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>travelwith.pet — coming soon</title>
+  <meta name="description" content="Find flights and stays that actually welcome your dog or cat. Launching soon." />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAF8;
+      color: #2C2420;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: #2C2420; margin-bottom: 3rem; }
+    .dog-wrap { margin-bottom: 2.5rem; }
+    @keyframes chase { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .dog-spin { animation: chase 1.8s linear infinite; transform-origin: 50px 50px; }
+    h1 { font-size: 32px; font-weight: 500; line-height: 1.25; margin-bottom: 0.75rem; color: #2C2420; }
+    h1 span { color: #C47B3A; }
+    .sub { font-size: 15px; color: #7A6A62; margin-bottom: 2.5rem; max-width: 340px; line-height: 1.6; }
+    .form { display: flex; max-width: 380px; width: 100%; border: 1px solid #E0D5CC; border-radius: 50px; overflow: hidden; background: #fff; }
+    .form input { flex: 1; border: none; background: transparent; padding: 11px 18px; font-size: 14px; font-family: inherit; color: #2C2420; outline: none; }
+    .form input::placeholder { color: #B0A098; }
+    .form button { background: #C47B3A; color: white; border: none; padding: 11px 22px; font-size: 13px; cursor: pointer; font-family: inherit; border-radius: 0 50px 50px 0; transition: background 0.2s; }
+    .form button:hover { background: #2C2420; }
+    .note { font-size: 12px; color: #B0A098; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+      <ellipse cx="8" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
+      <ellipse cx="14" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
+      <ellipse cx="5" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
+      <ellipse cx="17" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
+      <ellipse cx="11" cy="14" rx="5" ry="5.5" fill="#C47B3A"/>
+    </svg>
+    travelwith.pet
+  </div>
+  <div class="dog-wrap">
+    <svg width="110" height="110" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g class="dog-spin">
+        <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
+        <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+        <ellipse cx="62" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+        <ellipse cx="38" cy="28" rx="5" ry="8" fill="#C47B3A"/>
+        <ellipse cx="62" cy="28" rx="5" ry="8" fill="#C47B3A"/>
+        <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+        <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
+        <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
+        <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
+        <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
+        <circle cx="43" cy="48" r="0.8" fill="white"/>
+        <circle cx="57" cy="48" r="0.8" fill="white"/>
+        <ellipse cx="50" cy="56" rx="4.5" ry="3" fill="#E8C49A"/>
+        <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
+        <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
+        <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
+        <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
+      </g>
+      <path d="M76 72 Q88 64 91 76 Q89 83 78 79" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
+      <path d="M80 73 Q86 68 88 76" stroke="#C47B3A" stroke-width="1" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h1>Travel the world<br><span>with your pet.</span></h1>
+  <p class="sub">Find flights and stays that actually welcome your dog or cat. Launching soon.</p>
+  <div class="form">
+    <input type="email" placeholder="your@email.com" />
+    <button>Notify me</button>
+  </div>
+  <p class="note">No spam. Just a heads up when we launch.</p>
+</body>
+</html>
