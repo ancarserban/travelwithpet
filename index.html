@@ -7,10 +7,7 @@
   <meta name="description" content="Find flights and stays that actually welcome your dog or cat." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --tan: #C47B3A; --tan-light: #E8C49A; --tan-bg: #FBF3EA;
-      --jrt-black: #2C2420; --jrt-gray: #7A6A62; --border: #E8DDD8;
-    }
+    :root { --tan: #C47B3A; --tan-light: #E8C49A; --tan-bg: #FBF3EA; --jrt-black: #2C2420; --jrt-gray: #7A6A62; --border: #E8DDD8; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FAFAF8; color: #2C2420; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: #FAFAF8; position: sticky; top: 0; z-index: 100; }
     .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--jrt-black); cursor: pointer; }
@@ -23,14 +20,20 @@
     .hero h1 { font-size: 36px; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
     .hero h1 span { color: var(--tan); }
     .hero p { font-size: 15px; color: var(--jrt-gray); margin-bottom: 2rem; }
-    .search-wrap { max-width: 700px; margin: 0 auto 1rem; }
-    .search-box { background: white; border: 0.5px solid var(--border); border-radius: 50px; padding: 0.875rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 100px; gap: 0; align-items: center; box-shadow: 0 2px 12px rgba(44,36,32,0.06); overflow: visible; position: relative; }
+    .search-wrap { max-width: 700px; margin: 0 auto 1rem; position: relative; }
+    .search-box { background: white; border: 0.5px solid var(--border); border-radius: 50px; padding: 0.875rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 100px; align-items: center; box-shadow: 0 2px 12px rgba(44,36,32,0.06); }
     .sf { padding: 0 1rem; border-right: 0.5px solid var(--border); position: relative; }
     .sf:first-child { padding-left: 0.5rem; }
     .sf label { display: block; font-size: 10px; font-weight: 500; color: var(--jrt-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
     .sf input, .sf select { border: none; background: transparent; font-size: 13px; color: var(--jrt-black); width: 100%; outline: none; font-family: inherit; }
     .search-btn { margin-left: 0.75rem; background: var(--tan); color: white; border: none; border-radius: 50px; padding: 9px 16px; font-size: 13px; cursor: pointer; font-family: inherit; }
     .search-btn:hover { background: var(--jrt-black); }
+    .ac-dropdown { position: absolute; top: calc(100% + 40px); left: 0; background: white; border: 0.5px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(44,36,32,0.12); z-index: 9999; max-height: 220px; overflow-y: auto; min-width: 240px; display: none; }
+    .ac-item { padding: 8px 12px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+    .ac-item:hover { background: var(--tan-bg); }
+    .ac-code { font-weight: 500; color: var(--tan); min-width: 36px; font-size: 12px; }
+    .ac-city { color: var(--jrt-black); }
+    .ac-country { color: var(--jrt-gray); font-size: 11px; }
     .popular-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
     .tag { font-size: 12px; color: var(--jrt-gray); border: 0.5px solid var(--border); padding: 4px 14px; border-radius: 20px; cursor: pointer; }
     .tag:hover { border-color: var(--tan); color: var(--tan); }
@@ -62,8 +65,8 @@
     .stay-price span { font-size: 12px; font-weight: 400; color: var(--jrt-gray); }
     .divider { border: none; border-top: 0.5px solid var(--border); margin: 0 0 1.5rem; }
     .blog-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
-    .blog-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
-    .blog-hero p { font-size: 15px; color: var(--jrt-gray); }
+    .blog-hero h2, .policies-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
+    .blog-hero p, .policies-hero p { font-size: 15px; color: var(--jrt-gray); }
     .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
     .blog-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; }
     .blog-card:hover { border-color: var(--tan-light); }
@@ -74,8 +77,6 @@
     .blog-excerpt { font-size: 13px; color: var(--jrt-gray); line-height: 1.6; margin-bottom: 10px; }
     .blog-meta { font-size: 11px; color: var(--jrt-gray); }
     .policies-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
-    .policies-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
-    .policies-hero p { font-size: 15px; color: var(--jrt-gray); }
     .policies-wrap { padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
     .policy-filters { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
     .pf { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--border); cursor: pointer; color: var(--jrt-gray); background: white; font-family: inherit; }
@@ -88,15 +89,7 @@
     .dot-no { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; margin-right: 6px; }
     footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--jrt-gray); }
     .footer-logo { font-size: 14px; font-weight: 500; color: var(--jrt-black); }
-
-    .ac-wrap { position: relative; width: 100%; }
-    .ac-dropdown { position: absolute; top: calc(100% + 8px); left: -1rem; background: white; border: 0.5px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(44,36,32,0.12); z-index: 9999; max-height: 220px; overflow-y: auto; min-width: 260px; }
-    .ac-item { padding: 8px 12px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; }
-    .ac-item:hover, .ac-item.selected { background: var(--tan-bg); }
-    .ac-code { font-weight: 500; color: var(--tan); min-width: 36px; font-size: 12px; }
-    .ac-city { color: var(--jrt-black); }
-    .ac-country { color: var(--jrt-gray); font-size: 11px; }
-    .loading-msg { padding: 2rem; text-align: center; color: var(--jrt-gray); font-size: 14px; grid-column: 1/-1; }
+    .msg { padding: 2rem; text-align: center; color: var(--jrt-gray); font-size: 14px; grid-column: 1/-1; }
   </style>
 </head>
 <body>
@@ -119,7 +112,6 @@
   </div>
 </nav>
 
-<!-- HOME -->
 <div class="page active" id="page-home">
   <div class="hero">
     <h1>Travel the world<br><span>with your pet.</span></h1>
@@ -128,28 +120,24 @@
       <div class="search-box">
         <div class="sf">
           <label>From</label>
-          <div class="ac-wrap">
-            <input type="text" id="search-origin" placeholder="City or airport" value="Bucharest (OTP)" autocomplete="off" oninput="acSearch(this,'ac-origin')" onfocus="acSearch(this,'ac-origin')" onblur="setTimeout(()=>hideAc('ac-origin'),200)"/>
-            <div class="ac-dropdown" id="ac-origin" style="display:none"></div>
-          </div>
+          <input type="text" id="search-origin" placeholder="City or airport" value="Bucharest (OTP)" autocomplete="off" />
+          <div class="ac-dropdown" id="ac-origin"></div>
         </div>
         <div class="sf">
           <label>To</label>
-          <div class="ac-wrap">
-            <input type="text" id="search-dest" placeholder="City or airport" autocomplete="off" oninput="acSearch(this,'ac-dest')" onfocus="acSearch(this,'ac-dest')" onblur="setTimeout(()=>hideAc('ac-dest'),200)"/>
-            <div class="ac-dropdown" id="ac-dest" style="display:none"></div>
-          </div>
+          <input type="text" id="search-dest" placeholder="City or airport" autocomplete="off" />
+          <div class="ac-dropdown" id="ac-dest"></div>
         </div>
         <div class="sf">
           <label>Date</label>
-          <input type="date" id="search-date"/>
+          <input type="date" id="search-date" />
         </div>
         <div class="sf">
           <label>Pet weight</label>
           <select id="search-weight">
             <option value="5">Under 5 kg</option>
-            <option value="8" selected>5 – 8 kg</option>
-            <option value="15">8 – 15 kg</option>
+            <option value="8" selected>5 - 8 kg</option>
+            <option value="15">8 - 15 kg</option>
             <option value="20">Over 15 kg</option>
           </select>
         </div>
@@ -157,17 +145,17 @@
       </div>
     </div>
     <div class="popular-tags">
-      <div class="tag" onclick="quickSearch('VIE')">Vienna</div>
-      <div class="tag" onclick="quickSearch('BCN')">Barcelona</div>
-      <div class="tag" onclick="quickSearch('AMS')">Amsterdam</div>
-      <div class="tag" onclick="quickSearch('FCO')">Rome</div>
-      <div class="tag" onclick="quickSearch('LIS')">Lisbon</div>
-      <div class="tag" onclick="quickSearch('CDG')">Paris</div>
+      <div class="tag" onclick="pickDest('VIE','Vienna')">Vienna</div>
+      <div class="tag" onclick="pickDest('BCN','Barcelona')">Barcelona</div>
+      <div class="tag" onclick="pickDest('AMS','Amsterdam')">Amsterdam</div>
+      <div class="tag" onclick="pickDest('FCO','Rome')">Rome</div>
+      <div class="tag" onclick="pickDest('LIS','Lisbon')">Lisbon</div>
+      <div class="tag" onclick="pickDest('CDG','Paris')">Paris</div>
     </div>
   </div>
 
   <div class="dog-wrap">
-    <svg width="90" height="90" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <svg width="90" height="90" viewBox="0 0 100 100">
       <g class="dog-spin">
         <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
         <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
@@ -193,83 +181,31 @@
   <div class="section">
     <div class="section-head">
       <div class="section-title" id="results-title">Pet-friendly flights from Bucharest</div>
-      <div class="section-sub" id="results-sub">5–8 kg · cabin only</div>
+      <div class="section-sub" id="results-sub">5-8 kg - cabin only</div>
     </div>
     <div class="cards" id="flight-cards">
-      <div class="card">
-        <div class="card-airline">Austrian Airlines</div>
-        <div class="card-route">OTP → VIE · Direct · 1h 40m</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">421 lei</div>
-        <div class="card-fee">+ ~65 EUR pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>
-      <div class="card">
-        <div class="card-airline">Animawings</div>
-        <div class="card-route">OTP → LGW · Direct · 3h 20m</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">320 lei</div>
-        <div class="card-fee">+ 55 EUR pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>
-      <div class="card">
-        <div class="card-airline">Lufthansa</div>
-        <div class="card-route">OTP → MUC · Direct · 2h 10m</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">580 lei</div>
-        <div class="card-fee">+ 72 EUR pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>
-      <div class="card">
-        <div class="card-airline">British Airways</div>
-        <div class="card-route">OTP → LHR · Direct · 3h 30m</div>
-        <div class="badge badge-no">Cabin not allowed</div>
-        <div class="card-price" style="font-size:13px;color:var(--jrt-gray)">Cargo only via IAG</div>
-        <div class="card-fee">&nbsp;</div>
-        <button class="card-btn">Learn more</button>
-      </div>
+      <div class="card"><div class="card-airline">Austrian Airlines</div><div class="card-route">OTP - VIE - Direct - 1h 40m</div><div class="badge badge-ok">Cabin allowed</div><div class="card-price">421 lei</div><div class="card-fee">+ ~65 EUR pet fee</div><button class="card-btn">View flight</button></div>
+      <div class="card"><div class="card-airline">Animawings</div><div class="card-route">OTP - LGW - Direct - 3h 20m</div><div class="badge badge-ok">Cabin allowed</div><div class="card-price">320 lei</div><div class="card-fee">+ 55 EUR pet fee</div><button class="card-btn">View flight</button></div>
+      <div class="card"><div class="card-airline">Lufthansa</div><div class="card-route">OTP - MUC - Direct - 2h 10m</div><div class="badge badge-ok">Cabin allowed</div><div class="card-price">580 lei</div><div class="card-fee">+ 72 EUR pet fee</div><button class="card-btn">View flight</button></div>
+      <div class="card"><div class="card-airline">British Airways</div><div class="card-route">OTP - LHR - Direct - 3h 30m</div><div class="badge badge-no">Cabin not allowed</div><div class="card-price" style="font-size:13px;color:var(--jrt-gray)">Cargo only via IAG</div><div class="card-fee">&nbsp;</div><button class="card-btn">Learn more</button></div>
     </div>
-
     <hr class="divider">
-
     <div class="section-head">
       <div class="section-title">Pet-friendly stays</div>
-      <div class="section-sub">Verified by hosts · dogs welcome</div>
+      <div class="section-sub">Verified by hosts - dogs welcome</div>
     </div>
     <div class="stay-cards">
-      <div class="stay-card">
-        <div class="stay-img">🏡</div>
-        <div class="stay-body">
-          <div class="stay-name">Cozy apartment with garden</div>
-          <div class="stay-loc">Vienna, Austria</div>
-          <div class="stay-price">€85 <span>/ night</span></div>
-        </div>
-      </div>
-      <div class="stay-card">
-        <div class="stay-img">🏠</div>
-        <div class="stay-body">
-          <div class="stay-name">Pet-friendly loft, city centre</div>
-          <div class="stay-loc">Barcelona, Spain</div>
-          <div class="stay-price">€95 <span>/ night</span></div>
-        </div>
-      </div>
-      <div class="stay-card">
-        <div class="stay-img">🏘</div>
-        <div class="stay-body">
-          <div class="stay-name">Townhouse with private patio</div>
-          <div class="stay-loc">Lisbon, Portugal</div>
-          <div class="stay-price">€110 <span>/ night</span></div>
-        </div>
-      </div>
+      <div class="stay-card"><div class="stay-img">🏡</div><div class="stay-body"><div class="stay-name">Cozy apartment with garden</div><div class="stay-loc">Vienna, Austria</div><div class="stay-price">85 EUR <span>/ night</span></div></div></div>
+      <div class="stay-card"><div class="stay-img">🏠</div><div class="stay-body"><div class="stay-name">Pet-friendly loft, city centre</div><div class="stay-loc">Barcelona, Spain</div><div class="stay-price">95 EUR <span>/ night</span></div></div></div>
+      <div class="stay-card"><div class="stay-img">🏘</div><div class="stay-body"><div class="stay-name">Townhouse with private patio</div><div class="stay-loc">Lisbon, Portugal</div><div class="stay-price">110 EUR <span>/ night</span></div></div></div>
     </div>
   </div>
 </div>
 
-<!-- POLICIES -->
 <div class="page" id="page-policies">
   <div class="policies-hero">
     <h2>Airline pet policies</h2>
-    <p>Updated June 2026 · European routes · cabin & cargo rules at a glance</p>
+    <p>Updated June 2026 - European routes - cabin and cargo rules at a glance</p>
   </div>
   <div class="policies-wrap">
     <div class="policy-filters">
@@ -279,775 +215,287 @@
       <button class="pf">Under 8 kg</button>
     </div>
     <table class="policy-table">
-      <thead>
-        <tr><th>Airline</th><th>Cabin</th><th>Max weight</th><th>Fee</th><th>Notes</th></tr>
-      </thead>
+      <thead><tr><th>Airline</th><th>Cabin</th><th>Max weight</th><th>Fee</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td><strong>Austrian Airlines</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€65–125</td><td>Must book in advance by phone</td></tr>
-        <tr><td><strong>Animawings</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€55/segment</td><td>Romanian charter, up to 4–5 pets/flight</td></tr>
-        <tr><td><strong>airBaltic</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€110 hold</td><td>Limited spots per flight</td></tr>
-        <tr><td><strong>Lufthansa</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€72 Europe</td><td>Snub-nosed breeds cabin only, not hold</td></tr>
-        <tr><td><strong>Air France</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€125 Europe</td><td>Book min. 48h before departure</td></tr>
-        <tr><td><strong>KLM</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>No hold on some Cityhopper Nov–Mar</td></tr>
-        <tr><td><strong>Vueling</strong></td><td><span class="dot-ok"></span>Yes</td><td>10 kg incl. carrier</td><td>€50+</td><td>Up to 5 pets/flight, book online</td></tr>
-        <tr><td><strong>Iberia</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€40–60</td><td>One of most affordable in Europe</td></tr>
+        <tr><td><strong>Austrian Airlines</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>65-125 EUR</td><td>Must book in advance by phone</td></tr>
+        <tr><td><strong>Animawings</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>55 EUR/segment</td><td>Romanian charter, up to 4-5 pets/flight</td></tr>
+        <tr><td><strong>airBaltic</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>110 EUR hold</td><td>Limited spots per flight</td></tr>
+        <tr><td><strong>Lufthansa</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>72 EUR Europe</td><td>Snub-nosed breeds cabin only, not hold</td></tr>
+        <tr><td><strong>Air France</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>125 EUR Europe</td><td>Book min. 48h before departure</td></tr>
+        <tr><td><strong>KLM</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>No hold on some Cityhopper Nov-Mar</td></tr>
+        <tr><td><strong>Vueling</strong></td><td><span class="dot-ok"></span>Yes</td><td>10 kg incl. carrier</td><td>50+ EUR</td><td>Up to 5 pets/flight, book online</td></tr>
+        <tr><td><strong>Iberia</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>40-60 EUR</td><td>One of most affordable in Europe</td></tr>
         <tr><td><strong>TAP Air Portugal</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>Madeira/Azores: limited spots</td></tr>
-        <tr><td><strong>British Airways</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>£800+</td><td>Cargo only via IAG/PetAir UK</td></tr>
-        <tr><td><strong>Ryanair</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Guide/assistance dogs only</td></tr>
-        <tr><td><strong>Wizz Air</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Guide/assistance dogs only</td></tr>
-        <tr><td><strong>Lauda Europe</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Ryanair subsidiary, same policy</td></tr>
-        <tr><td><strong>easyJet</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Assistance dogs only</td></tr>
+        <tr><td><strong>British Airways</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>800+ GBP</td><td>Cargo only via IAG/PetAir UK</td></tr>
+        <tr><td><strong>Ryanair</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Guide/assistance dogs only</td></tr>
+        <tr><td><strong>Wizz Air</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Guide/assistance dogs only</td></tr>
+        <tr><td><strong>Lauda Europe</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Ryanair subsidiary, same policy</td></tr>
+        <tr><td><strong>easyJet</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Assistance dogs only</td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- BLOG -->
 <div class="page" id="page-blog">
-  <div class="blog-hero">
-    <h2>From the blog</h2>
-    <p>Guides, tips and real experiences for traveling with pets.</p>
-  </div>
+  <div class="blog-hero"><h2>From the blog</h2><p>Guides, tips and real experiences for traveling with pets.</p></div>
   <div class="blog-grid">
-    <div class="blog-card"><div class="blog-img">✈️</div><div class="blog-body"><div class="blog-cat">Flights</div><div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div><div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div><div class="blog-meta">8 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🐾</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div><div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafés, transport and more.</div><div class="blog-meta">6 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">📋</div><div class="blog-body"><div class="blog-cat">Documents</div><div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div><div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div><div class="blog-meta">5 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🏨</div><div class="blog-body"><div class="blog-cat">Stays</div><div class="blog-title">How to find truly pet-friendly accommodation</div><div class="blog-excerpt">There's a big difference between a place that tolerates pets and one that actually welcomes them. Here's how to tell.</div><div class="blog-meta">4 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🇬🇧</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div><div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only. Here's the full picture.</div><div class="blog-meta">7 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">⚖️</div><div class="blog-body"><div class="blog-cat">Tips</div><div class="blog-title">How to weigh your pet carrier correctly before the airport</div><div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding. Here's how to avoid it.</div><div class="blog-meta">3 min read · June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">✈️</div><div class="blog-body"><div class="blog-cat">Flights</div><div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div><div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div><div class="blog-meta">8 min read - June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">🐾</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div><div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafes, transport and more.</div><div class="blog-meta">6 min read - June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">📋</div><div class="blog-body"><div class="blog-cat">Documents</div><div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div><div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div><div class="blog-meta">5 min read - June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">🏨</div><div class="blog-body"><div class="blog-cat">Stays</div><div class="blog-title">How to find truly pet-friendly accommodation</div><div class="blog-excerpt">There is a big difference between a place that tolerates pets and one that actually welcomes them.</div><div class="blog-meta">4 min read - June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">🇬🇧</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div><div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only.</div><div class="blog-meta">7 min read - June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">⚖️</div><div class="blog-body"><div class="blog-cat">Tips</div><div class="blog-title">How to weigh your pet carrier correctly before the airport</div><div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding.</div><div class="blog-meta">3 min read - June 2026</div></div></div>
   </div>
 </div>
 
 <footer>
   <div class="footer-logo">travelwith.pet</div>
-  <div>© 2026 · Flights & stays for pet travelers</div>
+  <div>2026 - Flights and stays for pet travelers</div>
 </footer>
 
 <script>
-  function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    document.getElementById('page-' + page).classList.add('active');
-    document.getElementById('nav-' + page).classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  document.querySelectorAll('.pf').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.pf').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-
-
-  const AIRPORTS = [
-    {code:"OTP",name:"Henri Coanda International",city:"Bucharest",country:"Romania"},
-    {code:"CLJ",name:"Cluj-Napoca International",city:"Cluj-Napoca",country:"Romania"},
-    {code:"TSR",name:"Timisoara International",city:"Timisoara",country:"Romania"},
-    {code:"IAS",name:"Iasi International",city:"Iasi",country:"Romania"},
-    {code:"SBZ",name:"Sibiu International",city:"Sibiu",country:"Romania"},
-    {code:"VIE",name:"Vienna International",city:"Vienna",country:"Austria"},
-    {code:"LHR",name:"Heathrow",city:"London",country:"UK"},
-    {code:"LGW",name:"Gatwick",city:"London",country:"UK"},
-    {code:"STN",name:"Stansted",city:"London",country:"UK"},
-    {code:"LCY",name:"City Airport",city:"London",country:"UK"},
-    {code:"CDG",name:"Charles de Gaulle",city:"Paris",country:"France"},
-    {code:"ORY",name:"Orly",city:"Paris",country:"France"},
-    {code:"AMS",name:"Schiphol",city:"Amsterdam",country:"Netherlands"},
-    {code:"BCN",name:"El Prat",city:"Barcelona",country:"Spain"},
-    {code:"MAD",name:"Barajas",city:"Madrid",country:"Spain"},
-    {code:"FCO",name:"Fiumicino",city:"Rome",country:"Italy"},
-    {code:"MXP",name:"Malpensa",city:"Milan",country:"Italy"},
-    {code:"LIN",name:"Linate",city:"Milan",country:"Italy"},
-    {code:"NAP",name:"Capodichino",city:"Naples",country:"Italy"},
-    {code:"VCE",name:"Marco Polo",city:"Venice",country:"Italy"},
-    {code:"FLR",name:"Peretola",city:"Florence",country:"Italy"},
-    {code:"BLQ",name:"Guglielmo Marconi",city:"Bologna",country:"Italy"},
-    {code:"LIS",name:"Humberto Delgado",city:"Lisbon",country:"Portugal"},
-    {code:"OPO",name:"Francisco de Sa Carneiro",city:"Porto",country:"Portugal"},
-    {code:"FRA",name:"Frankfurt International",city:"Frankfurt",country:"Germany"},
-    {code:"MUC",name:"Franz Josef Strauss",city:"Munich",country:"Germany"},
-    {code:"BER",name:"Brandenburg",city:"Berlin",country:"Germany"},
-    {code:"HAM",name:"Hamburg Airport",city:"Hamburg",country:"Germany"},
-    {code:"DUS",name:"Dusseldorf International",city:"Dusseldorf",country:"Germany"},
-    {code:"CGN",name:"Cologne Bonn",city:"Cologne",country:"Germany"},
-    {code:"STR",name:"Stuttgart Airport",city:"Stuttgart",country:"Germany"},
-    {code:"ZRH",name:"Zurich Airport",city:"Zurich",country:"Switzerland"},
-    {code:"GVA",name:"Geneva Airport",city:"Geneva",country:"Switzerland"},
-    {code:"BRU",name:"Brussels Airport",city:"Brussels",country:"Belgium"},
-    {code:"CRL",name:"Brussels South Charleroi",city:"Brussels",country:"Belgium"},
-    {code:"CPH",name:"Copenhagen Airport",city:"Copenhagen",country:"Denmark"},
-    {code:"ARN",name:"Stockholm Arlanda",city:"Stockholm",country:"Sweden"},
-    {code:"GOT",name:"Gothenburg Landvetter",city:"Gothenburg",country:"Sweden"},
-    {code:"OSL",name:"Oslo Gardermoen",city:"Oslo",country:"Norway"},
-    {code:"HEL",name:"Helsinki Vantaa",city:"Helsinki",country:"Finland"},
-    {code:"RIX",name:"Riga International",city:"Riga",country:"Latvia"},
-    {code:"TLL",name:"Tallinn Airport",city:"Tallinn",country:"Estonia"},
-    {code:"VNO",name:"Vilnius Airport",city:"Vilnius",country:"Lithuania"},
-    {code:"WAW",name:"Chopin Airport",city:"Warsaw",country:"Poland"},
-    {code:"KRK",name:"John Paul II",city:"Krakow",country:"Poland"},
-    {code:"GDN",name:"Lech Walesa",city:"Gdansk",country:"Poland"},
-    {code:"PRG",name:"Vaclav Havel",city:"Prague",country:"Czech Republic"},
-    {code:"BTS",name:"Stefanik Airport",city:"Bratislava",country:"Slovakia"},
-    {code:"BUD",name:"Liszt Ferenc",city:"Budapest",country:"Hungary"},
-    {code:"SOF",name:"Sofia Airport",city:"Sofia",country:"Bulgaria"},
-    {code:"ATH",name:"Eleftherios Venizelos",city:"Athens",country:"Greece"},
-    {code:"SKG",name:"Thessaloniki Airport",city:"Thessaloniki",country:"Greece"},
-    {code:"HER",name:"Heraklion Airport",city:"Heraklion",country:"Greece"},
-    {code:"RHO",name:"Rhodes Airport",city:"Rhodes",country:"Greece"},
-    {code:"CFU",name:"Corfu Airport",city:"Corfu",country:"Greece"},
-    {code:"IST",name:"Istanbul Airport",city:"Istanbul",country:"Turkey"},
-    {code:"SAW",name:"Sabiha Gokcen",city:"Istanbul",country:"Turkey"},
-    {code:"AYT",name:"Antalya Airport",city:"Antalya",country:"Turkey"},
-    {code:"DUB",name:"Dublin Airport",city:"Dublin",country:"Ireland"},
-    {code:"ORK",name:"Cork Airport",city:"Cork",country:"Ireland"},
-    {code:"EDI",name:"Edinburgh Airport",city:"Edinburgh",country:"UK"},
-    {code:"MAN",name:"Manchester Airport",city:"Manchester",country:"UK"},
-    {code:"BHX",name:"Birmingham Airport",city:"Birmingham",country:"UK"},
-    {code:"GLA",name:"Glasgow Airport",city:"Glasgow",country:"UK"},
-    {code:"NCE",name:"Cote Azur Airport",city:"Nice",country:"France"},
-    {code:"MRS",name:"Marseille Provence",city:"Marseille",country:"France"},
-    {code:"LYS",name:"Saint-Exupery",city:"Lyon",country:"France"},
-    {code:"TLS",name:"Toulouse-Blagnac",city:"Toulouse",country:"France"},
-    {code:"BOD",name:"Bordeaux-Merignac",city:"Bordeaux",country:"France"},
-    {code:"VLC",name:"Valencia Airport",city:"Valencia",country:"Spain"},
-    {code:"AGP",name:"Malaga Airport",city:"Malaga",country:"Spain"},
-    {code:"SVQ",name:"Seville Airport",city:"Seville",country:"Spain"},
-    {code:"IBZ",name:"Ibiza Airport",city:"Ibiza",country:"Spain"},
-    {code:"PMI",name:"Palma de Mallorca",city:"Palma",country:"Spain"},
-    {code:"TFS",name:"Tenerife South",city:"Tenerife",country:"Spain"},
-    {code:"LPA",name:"Gran Canaria",city:"Las Palmas",country:"Spain"},
-    {code:"ACE",name:"Lanzarote Airport",city:"Lanzarote",country:"Spain"},
-    {code:"FUE",name:"Fuerteventura Airport",city:"Fuerteventura",country:"Spain"},
-    {code:"BIO",name:"Bilbao Airport",city:"Bilbao",country:"Spain"},
-    {code:"ZAG",name:"Franjo Tudjman",city:"Zagreb",country:"Croatia"},
-    {code:"SPU",name:"Split Airport",city:"Split",country:"Croatia"},
-    {code:"DBV",name:"Dubrovnik Airport",city:"Dubrovnik",country:"Croatia"},
-    {code:"LJU",name:"Joze Pucnik",city:"Ljubljana",country:"Slovenia"},
-    {code:"BEG",name:"Nikola Tesla",city:"Belgrade",country:"Serbia"},
-    {code:"TIA",name:"Tirana International",city:"Tirana",country:"Albania"},
-    {code:"KIV",name:"Chisinau International",city:"Chisinau",country:"Moldova"},
-    {code:"SOF",name:"Sofia Airport",city:"Sofia",country:"Bulgaria"},
-    {code:"VAR",name:"Varna Airport",city:"Varna",country:"Bulgaria"},
-    {code:"BOJ",name:"Burgas Airport",city:"Burgas",country:"Bulgaria"},
-    {code:"PDL",name:"Joao Paulo II",city:"Ponta Delgada",country:"Portugal"},
-    {code:"FNC",name:"Madeira Airport",city:"Funchal",country:"Portugal"},
-    {code:"FAO",name:"Faro Airport",city:"Faro",country:"Portugal"},
-    {code:"TGD",name:"Podgorica Airport",city:"Podgorica",country:"Montenegro"},
-    {code:"TIV",name:"Tivat Airport",city:"Tivat",country:"Montenegro"},
-    {code:"SJJ",name:"Sarajevo Airport",city:"Sarajevo",country:"Bosnia"},
-    {code:"GYD",name:"Heydar Aliyev",city:"Baku",country:"Azerbaijan"},
-    {code:"TBS",name:"Shota Rustaveli",city:"Tbilisi",country:"Georgia"},
-    {code:"EVN",name:"Zvartnots",city:"Yerevan",country:"Armenia"},
-    {code:"HAJ",name:"Hannover Airport",city:"Hannover",country:"Germany"},
-    {code:"NUE",name:"Nuremberg Airport",city:"Nuremberg",country:"Germany"},
-    {code:"DRS",name:"Dresden Airport",city:"Dresden",country:"Germany"},
-    {code:"KLU",name:"Klagenfurt Airport",city:"Klagenfurt",country:"Austria"},
-    {code:"GRZ",name:"Graz Airport",city:"Graz",country:"Austria"},
-    {code:"SZG",name:"Salzburg Airport",city:"Salzburg",country:"Austria"},
-    {code:"INN",name:"Innsbruck Airport",city:"Innsbruck",country:"Austria"},
-    {code:"BSL",name:"EuroAirport Basel",city:"Basel",country:"Switzerland"},
-    {code:"KTW",name:"Katowice Airport",city:"Katowice",country:"Poland"},
-    {code:"POZ",name:"Poznan Airport",city:"Poznan",country:"Poland"},
-    {code:"WRO",name:"Copernicus Airport",city:"Wroclaw",country:"Poland"},
-    {code:"KBP",name:"Boryspil International",city:"Kyiv",country:"Ukraine"},
-    {code:"LWO",name:"Lviv Airport",city:"Lviv",country:"Ukraine"},
-    {code:"SKP",name:"Alexander the Great",city:"Skopje",country:"North Macedonia"},
-  ];OCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>travelwith.pet — Find pet-friendly flights & stays</title>
-  <meta name="description" content="Find flights and stays that actually welcome your dog or cat." />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --tan: #C47B3A; --tan-light: #E8C49A; --tan-bg: #FBF3EA;
-      --jrt-black: #2C2420; --jrt-gray: #7A6A62; --border: #E8DDD8;
-    }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FAFAF8; color: #2C2420; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: #FAFAF8; position: sticky; top: 0; z-index: 100; }
-    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--jrt-black); cursor: pointer; }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-link { font-size: 14px; color: var(--jrt-gray); cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; }
-    .nav-link:hover, .nav-link.active { color: var(--jrt-black); border-bottom-color: var(--tan); }
-    .page { display: none; }
-    .page.active { display: block; }
-    .hero { padding: 3rem 2rem 2rem; text-align: center; }
-    .hero h1 { font-size: 36px; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
-    .hero h1 span { color: var(--tan); }
-    .hero p { font-size: 15px; color: var(--jrt-gray); margin-bottom: 2rem; }
-    .search-wrap { max-width: 700px; margin: 0 auto 1rem; }
-    .search-box { background: white; border: 0.5px solid var(--border); border-radius: 50px; padding: 0.875rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 100px; gap: 0; align-items: center; box-shadow: 0 2px 12px rgba(44,36,32,0.06); overflow: visible; position: relative; }
-    .sf { padding: 0 1rem; border-right: 0.5px solid var(--border); position: relative; }
-    .sf:first-child { padding-left: 0.5rem; }
-    .sf label { display: block; font-size: 10px; font-weight: 500; color: var(--jrt-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-    .sf input, .sf select { border: none; background: transparent; font-size: 13px; color: var(--jrt-black); width: 100%; outline: none; font-family: inherit; }
-    .search-btn { margin-left: 0.75rem; background: var(--tan); color: white; border: none; border-radius: 50px; padding: 9px 16px; font-size: 13px; cursor: pointer; font-family: inherit; }
-    .search-btn:hover { background: var(--jrt-black); }
-    .popular-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
-    .tag { font-size: 12px; color: var(--jrt-gray); border: 0.5px solid var(--border); padding: 4px 14px; border-radius: 20px; cursor: pointer; }
-    .tag:hover { border-color: var(--tan); color: var(--tan); }
-    .dog-wrap { display: flex; justify-content: center; margin: 0 0 1.5rem; }
-    @keyframes chase { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .dog-spin { animation: chase 1.8s linear infinite; transform-origin: 50px 50px; }
-    .section { padding: 0 2rem 2rem; max-width: 960px; margin: 0 auto; }
-    .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
-    .section-title { font-size: 17px; font-weight: 500; }
-    .section-sub { font-size: 13px; color: var(--jrt-gray); }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 2rem; }
-    .card { background: white; border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem; }
-    .card-airline { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-    .card-route { font-size: 12px; color: var(--jrt-gray); margin-bottom: 10px; }
-    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 20px; margin-bottom: 10px; }
-    .badge-ok { background: var(--tan-bg); color: #7A4A1A; }
-    .badge-no { background: #FCEBEB; color: #A32D2D; }
-    .card-price { font-size: 20px; font-weight: 500; }
-    .card-fee { font-size: 11px; color: var(--jrt-gray); margin-top: 2px; }
-    .card-btn { margin-top: 12px; width: 100%; border: 0.5px solid var(--border); background: transparent; border-radius: 8px; padding: 7px; font-size: 13px; cursor: pointer; font-family: inherit; color: var(--jrt-black); }
-    .card-btn:hover { background: var(--tan-bg); }
-    .stay-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 2rem; }
-    .stay-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .stay-img { height: 130px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 32px; }
-    .stay-body { padding: 1rem; }
-    .stay-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-    .stay-loc { font-size: 12px; color: var(--jrt-gray); margin-bottom: 8px; }
-    .stay-price { font-size: 14px; font-weight: 500; }
-    .stay-price span { font-size: 12px; font-weight: 400; color: var(--jrt-gray); }
-    .divider { border: none; border-top: 0.5px solid var(--border); margin: 0 0 1.5rem; }
-    .blog-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
-    .blog-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
-    .blog-hero p { font-size: 15px; color: var(--jrt-gray); }
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
-    .blog-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; }
-    .blog-card:hover { border-color: var(--tan-light); }
-    .blog-img { height: 140px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 36px; }
-    .blog-body { padding: 1.25rem; }
-    .blog-cat { font-size: 10px; color: var(--tan); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .blog-title { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 8px; }
-    .blog-excerpt { font-size: 13px; color: var(--jrt-gray); line-height: 1.6; margin-bottom: 10px; }
-    .blog-meta { font-size: 11px; color: var(--jrt-gray); }
-    .policies-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
-    .policies-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
-    .policies-hero p { font-size: 15px; color: var(--jrt-gray); }
-    .policies-wrap { padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
-    .policy-filters { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .pf { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--border); cursor: pointer; color: var(--jrt-gray); background: white; font-family: inherit; }
-    .pf.active, .pf:hover { background: var(--tan-bg); border-color: var(--tan); color: var(--jrt-black); }
-    .policy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .policy-table th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--jrt-gray); border-bottom: 0.5px solid var(--border); }
-    .policy-table td { padding: 12px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
-    .policy-table tr:hover td { background: #FAFAF8; }
-    .dot-ok { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5DCAA5; margin-right: 6px; }
-    .dot-no { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; margin-right: 6px; }
-    footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--jrt-gray); }
-    .footer-logo { font-size: 14px; font-weight: 500; color: var(--jrt-black); }
-
-    .ac-wrap { position: relative; width: 100%; }
-    .ac-dropdown { position: absolute; top: calc(100% + 8px); left: -1rem; background: white; border: 0.5px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(44,36,32,0.12); z-index: 9999; max-height: 220px; overflow-y: auto; min-width: 260px; }
-    .ac-item { padding: 8px 12px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; }
-    .ac-item:hover, .ac-item.selected { background: var(--tan-bg); }
-    .ac-code { font-weight: 500; color: var(--tan); min-width: 36px; font-size: 12px; }
-    .ac-city { color: var(--jrt-black); }
-    .ac-country { color: var(--jrt-gray); font-size: 11px; }
-    .loading-msg { padding: 2rem; text-align: center; color: var(--jrt-gray); font-size: 14px; grid-column: 1/-1; }
-  </style>
-</head>
-<body>
-
-<nav>
-  <div class="logo" onclick="showPage('home')">
-    <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-      <ellipse cx="8" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
-      <ellipse cx="14" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
-      <ellipse cx="5" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
-      <ellipse cx="17" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
-      <ellipse cx="11" cy="14" rx="5" ry="5.5" fill="#C47B3A"/>
-    </svg>
-    travelwith.pet
-  </div>
-  <div class="nav-links">
-    <div class="nav-link active" id="nav-home" onclick="showPage('home')">Flights & stays</div>
-    <div class="nav-link" id="nav-policies" onclick="showPage('policies')">Airline policies</div>
-    <div class="nav-link" id="nav-blog" onclick="showPage('blog')">Blog</div>
-  </div>
-</nav>
-
-<!-- HOME -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <h1>Travel the world<br><span>with your pet.</span></h1>
-    <p>Find flights and stays that actually welcome your dog or cat.</p>
-    <div class="search-wrap">
-      <div class="search-box">
-        <div class="sf">
-          <label>From</label>
-          <div class="ac-wrap">
-            <input type="text" id="search-origin" placeholder="City or airport" value="Bucharest (OTP)" autocomplete="off" oninput="acSearch(this,'ac-origin')" onfocus="acSearch(this,'ac-origin')" onblur="setTimeout(()=>hideAc('ac-origin'),200)"/>
-            <div class="ac-dropdown" id="ac-origin" style="display:none"></div>
-          </div>
-        </div>
-        <div class="sf">
-          <label>To</label>
-          <div class="ac-wrap">
-            <input type="text" id="search-dest" placeholder="City or airport" autocomplete="off" oninput="acSearch(this,'ac-dest')" onfocus="acSearch(this,'ac-dest')" onblur="setTimeout(()=>hideAc('ac-dest'),200)"/>
-            <div class="ac-dropdown" id="ac-dest" style="display:none"></div>
-          </div>
-        </div>
-        <div class="sf">
-          <label>Date</label>
-          <input type="date" id="search-date"/>
-        </div>
-        <div class="sf">
-          <label>Pet weight</label>
-          <select id="search-weight">
-            <option value="5">Under 5 kg</option>
-            <option value="8" selected>5 – 8 kg</option>
-            <option value="15">8 – 15 kg</option>
-            <option value="20">Over 15 kg</option>
-          </select>
-        </div>
-        <button class="search-btn" onclick="doSearch()">Search</button>
-      </div>
-    </div>
-    <div class="popular-tags">
-      <div class="tag" onclick="quickSearch('VIE')">Vienna</div>
-      <div class="tag" onclick="quickSearch('BCN')">Barcelona</div>
-      <div class="tag" onclick="quickSearch('AMS')">Amsterdam</div>
-      <div class="tag" onclick="quickSearch('FCO')">Rome</div>
-      <div class="tag" onclick="quickSearch('LIS')">Lisbon</div>
-      <div class="tag" onclick="quickSearch('CDG')">Paris</div>
-    </div>
-  </div>
-
-  <div class="dog-wrap">
-    <svg width="90" height="90" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g class="dog-spin">
-        <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
-        <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-        <ellipse cx="62" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-        <ellipse cx="38" cy="28" rx="5" ry="8" fill="#C47B3A"/>
-        <ellipse cx="62" cy="28" rx="5" ry="8" fill="#C47B3A"/>
-        <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-        <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
-        <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
-        <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
-        <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
-        <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
-        <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
-        <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
-        <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
-      </g>
-      <path d="M76 72 Q88 64 91 76 Q89 83 78 79" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
-      <path d="M80 73 Q86 68 88 76" stroke="#C47B3A" stroke-width="1" fill="none" stroke-linecap="round"/>
-    </svg>
-  </div>
-
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title" id="results-title">Pet-friendly flights from Bucharest</div>
-      <div class="section-sub" id="results-sub">5–8 kg · cabin only</div>
-    </div>
-    <div class="cards" id="flight-cards">
-      <div class="card">
-        <div class="card-airline">Austrian Airlines</div>
-        <div class="card-route">OTP → VIE · Direct · 1h 40m</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">421 lei</div>
-        <div class="card-fee">+ ~65 EUR pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>
-      <div class="card">
-        <div class="card-airline">Animawings</div>
-        <div class="card-route">OTP → LGW · Direct · 3h 20m</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">320 lei</div>
-        <div class="card-fee">+ 55 EUR pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>
-      <div class="card">
-        <div class="card-airline">Lufthansa</div>
-        <div class="card-route">OTP → MUC · Direct · 2h 10m</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">580 lei</div>
-        <div class="card-fee">+ 72 EUR pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>
-      <div class="card">
-        <div class="card-airline">British Airways</div>
-        <div class="card-route">OTP → LHR · Direct · 3h 30m</div>
-        <div class="badge badge-no">Cabin not allowed</div>
-        <div class="card-price" style="font-size:13px;color:var(--jrt-gray)">Cargo only via IAG</div>
-        <div class="card-fee">&nbsp;</div>
-        <button class="card-btn">Learn more</button>
-      </div>
-    </div>
-
-    <hr class="divider">
-
-    <div class="section-head">
-      <div class="section-title">Pet-friendly stays</div>
-      <div class="section-sub">Verified by hosts · dogs welcome</div>
-    </div>
-    <div class="stay-cards">
-      <div class="stay-card">
-        <div class="stay-img">🏡</div>
-        <div class="stay-body">
-          <div class="stay-name">Cozy apartment with garden</div>
-          <div class="stay-loc">Vienna, Austria</div>
-          <div class="stay-price">€85 <span>/ night</span></div>
-        </div>
-      </div>
-      <div class="stay-card">
-        <div class="stay-img">🏠</div>
-        <div class="stay-body">
-          <div class="stay-name">Pet-friendly loft, city centre</div>
-          <div class="stay-loc">Barcelona, Spain</div>
-          <div class="stay-price">€95 <span>/ night</span></div>
-        </div>
-      </div>
-      <div class="stay-card">
-        <div class="stay-img">🏘</div>
-        <div class="stay-body">
-          <div class="stay-name">Townhouse with private patio</div>
-          <div class="stay-loc">Lisbon, Portugal</div>
-          <div class="stay-price">€110 <span>/ night</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- POLICIES -->
-<div class="page" id="page-policies">
-  <div class="policies-hero">
-    <h2>Airline pet policies</h2>
-    <p>Updated June 2026 · European routes · cabin & cargo rules at a glance</p>
-  </div>
-  <div class="policies-wrap">
-    <div class="policy-filters">
-      <button class="pf active">All airlines</button>
-      <button class="pf">Cabin allowed</button>
-      <button class="pf">From Romania</button>
-      <button class="pf">Under 8 kg</button>
-    </div>
-    <table class="policy-table">
-      <thead>
-        <tr><th>Airline</th><th>Cabin</th><th>Max weight</th><th>Fee</th><th>Notes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Austrian Airlines</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€65–125</td><td>Must book in advance by phone</td></tr>
-        <tr><td><strong>Animawings</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€55/segment</td><td>Romanian charter, up to 4–5 pets/flight</td></tr>
-        <tr><td><strong>airBaltic</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€110 hold</td><td>Limited spots per flight</td></tr>
-        <tr><td><strong>Lufthansa</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€72 Europe</td><td>Snub-nosed breeds cabin only, not hold</td></tr>
-        <tr><td><strong>Air France</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€125 Europe</td><td>Book min. 48h before departure</td></tr>
-        <tr><td><strong>KLM</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>No hold on some Cityhopper Nov–Mar</td></tr>
-        <tr><td><strong>Vueling</strong></td><td><span class="dot-ok"></span>Yes</td><td>10 kg incl. carrier</td><td>€50+</td><td>Up to 5 pets/flight, book online</td></tr>
-        <tr><td><strong>Iberia</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€40–60</td><td>One of most affordable in Europe</td></tr>
-        <tr><td><strong>TAP Air Portugal</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>Madeira/Azores: limited spots</td></tr>
-        <tr><td><strong>British Airways</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>£800+</td><td>Cargo only via IAG/PetAir UK</td></tr>
-        <tr><td><strong>Ryanair</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Guide/assistance dogs only</td></tr>
-        <tr><td><strong>Wizz Air</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Guide/assistance dogs only</td></tr>
-        <tr><td><strong>Lauda Europe</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Ryanair subsidiary, same policy</td></tr>
-        <tr><td><strong>easyJet</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Assistance dogs only</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- BLOG -->
-<div class="page" id="page-blog">
-  <div class="blog-hero">
-    <h2>From the blog</h2>
-    <p>Guides, tips and real experiences for traveling with pets.</p>
-  </div>
-  <div class="blog-grid">
-    <div class="blog-card"><div class="blog-img">✈️</div><div class="blog-body"><div class="blog-cat">Flights</div><div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div><div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div><div class="blog-meta">8 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🐾</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div><div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafés, transport and more.</div><div class="blog-meta">6 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">📋</div><div class="blog-body"><div class="blog-cat">Documents</div><div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div><div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div><div class="blog-meta">5 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🏨</div><div class="blog-body"><div class="blog-cat">Stays</div><div class="blog-title">How to find truly pet-friendly accommodation</div><div class="blog-excerpt">There's a big difference between a place that tolerates pets and one that actually welcomes them. Here's how to tell.</div><div class="blog-meta">4 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🇬🇧</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div><div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only. Here's the full picture.</div><div class="blog-meta">7 min read · June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">⚖️</div><div class="blog-body"><div class="blog-cat">Tips</div><div class="blog-title">How to weigh your pet carrier correctly before the airport</div><div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding. Here's how to avoid it.</div><div class="blog-meta">3 min read · June 2026</div></div></div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-logo">travelwith.pet</div>
-  <div>© 2026 · Flights & stays for pet travelers</div>
-</footer>
-
-<script>
-  function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    document.getElementById('page-' + page).classList.add('active');
-    document.getElementById('nav-' + page).classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  document.querySelectorAll('.pf').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.pf').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-
-
-  const AIRPORTS = [
-  {code:"OTP",name:"Henri Coandă International",city:"Bucharest",country:"Romania"},
-  {code:"CLJ",name:"Cluj-Napoca International",city:"Cluj-Napoca",country:"Romania"},
-  {code:"TSR",name:"Timișoara International",city:"Timișoara",country:"Romania"},
-  {code:"IAS",name:"Iași International",city:"Iași",country:"Romania"},
-  {code:"SBZ",name:"Sibiu International",city:"Sibiu",country:"Romania"},
-  {code:"VIE",name:"Vienna International",city:"Vienna",country:"Austria"},
-  {code:"LHR",name:"Heathrow",city:"London",country:"UK"},
-  {code:"LGW",name:"Gatwick",city:"London",country:"UK"},
-  {code:"STN",name:"Stansted",city:"London",country:"UK"},
-  {code:"LCY",name:"City Airport",city:"London",country:"UK"},
-  {code:"CDG",name:"Charles de Gaulle",city:"Paris",country:"France"},
-  {code:"ORY",name:"Orly",city:"Paris",country:"France"},
-  {code:"AMS",name:"Schiphol",city:"Amsterdam",country:"Netherlands"},
-  {code:"BCN",name:"El Prat",city:"Barcelona",country:"Spain"},
-  {code:"MAD",name:"Barajas",city:"Madrid",country:"Spain"},
-  {code:"FCO",name:"Fiumicino",city:"Rome",country:"Italy"},
-  {code:"MXP",name:"Malpensa",city:"Milan",country:"Italy"},
-  {code:"LIN",name:"Linate",city:"Milan",country:"Italy"},
-  {code:"NAP",name:"Capodichino",city:"Naples",country:"Italy"},
-  {code:"VCE",name:"Marco Polo",city:"Venice",country:"Italy"},
-  {code:"FLR",name:"Peretola",city:"Florence",country:"Italy"},
-  {code:"BLQ",name:"Guglielmo Marconi",city:"Bologna",country:"Italy"},
-  {code:"LIS",name:"Humberto Delgado",city:"Lisbon",country:"Portugal"},
-  {code:"OPO",name:"Francisco de Sá Carneiro",city:"Porto",country:"Portugal"},
-  {code:"FRA",name:"Frankfurt International",city:"Frankfurt",country:"Germany"},
-  {code:"MUC",name:"Franz Josef Strauss",city:"Munich",country:"Germany"},
-  {code:"BER",name:"Brandenburg",city:"Berlin",country:"Germany"},
-  {code:"HAM",name:"Hamburg Airport",city:"Hamburg",country:"Germany"},
-  {code:"DUS",name:"Düsseldorf International",city:"Düsseldorf",country:"Germany"},
-  {code:"CGN",name:"Cologne Bonn",city:"Cologne",country:"Germany"},
-  {code:"STR",name:"Stuttgart Airport",city:"Stuttgart",country:"Germany"},
-  {code:"ZRH",name:"Zurich Airport",city:"Zurich",country:"Switzerland"},
-  {code:"GVA",name:"Geneva Airport",city:"Geneva",country:"Switzerland"},
-  {code:"BRU",name:"Brussels Airport",city:"Brussels",country:"Belgium"},
-  {code:"CRL",name:"Brussels South Charleroi",city:"Brussels",country:"Belgium"},
-  {code:"CPH",name:"Copenhagen Airport",city:"Copenhagen",country:"Denmark"},
-  {code:"ARN",name:"Stockholm Arlanda",city:"Stockholm",country:"Sweden"},
-  {code:"GOT",name:"Gothenburg Landvetter",city:"Gothenburg",country:"Sweden"},
-  {code:"OSL",name:"Oslo Gardermoen",city:"Oslo",country:"Norway"},
-  {code:"HEL",name:"Helsinki Vantaa",city:"Helsinki",country:"Finland"},
-  {code:"RIX",name:"Riga International",city:"Riga",country:"Latvia"},
-  {code:"TLL",name:"Tallinn Airport",city:"Tallinn",country:"Estonia"},
-  {code:"VNO",name:"Vilnius Airport",city:"Vilnius",country:"Lithuania"},
-  {code:"WAW",name:"Chopin Airport",city:"Warsaw",country:"Poland"},
-  {code:"KRK",name:"John Paul II",city:"Krakow",country:"Poland"},
-  {code:"GDN",name:"Lech Wałęsa",city:"Gdansk",country:"Poland"},
-  {code:"PRG",name:"Václav Havel",city:"Prague",country:"Czech Republic"},
-  {code:"BTS",name:"Milan Rastislav Štefánik",city:"Bratislava",country:"Slovakia"},
-  {code:"BUD",name:"Liszt Ferenc",city:"Budapest",country:"Hungary"},
-  {code:"SOF",name:"Sofia Airport",city:"Sofia",country:"Bulgaria"},
-  {code:"ATH",name:"Eleftherios Venizelos",city:"Athens",country:"Greece"},
-  {code:"SKG",name:"Thessaloniki Airport",city:"Thessaloniki",country:"Greece"},
-  {code:"HER",name:"Heraklion Airport",city:"Heraklion",country:"Greece"},
-  {code:"RHO",name:"Rhodes Airport",city:"Rhodes",country:"Greece"},
-  {code:"CFU",name:"Corfu Airport",city:"Corfu",country:"Greece"},
-  {code:"IST",name:"Istanbul Airport",city:"Istanbul",country:"Turkey"},
-  {code:"SAW",name:"Sabiha Gökçen",city:"Istanbul",country:"Turkey"},
-  {code:"AYT",name:"Antalya Airport",city:"Antalya",country:"Turkey"},
-  {code:"DUB",name:"Dublin Airport",city:"Dublin",country:"Ireland"},
-  {code:"ORK",name:"Cork Airport",city:"Cork",country:"Ireland"},
-  {code:"EDI",name:"Edinburgh Airport",city:"Edinburgh",country:"UK"},
-  {code:"MAN",name:"Manchester Airport",city:"Manchester",country:"UK"},
-  {code:"BHX",name:"Birmingham Airport",city:"Birmingham",country:"UK"},
-  {code:"GLA",name:"Glasgow Airport",city:"Glasgow",country:"UK"},
-  {code:"NCE",name:"Côte d'Azur",city:"Nice",country:"France"},
-  {code:"MRS",name:"Marseille Provence",city:"Marseille",country:"France"},
-  {code:"LYS",name:"Saint-Exupéry",city:"Lyon",country:"France"},
-  {code:"TLS",name:"Toulouse-Blagnac",city:"Toulouse",country:"France"},
-  {code:"BOD",name:"Bordeaux-Mérignac",city:"Bordeaux",country:"France"},
-  {code:"VLC",name:"Valencia Airport",city:"Valencia",country:"Spain"},
-  {code:"AGP",name:"Málaga Airport",city:"Malaga",country:"Spain"},
-  {code:"SVQ",name:"Seville Airport",city:"Seville",country:"Spain"},
-  {code:"IBZ",name:"Ibiza Airport",city:"Ibiza",country:"Spain"},
-  {code:"PMI",name:"Palma de Mallorca",city:"Palma",country:"Spain"},
-  {code:"TFS",name:"Tenerife South",city:"Tenerife",country:"Spain"},
-  {code:"LPA",name:"Gran Canaria",city:"Las Palmas",country:"Spain"},
-  {code:"ACE",name:"Lanzarote Airport",city:"Lanzarote",country:"Spain"},
-  {code:"FUE",name:"Fuerteventura Airport",city:"Fuerteventura",country:"Spain"},
-  {code:"OVD",name:"Asturias Airport",city:"Oviedo",country:"Spain"},
-  {code:"BIO",name:"Bilbao Airport",city:"Bilbao",country:"Spain"},
-  {code:"ZAG",name:"Franjo Tuđman",city:"Zagreb",country:"Croatia"},
-  {code:"SPU",name:"Split Airport",city:"Split",country:"Croatia"},
-  {code:"DBV",name:"Dubrovnik Airport",city:"Dubrovnik",country:"Croatia"},
-  {code:"LJU",name:"Jože Pučnik",city:"Ljubljana",country:"Slovenia"},
-  {code:"BEG",name:"Nikola Tesla",city:"Belgrade",country:"Serbia"},
-  {code:"SKP",name:"Alexander the Great",city:"Skopje",country:"North Macedonia"},
-  {code:"TIA",name:"Tirana International",city:"Tirana",country:"Albania"},
-  {code:"OHD",name:"Ohrid Airport",city:"Ohrid",country:"North Macedonia"},
-  {code:"KIV",name:"Chișinău International",city:"Chisinau",country:"Moldova"},
-  {code:"KBP",name:"Boryspil International",city:"Kyiv",country:"Ukraine"},
-  {code:"SVO",name:"Sheremetyevo",city:"Moscow",country:"Russia"},
-  {code:"LED",name:"Pulkovo",city:"St. Petersburg",country:"Russia"},
-  {code:"TXL",name:"Tegel",city:"Berlin",country:"Germany"},
-  {code:"GRQ",name:"Groningen Airport",city:"Groningen",country:"Netherlands"},
-  {code:"EIN",name:"Eindhoven Airport",city:"Eindhoven",country:"Netherlands"},
-  {code:"ANR",name:"Antwerp Airport",city:"Antwerp",country:"Belgium"},
-  {code:"LGG",name:"Liège Airport",city:"Liège",country:"Belgium"},
-  {code:"CIA",name:"Ciampino",city:"Rome",country:"Italy"},
-  {code:"BGY",name:"Orio al Serio",city:"Milan",country:"Italy"},
-  {code:"PSA",name:"Galileo Galilei",city:"Pisa",country:"Italy"},
-  {code:"BRI",name:"Karol Wojtyła",city:"Bari",country:"Italy"},
-  {code:"CTA",name:"Fontanarossa",city:"Catania",country:"Italy"},
-  {code:"PMO",name:"Falcone-Borsellino",city:"Palermo",country:"Italy"},
-  {code:"REG",name:"Tito Minniti",city:"Reggio Calabria",country:"Italy"},
-  {code:"TRN",name:"Caselle",city:"Turin",country:"Italy"},
-  {code:"GEN",name:"Genova Airport",city:"Genoa",country:"Italy"},
-  {code:"AOI",name:"Ancona Airport",city:"Ancona",country:"Italy"},
-  {code:"KTW",name:"Katowice Airport",city:"Katowice",country:"Poland"},
-  {code:"POZ",name:"Poznań Airport",city:"Poznan",country:"Poland"},
-  {code:"WRO",name:"Copernicus Airport",city:"Wroclaw",country:"Poland"},
-  {code:"LCJ",name:"Łódź Airport",city:"Lodz",country:"Poland"},
-  {code:"RZE",name:"Rzeszów Airport",city:"Rzeszow",country:"Poland"},
-  {code:"BZG",name:"Bydgoszcz Airport",city:"Bydgoszcz",country:"Poland"},
-  {code:"OSR",name:"Ostrava Airport",city:"Ostrava",country:"Czech Republic"},
-  {code:"BRQ",name:"Brno Airport",city:"Brno",country:"Czech Republic"},
-  {code:"KSC",name:"Košice Airport",city:"Kosice",country:"Slovakia"},
-  {code:"DEB",name:"Debrecen Airport",city:"Debrecen",country:"Hungary"},
-  {code:"MSQ",name:"Minsk Airport",city:"Minsk",country:"Belarus"},
-  {code:"WAB",name:"Wabag Airport",city:"Wabag",country:"Papua New Guinea"},
-  {code:"HAJ",name:"Hannover Airport",city:"Hannover",country:"Germany"},
-  {code:"NUE",name:"Nuremberg Airport",city:"Nuremberg",country:"Germany"},
-  {code:"LEJ",name:"Leipzig/Halle Airport",city:"Leipzig",country:"Germany"},
-  {code:"DRS",name:"Dresden Airport",city:"Dresden",country:"Germany"},
-  {code:"SCN",name:"Saarbrücken Airport",city:"Saarbrücken",country:"Germany"},
-  {code:"FMO",name:"Münster Osnabrück",city:"Münster",country:"Germany"},
-  {code:"PAD",name:"Paderborn Airport",city:"Paderborn",country:"Germany"},
-  {code:"KLU",name:"Klagenfurt Airport",city:"Klagenfurt",country:"Austria"},
-  {code:"GRZ",name:"Graz Airport",city:"Graz",country:"Austria"},
-  {code:"SZG",name:"Salzburg Airport",city:"Salzburg",country:"Austria"},
-  {code:"INN",name:"Innsbruck Airport",city:"Innsbruck",country:"Austria"},
-  {code:"BSL",name:"EuroAirport Basel",city:"Basel",country:"Switzerland"},
-  {code:"BRN",name:"Bern Airport",city:"Bern",country:"Switzerland"},
-  {code:"LUZ",name:"Lublin Airport",city:"Lublin",country:"Poland"},
-  {code:"SZZ",name:"Szczecin Airport",city:"Szczecin",country:"Poland"},
-  {code:"IEV",name:"Kyiv Zhuliany",city:"Kyiv",country:"Ukraine"},
-  {code:"ODS",name:"Odesa Airport",city:"Odesa",country:"Ukraine"},
-  {code:"LWO",name:"Lviv Airport",city:"Lviv",country:"Ukraine"},
-  {code:"VAR",name:"Varna Airport",city:"Varna",country:"Bulgaria"},
-  {code:"BOJ",name:"Burgas Airport",city:"Burgas",country:"Bulgaria"},
-  {code:"PDL",name:"João Paulo II",city:"Ponta Delgada",country:"Portugal"},
-  {code:"FNC",name:"Madeira Airport",city:"Funchal",country:"Portugal"},
-  {code:"FAO",name:"Faro Airport",city:"Faro",country:"Portugal"},
-  {code:"TGD",name:"Podgorica Airport",city:"Podgorica",country:"Montenegro"},
-  {code:"TIV",name:"Tivat Airport",city:"Tivat",country:"Montenegro"},
-  {code:"SJJ",name:"Sarajevo Airport",city:"Sarajevo",country:"Bosnia"},
-  {code:"INI",name:"Nis Airport",city:"Nis",country:"Serbia"},
-  {code:"GNJ",name:"Ganja Airport",city:"Ganja",country:"Azerbaijan"},
-  {code:"GYD",name:"Heydar Aliyev",city:"Baku",country:"Azerbaijan"},
-  {code:"TBS",name:"Shota Rustaveli",city:"Tbilisi",country:"Georgia"},
-  {code:"EVN",name:"Zvartnots",city:"Yerevan",country:"Armenia"},
-  {code:"ALA",name:"Almaty Airport",city:"Almaty",country:"Kazakhstan"},
-  {code:"TSE",name:"Nursultan Nazarbayev",city:"Nur-Sultan",country:"Kazakhstan"},
+var AIRPORTS = [
+  {code:"OTP",city:"Bucharest",country:"Romania"},
+  {code:"CLJ",city:"Cluj-Napoca",country:"Romania"},
+  {code:"TSR",city:"Timisoara",country:"Romania"},
+  {code:"IAS",city:"Iasi",country:"Romania"},
+  {code:"SBZ",city:"Sibiu",country:"Romania"},
+  {code:"VIE",city:"Vienna",country:"Austria"},
+  {code:"GRZ",city:"Graz",country:"Austria"},
+  {code:"SZG",city:"Salzburg",country:"Austria"},
+  {code:"INN",city:"Innsbruck",country:"Austria"},
+  {code:"LHR",city:"London Heathrow",country:"UK"},
+  {code:"LGW",city:"London Gatwick",country:"UK"},
+  {code:"STN",city:"London Stansted",country:"UK"},
+  {code:"LCY",city:"London City",country:"UK"},
+  {code:"MAN",city:"Manchester",country:"UK"},
+  {code:"EDI",city:"Edinburgh",country:"UK"},
+  {code:"GLA",city:"Glasgow",country:"UK"},
+  {code:"BHX",city:"Birmingham",country:"UK"},
+  {code:"CDG",city:"Paris Charles de Gaulle",country:"France"},
+  {code:"ORY",city:"Paris Orly",country:"France"},
+  {code:"NCE",city:"Nice",country:"France"},
+  {code:"MRS",city:"Marseille",country:"France"},
+  {code:"LYS",city:"Lyon",country:"France"},
+  {code:"TLS",city:"Toulouse",country:"France"},
+  {code:"BOD",city:"Bordeaux",country:"France"},
+  {code:"AMS",city:"Amsterdam",country:"Netherlands"},
+  {code:"EIN",city:"Eindhoven",country:"Netherlands"},
+  {code:"BCN",city:"Barcelona",country:"Spain"},
+  {code:"MAD",city:"Madrid",country:"Spain"},
+  {code:"VLC",city:"Valencia",country:"Spain"},
+  {code:"AGP",city:"Malaga",country:"Spain"},
+  {code:"SVQ",city:"Seville",country:"Spain"},
+  {code:"IBZ",city:"Ibiza",country:"Spain"},
+  {code:"PMI",city:"Palma de Mallorca",country:"Spain"},
+  {code:"TFS",city:"Tenerife South",country:"Spain"},
+  {code:"LPA",city:"Gran Canaria",country:"Spain"},
+  {code:"ACE",city:"Lanzarote",country:"Spain"},
+  {code:"FCO",city:"Rome Fiumicino",country:"Italy"},
+  {code:"CIA",city:"Rome Ciampino",country:"Italy"},
+  {code:"MXP",city:"Milan Malpensa",country:"Italy"},
+  {code:"LIN",city:"Milan Linate",country:"Italy"},
+  {code:"BGY",city:"Milan Bergamo",country:"Italy"},
+  {code:"NAP",city:"Naples",country:"Italy"},
+  {code:"VCE",city:"Venice",country:"Italy"},
+  {code:"FLR",city:"Florence",country:"Italy"},
+  {code:"BLQ",city:"Bologna",country:"Italy"},
+  {code:"PSA",city:"Pisa",country:"Italy"},
+  {code:"BRI",city:"Bari",country:"Italy"},
+  {code:"CTA",city:"Catania",country:"Italy"},
+  {code:"PMO",city:"Palermo",country:"Italy"},
+  {code:"TRN",city:"Turin",country:"Italy"},
+  {code:"LIS",city:"Lisbon",country:"Portugal"},
+  {code:"OPO",city:"Porto",country:"Portugal"},
+  {code:"FAO",city:"Faro",country:"Portugal"},
+  {code:"FNC",city:"Funchal Madeira",country:"Portugal"},
+  {code:"PDL",city:"Ponta Delgada Azores",country:"Portugal"},
+  {code:"FRA",city:"Frankfurt",country:"Germany"},
+  {code:"MUC",city:"Munich",country:"Germany"},
+  {code:"BER",city:"Berlin",country:"Germany"},
+  {code:"HAM",city:"Hamburg",country:"Germany"},
+  {code:"DUS",city:"Dusseldorf",country:"Germany"},
+  {code:"CGN",city:"Cologne",country:"Germany"},
+  {code:"STR",city:"Stuttgart",country:"Germany"},
+  {code:"HAJ",city:"Hannover",country:"Germany"},
+  {code:"NUE",city:"Nuremberg",country:"Germany"},
+  {code:"DRS",city:"Dresden",country:"Germany"},
+  {code:"ZRH",city:"Zurich",country:"Switzerland"},
+  {code:"GVA",city:"Geneva",country:"Switzerland"},
+  {code:"BSL",city:"Basel",country:"Switzerland"},
+  {code:"BRU",city:"Brussels",country:"Belgium"},
+  {code:"CRL",city:"Brussels Charleroi",country:"Belgium"},
+  {code:"CPH",city:"Copenhagen",country:"Denmark"},
+  {code:"ARN",city:"Stockholm",country:"Sweden"},
+  {code:"GOT",city:"Gothenburg",country:"Sweden"},
+  {code:"OSL",city:"Oslo",country:"Norway"},
+  {code:"HEL",city:"Helsinki",country:"Finland"},
+  {code:"RIX",city:"Riga",country:"Latvia"},
+  {code:"TLL",city:"Tallinn",country:"Estonia"},
+  {code:"VNO",city:"Vilnius",country:"Lithuania"},
+  {code:"WAW",city:"Warsaw",country:"Poland"},
+  {code:"KRK",city:"Krakow",country:"Poland"},
+  {code:"GDN",city:"Gdansk",country:"Poland"},
+  {code:"KTW",city:"Katowice",country:"Poland"},
+  {code:"POZ",city:"Poznan",country:"Poland"},
+  {code:"WRO",city:"Wroclaw",country:"Poland"},
+  {code:"PRG",city:"Prague",country:"Czech Republic"},
+  {code:"BRQ",city:"Brno",country:"Czech Republic"},
+  {code:"BTS",city:"Bratislava",country:"Slovakia"},
+  {code:"BUD",city:"Budapest",country:"Hungary"},
+  {code:"SOF",city:"Sofia",country:"Bulgaria"},
+  {code:"VAR",city:"Varna",country:"Bulgaria"},
+  {code:"BOJ",city:"Burgas",country:"Bulgaria"},
+  {code:"ATH",city:"Athens",country:"Greece"},
+  {code:"SKG",city:"Thessaloniki",country:"Greece"},
+  {code:"HER",city:"Heraklion",country:"Greece"},
+  {code:"RHO",city:"Rhodes",country:"Greece"},
+  {code:"CFU",city:"Corfu",country:"Greece"},
+  {code:"IST",city:"Istanbul",country:"Turkey"},
+  {code:"SAW",city:"Istanbul Sabiha",country:"Turkey"},
+  {code:"AYT",city:"Antalya",country:"Turkey"},
+  {code:"DUB",city:"Dublin",country:"Ireland"},
+  {code:"ORK",city:"Cork",country:"Ireland"},
+  {code:"ZAG",city:"Zagreb",country:"Croatia"},
+  {code:"SPU",city:"Split",country:"Croatia"},
+  {code:"DBV",city:"Dubrovnik",country:"Croatia"},
+  {code:"LJU",city:"Ljubljana",country:"Slovenia"},
+  {code:"BEG",city:"Belgrade",country:"Serbia"},
+  {code:"TIA",city:"Tirana",country:"Albania"},
+  {code:"SKP",city:"Skopje",country:"North Macedonia"},
+  {code:"KIV",city:"Chisinau",country:"Moldova"},
+  {code:"TGD",city:"Podgorica",country:"Montenegro"},
+  {code:"TIV",city:"Tivat",country:"Montenegro"},
+  {code:"SJJ",city:"Sarajevo",country:"Bosnia"},
+  {code:"GYD",city:"Baku",country:"Azerbaijan"},
+  {code:"TBS",city:"Tbilisi",country:"Georgia"},
+  {code:"EVN",city:"Yerevan",country:"Armenia"},
+  {code:"KBP",city:"Kyiv Boryspil",country:"Ukraine"},
+  {code:"LWO",city:"Lviv",country:"Ukraine"}
 ];
 
-  function acSearch(input, dropdownId) {
-    const q = input.value.toLowerCase().trim();
-    const dd = document.getElementById(dropdownId);
-    if (!q || q.length < 1) { dd.style.display = 'none'; return; }
-    const matches = AIRPORTS.filter(a =>
-      a.code.toLowerCase().startsWith(q) ||
-      a.city.toLowerCase().includes(q) ||
-      a.name.toLowerCase().includes(q) ||
-      a.country.toLowerCase().includes(q)
-    ).slice(0, 8);
-    if (matches.length === 0) { dd.style.display = 'none'; return; }
-    dd.innerHTML = matches.map(a =>
-      '<div class="ac-item" onmousedown="selectAirport(\'' + dropdownId + '\',\'' + a.code + '\',\'' + a.city.replace(/'/g,\'\\\'\'\') + '\')">' +
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nav-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('.pf').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pf').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+});
+
+function pickDest(code, city) {
+  var input = document.getElementById('search-dest');
+  input.value = city + ' (' + code + ')';
+  input.dataset.code = code;
+  document.getElementById('search-date').focus();
+}
+
+function acSearch(inputEl, dropdownId) {
+  var q = inputEl.value.toLowerCase().trim();
+  var dd = document.getElementById(dropdownId);
+  if (!q || q.length < 1) { dd.style.display = 'none'; return; }
+  var matches = AIRPORTS.filter(function(a) {
+    return a.code.toLowerCase().indexOf(q) === 0 ||
+           a.city.toLowerCase().indexOf(q) !== -1 ||
+           a.country.toLowerCase().indexOf(q) !== -1;
+  }).slice(0, 8);
+  if (matches.length === 0) { dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.map(function(a) {
+    return '<div class="ac-item" onmousedown="selectAc(\'' + dropdownId + '\',\'' + a.code + '\',\'' + a.city + '\')">' +
       '<span class="ac-code">' + a.code + '</span>' +
       '<span class="ac-city">' + a.city + '</span>' +
       '<span class="ac-country">' + a.country + '</span>' +
-      '</div>'
-    ).join('');
-    dd.style.display = 'block';
-  }
+      '</div>';
+  }).join('');
+  dd.style.display = 'block';
+}
 
-  function selectAirport(dropdownId, code, city) {
-    const isOrigin = dropdownId === 'ac-origin';
-    const inputId = isOrigin ? 'search-origin' : 'search-dest';
-    document.getElementById(inputId).value = city + ' (' + code + ')';
-    document.getElementById(inputId).dataset.code = code;
-    hideAc(dropdownId);
-  }
+function selectAc(dropdownId, code, city) {
+  var isOrigin = dropdownId === 'ac-origin';
+  var inputEl = document.getElementById(isOrigin ? 'search-origin' : 'search-dest');
+  inputEl.value = city + ' (' + code + ')';
+  inputEl.dataset.code = code;
+  document.getElementById(dropdownId).style.display = 'none';
+}
 
-  function hideAc(dropdownId) {
-    const dd = document.getElementById(dropdownId);
+function hideAc(dropdownId) {
+  setTimeout(function() {
+    var dd = document.getElementById(dropdownId);
     if (dd) dd.style.display = 'none';
+  }, 200);
+}
+
+document.getElementById('search-origin').addEventListener('input', function() { acSearch(this, 'ac-origin'); });
+document.getElementById('search-origin').addEventListener('focus', function() { acSearch(this, 'ac-origin'); });
+document.getElementById('search-origin').addEventListener('blur', function() { hideAc('ac-origin'); });
+document.getElementById('search-dest').addEventListener('input', function() { acSearch(this, 'ac-dest'); });
+document.getElementById('search-dest').addEventListener('focus', function() { acSearch(this, 'ac-dest'); });
+document.getElementById('search-dest').addEventListener('blur', function() { hideAc('ac-dest'); });
+
+async function doSearch() {
+  var originInput = document.getElementById('search-origin');
+  var destInput = document.getElementById('search-dest');
+  var origin = originInput.dataset.code;
+  if (!origin) {
+    var m = originInput.value.match(/\(([A-Z]{3})\)/);
+    origin = m ? m[1] : originInput.value.trim().toUpperCase().slice(0,3);
   }
-
-  function quickSearch(dest) {
-    const airport = AIRPORTS.find(a => a.code === dest);
-    const input = document.getElementById('search-dest');
-    input.value = airport ? airport.city + ' (' + dest + ')' : dest;
-    input.dataset.code = dest;
-    document.getElementById('search-date').focus();
+  var dest = destInput.dataset.code;
+  if (!dest) {
+    var m2 = destInput.value.match(/\(([A-Z]{3})\)/);
+    dest = m2 ? m2[1] : destInput.value.trim().toUpperCase().slice(0,3);
   }
+  var date = document.getElementById('search-date').value;
+  var weight = document.getElementById('search-weight').value;
 
-  async function doSearch() {
-    const originInput = document.getElementById('search-origin');
-    const destInput = document.getElementById('search-dest');
-    const origin = originInput.dataset.code || originInput.value.match(/\(([A-Z]{3})\)/)?.[1] || originInput.value.trim().toUpperCase().slice(0,3) || 'OTP';
-    const dest = destInput.dataset.code || destInput.value.match(/\(([A-Z]{3})\)/)?.[1] || destInput.value.trim().toUpperCase().slice(0,3);
-    const date = document.getElementById('search-date').value;
-    const weight = document.getElementById('search-weight').value;
+  if (!dest || dest.length < 3) { alert('Please enter a destination airport.'); return; }
+  if (!date) { alert('Please pick a travel date.'); return; }
 
-    if (!dest || dest.length < 3) {
-      alert('Please enter a destination airport code, e.g. VIE for Vienna.');
+  var cards = document.getElementById('flight-cards');
+  var title = document.getElementById('results-title');
+  var sub = document.getElementById('results-sub');
+
+  cards.innerHTML = '<div class="msg">Searching pet-friendly flights...</div>';
+  title.textContent = 'Searching...';
+  sub.textContent = origin + ' to ' + dest;
+
+  try {
+    var res = await fetch('/api/search?origin=' + origin + '&destination=' + dest + '&date=' + date + '&petWeight=' + weight);
+    var data = await res.json();
+
+    if (!data.offers || data.offers.length === 0) {
+      cards.innerHTML = '<div class="msg">No pet-friendly flights found. Try another destination or date.</div>';
+      title.textContent = 'No results';
       return;
     }
-    if (!date) {
-      alert('Please pick a travel date.');
-      return;
-    }
 
-    const cards = document.getElementById('flight-cards');
-    const title = document.getElementById('results-title');
-    const sub = document.getElementById('results-sub');
+    title.textContent = 'Pet-friendly flights ' + origin + ' to ' + dest;
+    sub.textContent = weight + ' kg max - cabin only';
 
-    cards.innerHTML = '<div class="loading-msg">Searching pet-friendly flights...</div>';
-    title.textContent = 'Searching...';
-    sub.textContent = origin + ' → ' + dest;
-
-    try {
-      const res = await fetch('/api/search?origin=' + origin + '&destination=' + dest + '&date=' + date + '&petWeight=' + weight);
-      const data = await res.json();
-
-      if (!data.offers || data.offers.length === 0) {
-        cards.innerHTML = '<div class="loading-msg">No pet-friendly flights found for this route. Try another destination or date.</div>';
-        title.textContent = 'No results';
-        return;
-      }
-
-      title.textContent = 'Pet-friendly flights ' + origin + ' → ' + dest;
-      sub.textContent = weight + ' kg max · cabin only';
-
-      cards.innerHTML = data.offers.map(o => {
-        const dur = o.duration ? o.duration.replace('PT','').replace('H','h ').replace('M','m') : '';
-        return '<div class="card">' +
-          '<div class="card-airline">' + o.airline + '</div>' +
-          '<div class="card-route">' + o.origin + ' → ' + o.destination + (dur ? ' · ' + dur : '') + '</div>' +
-          '<div class="badge badge-ok">🐾 Cabin allowed</div>' +
-          '<div class="card-price">' + parseFloat(o.price).toFixed(0) + ' ' + o.currency + '</div>' +
-          '<div class="card-fee">+ ' + (o.petFee || '?') + ' ' + (o.petFeeCurrency || 'EUR') + ' pet fee</div>' +
-          '<button class="card-btn">View flight</button>' +
+    cards.innerHTML = data.offers.map(function(o) {
+      var dur = o.duration ? o.duration.replace('PT','').replace('H','h ').replace('M','m') : '';
+      return '<div class="card">' +
+        '<div class="card-airline">' + o.airline + '</div>' +
+        '<div class="card-route">' + o.origin + ' - ' + o.destination + (dur ? ' - ' + dur : '') + '</div>' +
+        '<div class="badge badge-ok">Cabin allowed</div>' +
+        '<div class="card-price">' + parseFloat(o.price).toFixed(0) + ' ' + o.currency + '</div>' +
+        '<div class="card-fee">+ ' + (o.petFee || '?') + ' ' + (o.petFeeCurrency || 'EUR') + ' pet fee</div>' +
+        '<button class="card-btn">View flight</button>' +
         '</div>';
-      }).join('');
+    }).join('');
 
-    } catch (err) {
-      cards.innerHTML = '<div class="loading-msg" style="color:#A32D2D">Something went wrong. Please try again.</div>';
-      title.textContent = 'Error';
-      console.error(err);
-    }
+  } catch(err) {
+    cards.innerHTML = '<div class="msg" style="color:#A32D2D">Something went wrong. Please try again.</div>';
+    title.textContent = 'Error';
+    console.error(err);
   }
+}
 </script>
 </body>
 </html>
