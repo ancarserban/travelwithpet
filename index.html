@@ -88,6 +88,14 @@
     .dot-no { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; margin-right: 6px; }
     footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--jrt-gray); }
     .footer-logo { font-size: 14px; font-weight: 500; color: var(--jrt-black); }
+
+    .ac-wrap { position: relative; }
+    .ac-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 0.5px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(44,36,32,0.12); z-index: 200; max-height: 200px; overflow-y: auto; margin-top: 4px; min-width: 220px; }
+    .ac-item { padding: 8px 12px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+    .ac-item:hover, .ac-item.selected { background: var(--tan-bg); }
+    .ac-code { font-weight: 500; color: var(--tan); min-width: 36px; font-size: 12px; }
+    .ac-city { color: var(--jrt-black); }
+    .ac-country { color: var(--jrt-gray); font-size: 11px; }
     .loading-msg { padding: 2rem; text-align: center; color: var(--jrt-gray); font-size: 14px; grid-column: 1/-1; }
   </style>
 </head>
@@ -120,11 +128,17 @@
       <div class="search-box">
         <div class="sf">
           <label>From</label>
-          <input type="text" id="search-origin" placeholder="e.g. OTP" value="OTP"/>
+          <div class="ac-wrap">
+            <input type="text" id="search-origin" placeholder="City or airport" value="Bucharest (OTP)" autocomplete="off" oninput="acSearch(this,'ac-origin')" onfocus="acSearch(this,'ac-origin')" onblur="setTimeout(()=>hideAc('ac-origin'),200)"/>
+            <div class="ac-dropdown" id="ac-origin" style="display:none"></div>
+          </div>
         </div>
         <div class="sf">
           <label>To</label>
-          <input type="text" id="search-dest" placeholder="e.g. VIE"/>
+          <div class="ac-wrap">
+            <input type="text" id="search-dest" placeholder="City or airport" autocomplete="off" oninput="acSearch(this,'ac-dest')" onfocus="acSearch(this,'ac-dest')" onblur="setTimeout(()=>hideAc('ac-dest'),200)"/>
+            <div class="ac-dropdown" id="ac-dest" style="display:none"></div>
+          </div>
         </div>
         <div class="sf">
           <label>Date</label>
@@ -318,11 +332,6 @@
     window.scrollTo(0, 0);
   }
 
-  function quickSearch(dest) {
-    document.getElementById('search-dest').value = dest;
-    document.getElementById('search-origin').focus();
-  }
-
   document.querySelectorAll('.pf').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.pf').forEach(b => b.classList.remove('active'));
@@ -330,9 +339,209 @@
     });
   });
 
+
+  const AIRPORTS = [
+  {code:"OTP",name:"Henri Coandă International",city:"Bucharest",country:"Romania"},
+  {code:"CLJ",name:"Cluj-Napoca International",city:"Cluj-Napoca",country:"Romania"},
+  {code:"TSR",name:"Timișoara International",city:"Timișoara",country:"Romania"},
+  {code:"IAS",name:"Iași International",city:"Iași",country:"Romania"},
+  {code:"SBZ",name:"Sibiu International",city:"Sibiu",country:"Romania"},
+  {code:"VIE",name:"Vienna International",city:"Vienna",country:"Austria"},
+  {code:"LHR",name:"Heathrow",city:"London",country:"UK"},
+  {code:"LGW",name:"Gatwick",city:"London",country:"UK"},
+  {code:"STN",name:"Stansted",city:"London",country:"UK"},
+  {code:"LCY",name:"City Airport",city:"London",country:"UK"},
+  {code:"CDG",name:"Charles de Gaulle",city:"Paris",country:"France"},
+  {code:"ORY",name:"Orly",city:"Paris",country:"France"},
+  {code:"AMS",name:"Schiphol",city:"Amsterdam",country:"Netherlands"},
+  {code:"BCN",name:"El Prat",city:"Barcelona",country:"Spain"},
+  {code:"MAD",name:"Barajas",city:"Madrid",country:"Spain"},
+  {code:"FCO",name:"Fiumicino",city:"Rome",country:"Italy"},
+  {code:"MXP",name:"Malpensa",city:"Milan",country:"Italy"},
+  {code:"LIN",name:"Linate",city:"Milan",country:"Italy"},
+  {code:"NAP",name:"Capodichino",city:"Naples",country:"Italy"},
+  {code:"VCE",name:"Marco Polo",city:"Venice",country:"Italy"},
+  {code:"FLR",name:"Peretola",city:"Florence",country:"Italy"},
+  {code:"BLQ",name:"Guglielmo Marconi",city:"Bologna",country:"Italy"},
+  {code:"LIS",name:"Humberto Delgado",city:"Lisbon",country:"Portugal"},
+  {code:"OPO",name:"Francisco de Sá Carneiro",city:"Porto",country:"Portugal"},
+  {code:"FRA",name:"Frankfurt International",city:"Frankfurt",country:"Germany"},
+  {code:"MUC",name:"Franz Josef Strauss",city:"Munich",country:"Germany"},
+  {code:"BER",name:"Brandenburg",city:"Berlin",country:"Germany"},
+  {code:"HAM",name:"Hamburg Airport",city:"Hamburg",country:"Germany"},
+  {code:"DUS",name:"Düsseldorf International",city:"Düsseldorf",country:"Germany"},
+  {code:"CGN",name:"Cologne Bonn",city:"Cologne",country:"Germany"},
+  {code:"STR",name:"Stuttgart Airport",city:"Stuttgart",country:"Germany"},
+  {code:"ZRH",name:"Zurich Airport",city:"Zurich",country:"Switzerland"},
+  {code:"GVA",name:"Geneva Airport",city:"Geneva",country:"Switzerland"},
+  {code:"BRU",name:"Brussels Airport",city:"Brussels",country:"Belgium"},
+  {code:"CRL",name:"Brussels South Charleroi",city:"Brussels",country:"Belgium"},
+  {code:"CPH",name:"Copenhagen Airport",city:"Copenhagen",country:"Denmark"},
+  {code:"ARN",name:"Stockholm Arlanda",city:"Stockholm",country:"Sweden"},
+  {code:"GOT",name:"Gothenburg Landvetter",city:"Gothenburg",country:"Sweden"},
+  {code:"OSL",name:"Oslo Gardermoen",city:"Oslo",country:"Norway"},
+  {code:"HEL",name:"Helsinki Vantaa",city:"Helsinki",country:"Finland"},
+  {code:"RIX",name:"Riga International",city:"Riga",country:"Latvia"},
+  {code:"TLL",name:"Tallinn Airport",city:"Tallinn",country:"Estonia"},
+  {code:"VNO",name:"Vilnius Airport",city:"Vilnius",country:"Lithuania"},
+  {code:"WAW",name:"Chopin Airport",city:"Warsaw",country:"Poland"},
+  {code:"KRK",name:"John Paul II",city:"Krakow",country:"Poland"},
+  {code:"GDN",name:"Lech Wałęsa",city:"Gdansk",country:"Poland"},
+  {code:"PRG",name:"Václav Havel",city:"Prague",country:"Czech Republic"},
+  {code:"BTS",name:"Milan Rastislav Štefánik",city:"Bratislava",country:"Slovakia"},
+  {code:"BUD",name:"Liszt Ferenc",city:"Budapest",country:"Hungary"},
+  {code:"SOF",name:"Sofia Airport",city:"Sofia",country:"Bulgaria"},
+  {code:"ATH",name:"Eleftherios Venizelos",city:"Athens",country:"Greece"},
+  {code:"SKG",name:"Thessaloniki Airport",city:"Thessaloniki",country:"Greece"},
+  {code:"HER",name:"Heraklion Airport",city:"Heraklion",country:"Greece"},
+  {code:"RHO",name:"Rhodes Airport",city:"Rhodes",country:"Greece"},
+  {code:"CFU",name:"Corfu Airport",city:"Corfu",country:"Greece"},
+  {code:"IST",name:"Istanbul Airport",city:"Istanbul",country:"Turkey"},
+  {code:"SAW",name:"Sabiha Gökçen",city:"Istanbul",country:"Turkey"},
+  {code:"AYT",name:"Antalya Airport",city:"Antalya",country:"Turkey"},
+  {code:"DUB",name:"Dublin Airport",city:"Dublin",country:"Ireland"},
+  {code:"ORK",name:"Cork Airport",city:"Cork",country:"Ireland"},
+  {code:"EDI",name:"Edinburgh Airport",city:"Edinburgh",country:"UK"},
+  {code:"MAN",name:"Manchester Airport",city:"Manchester",country:"UK"},
+  {code:"BHX",name:"Birmingham Airport",city:"Birmingham",country:"UK"},
+  {code:"GLA",name:"Glasgow Airport",city:"Glasgow",country:"UK"},
+  {code:"NCE",name:"Côte d'Azur",city:"Nice",country:"France"},
+  {code:"MRS",name:"Marseille Provence",city:"Marseille",country:"France"},
+  {code:"LYS",name:"Saint-Exupéry",city:"Lyon",country:"France"},
+  {code:"TLS",name:"Toulouse-Blagnac",city:"Toulouse",country:"France"},
+  {code:"BOD",name:"Bordeaux-Mérignac",city:"Bordeaux",country:"France"},
+  {code:"VLC",name:"Valencia Airport",city:"Valencia",country:"Spain"},
+  {code:"AGP",name:"Málaga Airport",city:"Malaga",country:"Spain"},
+  {code:"SVQ",name:"Seville Airport",city:"Seville",country:"Spain"},
+  {code:"IBZ",name:"Ibiza Airport",city:"Ibiza",country:"Spain"},
+  {code:"PMI",name:"Palma de Mallorca",city:"Palma",country:"Spain"},
+  {code:"TFS",name:"Tenerife South",city:"Tenerife",country:"Spain"},
+  {code:"LPA",name:"Gran Canaria",city:"Las Palmas",country:"Spain"},
+  {code:"ACE",name:"Lanzarote Airport",city:"Lanzarote",country:"Spain"},
+  {code:"FUE",name:"Fuerteventura Airport",city:"Fuerteventura",country:"Spain"},
+  {code:"OVD",name:"Asturias Airport",city:"Oviedo",country:"Spain"},
+  {code:"BIO",name:"Bilbao Airport",city:"Bilbao",country:"Spain"},
+  {code:"ZAG",name:"Franjo Tuđman",city:"Zagreb",country:"Croatia"},
+  {code:"SPU",name:"Split Airport",city:"Split",country:"Croatia"},
+  {code:"DBV",name:"Dubrovnik Airport",city:"Dubrovnik",country:"Croatia"},
+  {code:"LJU",name:"Jože Pučnik",city:"Ljubljana",country:"Slovenia"},
+  {code:"BEG",name:"Nikola Tesla",city:"Belgrade",country:"Serbia"},
+  {code:"SKP",name:"Alexander the Great",city:"Skopje",country:"North Macedonia"},
+  {code:"TIA",name:"Tirana International",city:"Tirana",country:"Albania"},
+  {code:"OHD",name:"Ohrid Airport",city:"Ohrid",country:"North Macedonia"},
+  {code:"KIV",name:"Chișinău International",city:"Chisinau",country:"Moldova"},
+  {code:"KBP",name:"Boryspil International",city:"Kyiv",country:"Ukraine"},
+  {code:"SVO",name:"Sheremetyevo",city:"Moscow",country:"Russia"},
+  {code:"LED",name:"Pulkovo",city:"St. Petersburg",country:"Russia"},
+  {code:"TXL",name:"Tegel",city:"Berlin",country:"Germany"},
+  {code:"GRQ",name:"Groningen Airport",city:"Groningen",country:"Netherlands"},
+  {code:"EIN",name:"Eindhoven Airport",city:"Eindhoven",country:"Netherlands"},
+  {code:"ANR",name:"Antwerp Airport",city:"Antwerp",country:"Belgium"},
+  {code:"LGG",name:"Liège Airport",city:"Liège",country:"Belgium"},
+  {code:"CIA",name:"Ciampino",city:"Rome",country:"Italy"},
+  {code:"BGY",name:"Orio al Serio",city:"Milan",country:"Italy"},
+  {code:"PSA",name:"Galileo Galilei",city:"Pisa",country:"Italy"},
+  {code:"BRI",name:"Karol Wojtyła",city:"Bari",country:"Italy"},
+  {code:"CTA",name:"Fontanarossa",city:"Catania",country:"Italy"},
+  {code:"PMO",name:"Falcone-Borsellino",city:"Palermo",country:"Italy"},
+  {code:"REG",name:"Tito Minniti",city:"Reggio Calabria",country:"Italy"},
+  {code:"TRN",name:"Caselle",city:"Turin",country:"Italy"},
+  {code:"GEN",name:"Genova Airport",city:"Genoa",country:"Italy"},
+  {code:"AOI",name:"Ancona Airport",city:"Ancona",country:"Italy"},
+  {code:"KTW",name:"Katowice Airport",city:"Katowice",country:"Poland"},
+  {code:"POZ",name:"Poznań Airport",city:"Poznan",country:"Poland"},
+  {code:"WRO",name:"Copernicus Airport",city:"Wroclaw",country:"Poland"},
+  {code:"LCJ",name:"Łódź Airport",city:"Lodz",country:"Poland"},
+  {code:"RZE",name:"Rzeszów Airport",city:"Rzeszow",country:"Poland"},
+  {code:"BZG",name:"Bydgoszcz Airport",city:"Bydgoszcz",country:"Poland"},
+  {code:"OSR",name:"Ostrava Airport",city:"Ostrava",country:"Czech Republic"},
+  {code:"BRQ",name:"Brno Airport",city:"Brno",country:"Czech Republic"},
+  {code:"KSC",name:"Košice Airport",city:"Kosice",country:"Slovakia"},
+  {code:"DEB",name:"Debrecen Airport",city:"Debrecen",country:"Hungary"},
+  {code:"MSQ",name:"Minsk Airport",city:"Minsk",country:"Belarus"},
+  {code:"WAB",name:"Wabag Airport",city:"Wabag",country:"Papua New Guinea"},
+  {code:"HAJ",name:"Hannover Airport",city:"Hannover",country:"Germany"},
+  {code:"NUE",name:"Nuremberg Airport",city:"Nuremberg",country:"Germany"},
+  {code:"LEJ",name:"Leipzig/Halle Airport",city:"Leipzig",country:"Germany"},
+  {code:"DRS",name:"Dresden Airport",city:"Dresden",country:"Germany"},
+  {code:"SCN",name:"Saarbrücken Airport",city:"Saarbrücken",country:"Germany"},
+  {code:"FMO",name:"Münster Osnabrück",city:"Münster",country:"Germany"},
+  {code:"PAD",name:"Paderborn Airport",city:"Paderborn",country:"Germany"},
+  {code:"KLU",name:"Klagenfurt Airport",city:"Klagenfurt",country:"Austria"},
+  {code:"GRZ",name:"Graz Airport",city:"Graz",country:"Austria"},
+  {code:"SZG",name:"Salzburg Airport",city:"Salzburg",country:"Austria"},
+  {code:"INN",name:"Innsbruck Airport",city:"Innsbruck",country:"Austria"},
+  {code:"BSL",name:"EuroAirport Basel",city:"Basel",country:"Switzerland"},
+  {code:"BRN",name:"Bern Airport",city:"Bern",country:"Switzerland"},
+  {code:"LUZ",name:"Lublin Airport",city:"Lublin",country:"Poland"},
+  {code:"SZZ",name:"Szczecin Airport",city:"Szczecin",country:"Poland"},
+  {code:"IEV",name:"Kyiv Zhuliany",city:"Kyiv",country:"Ukraine"},
+  {code:"ODS",name:"Odesa Airport",city:"Odesa",country:"Ukraine"},
+  {code:"LWO",name:"Lviv Airport",city:"Lviv",country:"Ukraine"},
+  {code:"VAR",name:"Varna Airport",city:"Varna",country:"Bulgaria"},
+  {code:"BOJ",name:"Burgas Airport",city:"Burgas",country:"Bulgaria"},
+  {code:"PDL",name:"João Paulo II",city:"Ponta Delgada",country:"Portugal"},
+  {code:"FNC",name:"Madeira Airport",city:"Funchal",country:"Portugal"},
+  {code:"FAO",name:"Faro Airport",city:"Faro",country:"Portugal"},
+  {code:"TGD",name:"Podgorica Airport",city:"Podgorica",country:"Montenegro"},
+  {code:"TIV",name:"Tivat Airport",city:"Tivat",country:"Montenegro"},
+  {code:"SJJ",name:"Sarajevo Airport",city:"Sarajevo",country:"Bosnia"},
+  {code:"INI",name:"Nis Airport",city:"Nis",country:"Serbia"},
+  {code:"GNJ",name:"Ganja Airport",city:"Ganja",country:"Azerbaijan"},
+  {code:"GYD",name:"Heydar Aliyev",city:"Baku",country:"Azerbaijan"},
+  {code:"TBS",name:"Shota Rustaveli",city:"Tbilisi",country:"Georgia"},
+  {code:"EVN",name:"Zvartnots",city:"Yerevan",country:"Armenia"},
+  {code:"ALA",name:"Almaty Airport",city:"Almaty",country:"Kazakhstan"},
+  {code:"TSE",name:"Nursultan Nazarbayev",city:"Nur-Sultan",country:"Kazakhstan"},
+];
+
+  function acSearch(input, dropdownId) {
+    const q = input.value.toLowerCase().trim();
+    const dd = document.getElementById(dropdownId);
+    if (!q || q.length < 1) { dd.style.display = 'none'; return; }
+    const matches = AIRPORTS.filter(a =>
+      a.code.toLowerCase().startsWith(q) ||
+      a.city.toLowerCase().includes(q) ||
+      a.name.toLowerCase().includes(q) ||
+      a.country.toLowerCase().includes(q)
+    ).slice(0, 8);
+    if (matches.length === 0) { dd.style.display = 'none'; return; }
+    dd.innerHTML = matches.map(a =>
+      '<div class="ac-item" onmousedown="selectAirport(\'' + dropdownId + '\',\'' + a.code + '\',\'' + a.city.replace(/'/g,\'\\\'\'\') + '\')">' +
+      '<span class="ac-code">' + a.code + '</span>' +
+      '<span class="ac-city">' + a.city + '</span>' +
+      '<span class="ac-country">' + a.country + '</span>' +
+      '</div>'
+    ).join('');
+    dd.style.display = 'block';
+  }
+
+  function selectAirport(dropdownId, code, city) {
+    const isOrigin = dropdownId === 'ac-origin';
+    const inputId = isOrigin ? 'search-origin' : 'search-dest';
+    document.getElementById(inputId).value = city + ' (' + code + ')';
+    document.getElementById(inputId).dataset.code = code;
+    hideAc(dropdownId);
+  }
+
+  function hideAc(dropdownId) {
+    const dd = document.getElementById(dropdownId);
+    if (dd) dd.style.display = 'none';
+  }
+
+  function quickSearch(dest) {
+    const airport = AIRPORTS.find(a => a.code === dest);
+    const input = document.getElementById('search-dest');
+    input.value = airport ? airport.city + ' (' + dest + ')' : dest;
+    input.dataset.code = dest;
+    document.getElementById('search-date').focus();
+  }
+
   async function doSearch() {
-    const origin = document.getElementById('search-origin').value.trim().toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'OTP';
-    const dest = document.getElementById('search-dest').value.trim().toUpperCase().replace(/[^A-Z]/g,'').slice(0,3);
+    const originInput = document.getElementById('search-origin');
+    const destInput = document.getElementById('search-dest');
+    const origin = originInput.dataset.code || originInput.value.match(/\(([A-Z]{3})\)/)?.[1] || originInput.value.trim().toUpperCase().slice(0,3) || 'OTP';
+    const dest = destInput.dataset.code || destInput.value.match(/\(([A-Z]{3})\)/)?.[1] || destInput.value.trim().toUpperCase().slice(0,3);
     const date = document.getElementById('search-date').value;
     const weight = document.getElementById('search-weight').value;
 
