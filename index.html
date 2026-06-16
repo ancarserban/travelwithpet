@@ -133,11 +133,11 @@
     <p>Find flights and stays that actually welcome your dog or cat.</p>
     <div class="search-wrap">
       <div class="search-box">
-        <div class="sf"><label>From</label><input type="text" value="Bucharest (OTP)"/></div>
-        <div class="sf"><label>To</label><input type="text" placeholder="Anywhere"/></div>
-        <div class="sf"><label>Date</label><input type="text" placeholder="Add date"/></div>
+        <div class="sf"><label>From</label><input type="text" id="search-origin" value="Bucharest (OTP)"/></div>
+        <div class="sf"><label>To</label><input type="text" id="search-dest" placeholder="e.g. VIE, BCN, AMS"/></div>
+        <div class="sf"><label>Date</label><input type="date" id="search-date" min="2026-06-18"/></div>
         <div class="sf"><label>Pet weight</label>
-          <select>
+          <select id="search-weight">
             <option>Under 5 kg</option>
             <option selected>5 – 8 kg</option>
             <option>8 – 15 kg</option>
@@ -387,11 +387,12 @@
 
 <script>
 async function doSearch() {
-  const origin = document.querySelector('.sf:nth-child(1) input').value.match(/\(([A-Z]{3})\)/)?.[1] || 'OTP';
-  const destVal = document.querySelector('.sf:nth-child(2) input').value.trim();
-  const dest = destVal.match(/\(([A-Z]{3})\)/)?.[1] || destVal.toUpperCase().slice(0,3) || 'VIE';
-  const date = document.querySelector('.sf:nth-child(3) input').value.trim();
-  const weightSel = document.querySelector('.sf:nth-child(4) select').value;
+  const originVal = document.getElementById('search-origin').value;
+  const origin = originVal.match(/\(([A-Z]{3})\)/)?.[1] || originVal.toUpperCase().slice(0,3) || 'OTP';
+  const destVal = document.getElementById('search-dest').value.trim();
+  const dest = destVal.toUpperCase().slice(0,3) || 'VIE';
+  const date = document.getElementById('search-date').value.trim();
+  const weightSel = document.getElementById('search-weight').value;
   const weight = weightSel.includes('5') ? '5' : weightSel.includes('8') ? '8' : weightSel.includes('15') ? '15' : '20';
 
   if (!date) {
