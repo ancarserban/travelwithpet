@@ -133,7 +133,7 @@
     <p>Find flights and stays that actually welcome your dog or cat.</p>
     <div class="search-wrap">
       <div class="search-box">
-        <div class="sf"><label>From</label><input type="text" id="search-origin" value="Bucharest (OTP)"/></div>
+        <div class="sf"><label>From</label><input type="text" id="search-origin" placeholder="e.g. OTP, LHR" value="OTP"/></div>
         <div class="sf"><label>To</label><input type="text" id="search-dest" placeholder="e.g. VIE, BCN, AMS"/></div>
         <div class="sf"><label>Date</label><input type="date" id="search-date" min="2026-06-18"/></div>
         <div class="sf"><label>Pet weight</label>
@@ -387,24 +387,33 @@
 
 <script>
 async function doSearch() {
-  const originVal = document.getElementById('search-origin').value;
-  const origin = originVal.match(/\(([A-Z]{3})\)/)?.[1] || originVal.toUpperCase().slice(0,3) || 'OTP';
+  const originVal = document.getElementById('search-origin').value.trim();
+  const origin = originVal.toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'OTP';
   const destVal = document.getElementById('search-dest').value.trim();
-  const dest = destVal.toUpperCase().slice(0,3) || 'VIE';
+  const dest = destVal.toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'VIE';
   const date = document.getElementById('search-date').value.trim();
   const weightSel = document.getElementById('search-weight').value;
   const weight = weightSel.includes('5') ? '5' : weightSel.includes('8') ? '8' : weightSel.includes('15') ? '15' : '20';
 
   if (!date) {
-    alert('Please add a date, e.g. 2026-09-15');
+    alert('Please pick a date from the calendar.');
     return;
   }
+
+  if (!dest || dest.length < 3) {
+    alert('Please enter a 3-letter airport code, e.g. VIE');
+    return;
+  }
+
+  showPage('home');
 
   const cards = document.getElementById('flight-cards');
   const title = document.getElementById('results-title');
   const sub = document.getElementById('results-sub');
 
-  cards.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--jrt-gray);font-size:14px;">Searching for pet-friendly flights...</div>';
+  if (!cards) { console.error('flight-cards not found'); return; }
+
+  cards.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--jrt-gray);font-size:14px;">Searching pet-friendly flights...</div>';
   title.textContent = 'Searching...';
 
   try {
