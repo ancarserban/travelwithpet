@@ -493,6 +493,7 @@ async function doSearch() {
     title.textContent = 'Pet-friendly flights ' + origin + ' to ' + dest;
     sub.textContent = weight + ' kg max - cabin only';
 
+    var searchDate = date;
     cards.innerHTML = data.offers.map(function(o) {
       var dur = o.duration ? o.duration.replace('PT','').replace('H','h ').replace('M','m') : '';
       var retDur = o.returnDuration ? o.returnDuration.replace('PT','').replace('H','h ').replace('M','m') : '';
@@ -510,7 +511,7 @@ async function doSearch() {
         '</div>' +
         '<div class="card-price">' + parseFloat(o.price).toFixed(0) + ' ' + o.currency + '</div>' +
         '<div class="card-fee">+ ' + (o.petFee || '?') + ' ' + (o.petFeeCurrency || 'EUR') + ' pet fee' + (o.isRoundTrip ? ' (both ways)' : '') + '</div>' +
-        '<button class="card-btn">View flight</button>' +
+        '<a href="https://www.kiwi.com/en/search/results/' + o.origin + '/' + o.destination + '/' + (date || '') + '?affiliate=540570" target="_blank" style="display:block;text-decoration:none"><button class="card-btn" style="width:100%;cursor:pointer">View on Kiwi.com</button></a>' +
         '</div>';
     }).join('');
 
