@@ -4,33 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>travelwith.pet — Find pet-friendly flights & stays</title>
-  <meta name="description" content="Find flights and stays that actually welcome your dog or cat. Search pet-friendly airlines, check cabin policies, and book accommodation that truly welcomes pets." />
+  <meta name="description" content="Find flights and stays that actually welcome your dog or cat." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --tan: #C47B3A;
-      --tan-light: #E8C49A;
-      --tan-bg: #FBF3EA;
-      --jrt-black: #2C2420;
-      --jrt-gray: #7A6A62;
-      --border: #E8DDD8;
+      --tan: #C47B3A; --tan-light: #E8C49A; --tan-bg: #FBF3EA;
+      --jrt-black: #2C2420; --jrt-gray: #7A6A62; --border: #E8DDD8;
     }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FAFAF8; color: #2C2420; }
-
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: #FAFAF8; position: sticky; top: 0; z-index: 100; }
     .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--jrt-black); cursor: pointer; }
     .nav-links { display: flex; gap: 1.5rem; }
     .nav-link { font-size: 14px; color: var(--jrt-gray); cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; }
     .nav-link:hover, .nav-link.active { color: var(--jrt-black); border-bottom-color: var(--tan); }
-
     .page { display: none; }
     .page.active { display: block; }
-
     .hero { padding: 3rem 2rem 2rem; text-align: center; }
     .hero h1 { font-size: 36px; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
     .hero h1 span { color: var(--tan); }
     .hero p { font-size: 15px; color: var(--jrt-gray); margin-bottom: 2rem; }
-
     .search-wrap { max-width: 700px; margin: 0 auto 1rem; }
     .search-box { background: white; border: 0.5px solid var(--border); border-radius: 50px; padding: 0.875rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 100px; gap: 0; align-items: center; box-shadow: 0 2px 12px rgba(44,36,32,0.06); }
     .sf { padding: 0 1rem; border-right: 0.5px solid var(--border); }
@@ -39,15 +31,12 @@
     .sf input, .sf select { border: none; background: transparent; font-size: 13px; color: var(--jrt-black); width: 100%; outline: none; font-family: inherit; }
     .search-btn { margin-left: 0.75rem; background: var(--tan); color: white; border: none; border-radius: 50px; padding: 9px 16px; font-size: 13px; cursor: pointer; font-family: inherit; }
     .search-btn:hover { background: var(--jrt-black); }
-
     .popular-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
     .tag { font-size: 12px; color: var(--jrt-gray); border: 0.5px solid var(--border); padding: 4px 14px; border-radius: 20px; cursor: pointer; }
     .tag:hover { border-color: var(--tan); color: var(--tan); }
-
     .dog-wrap { display: flex; justify-content: center; margin: 0 0 1.5rem; }
     @keyframes chase { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .dog-spin { animation: chase 1.8s linear infinite; transform-origin: 50px 50px; }
-
     .section { padding: 0 2rem 2rem; max-width: 960px; margin: 0 auto; }
     .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
     .section-title { font-size: 17px; font-weight: 500; }
@@ -63,7 +52,6 @@
     .card-fee { font-size: 11px; color: var(--jrt-gray); margin-top: 2px; }
     .card-btn { margin-top: 12px; width: 100%; border: 0.5px solid var(--border); background: transparent; border-radius: 8px; padding: 7px; font-size: 13px; cursor: pointer; font-family: inherit; color: var(--jrt-black); }
     .card-btn:hover { background: var(--tan-bg); }
-
     .stay-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 2rem; }
     .stay-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; }
     .stay-img { height: 130px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 32px; }
@@ -72,9 +60,7 @@
     .stay-loc { font-size: 12px; color: var(--jrt-gray); margin-bottom: 8px; }
     .stay-price { font-size: 14px; font-weight: 500; }
     .stay-price span { font-size: 12px; font-weight: 400; color: var(--jrt-gray); }
-
     .divider { border: none; border-top: 0.5px solid var(--border); margin: 0 0 1.5rem; }
-
     .blog-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
     .blog-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
     .blog-hero p { font-size: 15px; color: var(--jrt-gray); }
@@ -87,7 +73,6 @@
     .blog-title { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 8px; }
     .blog-excerpt { font-size: 13px; color: var(--jrt-gray); line-height: 1.6; margin-bottom: 10px; }
     .blog-meta { font-size: 11px; color: var(--jrt-gray); }
-
     .policies-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
     .policies-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
     .policies-hero p { font-size: 15px; color: var(--jrt-gray); }
@@ -101,9 +86,9 @@
     .policy-table tr:hover td { background: #FAFAF8; }
     .dot-ok { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5DCAA5; margin-right: 6px; }
     .dot-no { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; margin-right: 6px; }
-
     footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--jrt-gray); }
     .footer-logo { font-size: 14px; font-weight: 500; color: var(--jrt-black); }
+    .loading-msg { padding: 2rem; text-align: center; color: var(--jrt-gray); font-size: 14px; grid-column: 1/-1; }
   </style>
 </head>
 <body>
@@ -133,27 +118,37 @@
     <p>Find flights and stays that actually welcome your dog or cat.</p>
     <div class="search-wrap">
       <div class="search-box">
-        <div class="sf"><label>From</label><input type="text" id="search-origin" placeholder="e.g. OTP, LHR" value="OTP"/></div>
-        <div class="sf"><label>To</label><input type="text" id="search-dest" placeholder="e.g. VIE, BCN, AMS"/></div>
-        <div class="sf"><label>Date</label><input type="date" id="search-date" min="2026-06-18"/></div>
-        <div class="sf"><label>Pet weight</label>
+        <div class="sf">
+          <label>From</label>
+          <input type="text" id="search-origin" placeholder="e.g. OTP" value="OTP"/>
+        </div>
+        <div class="sf">
+          <label>To</label>
+          <input type="text" id="search-dest" placeholder="e.g. VIE"/>
+        </div>
+        <div class="sf">
+          <label>Date</label>
+          <input type="date" id="search-date"/>
+        </div>
+        <div class="sf">
+          <label>Pet weight</label>
           <select id="search-weight">
-            <option>Under 5 kg</option>
-            <option selected>5 – 8 kg</option>
-            <option>8 – 15 kg</option>
-            <option>Over 15 kg</option>
+            <option value="5">Under 5 kg</option>
+            <option value="8" selected>5 – 8 kg</option>
+            <option value="15">8 – 15 kg</option>
+            <option value="20">Over 15 kg</option>
           </select>
         </div>
         <button class="search-btn" onclick="doSearch()">Search</button>
       </div>
     </div>
     <div class="popular-tags">
-      <div class="tag">Vienna</div>
-      <div class="tag">Barcelona</div>
-      <div class="tag">Amsterdam</div>
-      <div class="tag">Rome</div>
-      <div class="tag">Lisbon</div>
-      <div class="tag">Paris</div>
+      <div class="tag" onclick="quickSearch('VIE')">Vienna</div>
+      <div class="tag" onclick="quickSearch('BCN')">Barcelona</div>
+      <div class="tag" onclick="quickSearch('AMS')">Amsterdam</div>
+      <div class="tag" onclick="quickSearch('FCO')">Rome</div>
+      <div class="tag" onclick="quickSearch('LIS')">Lisbon</div>
+      <div class="tag" onclick="quickSearch('CDG')">Paris</div>
     </div>
   </div>
 
@@ -183,10 +178,10 @@
 
   <div class="section">
     <div class="section-head">
-      <div class="section-title">Pet-friendly flights from Bucharest</div>
-      <div class="section-sub">5–8 kg · cabin only</div>
+      <div class="section-title" id="results-title">Pet-friendly flights from Bucharest</div>
+      <div class="section-sub" id="results-sub">5–8 kg · cabin only</div>
     </div>
-    <div class="cards">
+    <div class="cards" id="flight-cards">
       <div class="card">
         <div class="card-airline">Austrian Airlines</div>
         <div class="card-route">OTP → VIE · Direct · 1h 40m</div>
@@ -252,7 +247,6 @@
           <div class="stay-price">€110 <span>/ night</span></div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -272,13 +266,7 @@
     </div>
     <table class="policy-table">
       <thead>
-        <tr>
-          <th>Airline</th>
-          <th>Cabin</th>
-          <th>Max weight</th>
-          <th>Fee</th>
-          <th>Notes</th>
-        </tr>
+        <tr><th>Airline</th><th>Cabin</th><th>Max weight</th><th>Fee</th><th>Notes</th></tr>
       </thead>
       <tbody>
         <tr><td><strong>Austrian Airlines</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€65–125</td><td>Must book in advance by phone</td></tr>
@@ -307,60 +295,12 @@
     <p>Guides, tips and real experiences for traveling with pets.</p>
   </div>
   <div class="blog-grid">
-    <div class="blog-card">
-      <div class="blog-img">✈️</div>
-      <div class="blog-body">
-        <div class="blog-cat">Flights</div>
-        <div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div>
-        <div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div>
-        <div class="blog-meta">8 min read · June 2026</div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-img">🐾</div>
-      <div class="blog-body">
-        <div class="blog-cat">Destinations</div>
-        <div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div>
-        <div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafés, transport and more.</div>
-        <div class="blog-meta">6 min read · June 2026</div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-img">📋</div>
-      <div class="blog-body">
-        <div class="blog-cat">Documents</div>
-        <div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div>
-        <div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div>
-        <div class="blog-meta">5 min read · June 2026</div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-img">🏨</div>
-      <div class="blog-body">
-        <div class="blog-cat">Stays</div>
-        <div class="blog-title">How to find truly pet-friendly accommodation (not just "pets allowed")</div>
-        <div class="blog-excerpt">There's a big difference between a place that tolerates pets and one that actually welcomes them. Here's how to tell.</div>
-        <div class="blog-meta">4 min read · June 2026</div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-img">🇬🇧</div>
-      <div class="blog-body">
-        <div class="blog-cat">Destinations</div>
-        <div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div>
-        <div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only. Here's the full picture.</div>
-        <div class="blog-meta">7 min read · June 2026</div>
-      </div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-img">⚖️</div>
-      <div class="blog-body">
-        <div class="blog-cat">Tips</div>
-        <div class="blog-title">How to weigh your pet carrier correctly before the airport</div>
-        <div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding. Here's how to avoid it.</div>
-        <div class="blog-meta">3 min read · June 2026</div>
-      </div>
-    </div>
+    <div class="blog-card"><div class="blog-img">✈️</div><div class="blog-body"><div class="blog-cat">Flights</div><div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div><div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div><div class="blog-meta">8 min read · June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">🐾</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div><div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafés, transport and more.</div><div class="blog-meta">6 min read · June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">📋</div><div class="blog-body"><div class="blog-cat">Documents</div><div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div><div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div><div class="blog-meta">5 min read · June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">🏨</div><div class="blog-body"><div class="blog-cat">Stays</div><div class="blog-title">How to find truly pet-friendly accommodation</div><div class="blog-excerpt">There's a big difference between a place that tolerates pets and one that actually welcomes them. Here's how to tell.</div><div class="blog-meta">4 min read · June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">🇬🇧</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div><div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only. Here's the full picture.</div><div class="blog-meta">7 min read · June 2026</div></div></div>
+    <div class="blog-card"><div class="blog-img">⚖️</div><div class="blog-body"><div class="blog-cat">Tips</div><div class="blog-title">How to weigh your pet carrier correctly before the airport</div><div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding. Here's how to avoid it.</div><div class="blog-meta">3 min read · June 2026</div></div></div>
   </div>
 </div>
 
@@ -377,76 +317,73 @@
     document.getElementById('nav-' + page).classList.add('active');
     window.scrollTo(0, 0);
   }
+
+  function quickSearch(dest) {
+    document.getElementById('search-dest').value = dest;
+    document.getElementById('search-origin').focus();
+  }
+
   document.querySelectorAll('.pf').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.pf').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
     });
   });
-</script>
 
-<script>
-async function doSearch() {
-  const originVal = document.getElementById('search-origin').value.trim();
-  const origin = originVal.toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'OTP';
-  const destVal = document.getElementById('search-dest').value.trim();
-  const dest = destVal.toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'VIE';
-  const date = document.getElementById('search-date').value.trim();
-  const weightSel = document.getElementById('search-weight').value;
-  const weight = weightSel.includes('5') ? '5' : weightSel.includes('8') ? '8' : weightSel.includes('15') ? '15' : '20';
+  async function doSearch() {
+    const origin = document.getElementById('search-origin').value.trim().toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'OTP';
+    const dest = document.getElementById('search-dest').value.trim().toUpperCase().replace(/[^A-Z]/g,'').slice(0,3);
+    const date = document.getElementById('search-date').value;
+    const weight = document.getElementById('search-weight').value;
 
-  if (!date) {
-    alert('Please pick a date from the calendar.');
-    return;
-  }
-
-  if (!dest || dest.length < 3) {
-    alert('Please enter a 3-letter airport code, e.g. VIE');
-    return;
-  }
-
-  showPage('home');
-
-  const cards = document.getElementById('flight-cards');
-  const title = document.getElementById('results-title');
-  const sub = document.getElementById('results-sub');
-
-  if (!cards) { console.error('flight-cards not found'); return; }
-
-  cards.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--jrt-gray);font-size:14px;">Searching pet-friendly flights...</div>';
-  title.textContent = 'Searching...';
-
-  try {
-    const res = await fetch('/api/search?origin=' + origin + '&destination=' + dest + '&date=' + date + '&petWeight=' + weight);
-    const data = await res.json();
-
-    if (!data.offers || data.offers.length === 0) {
-      cards.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--jrt-gray);font-size:14px;">No pet-friendly flights found for this route. Try another destination or date.</div>';
-      title.textContent = 'No results found';
-      sub.textContent = origin + ' → ' + dest;
+    if (!dest || dest.length < 3) {
+      alert('Please enter a destination airport code, e.g. VIE for Vienna.');
+      return;
+    }
+    if (!date) {
+      alert('Please pick a travel date.');
       return;
     }
 
-    title.textContent = 'Pet-friendly flights ' + origin + ' → ' + dest;
-    sub.textContent = weight + ' kg max · cabin only';
+    const cards = document.getElementById('flight-cards');
+    const title = document.getElementById('results-title');
+    const sub = document.getElementById('results-sub');
 
-    cards.innerHTML = data.offers.map(o => {
-      const duration = o.duration ? o.duration.replace('PT','').replace('H','h ').replace('M','m').toLowerCase() : '';
-      return `<div class="card">
-        <div class="card-airline">${o.airline}</div>
-        <div class="card-route">${o.origin} → ${o.destination} · ${duration}</div>
-        <div class="badge badge-ok">🐾 Cabin allowed</div>
-        <div class="card-price">${parseFloat(o.price).toFixed(0)} ${o.currency}</div>
-        <div class="card-fee">+ ${o.petFee || '?'} ${o.petFeeCurrency || 'EUR'} pet fee</div>
-        <button class="card-btn">View flight</button>
-      </div>`;
-    }).join('');
+    cards.innerHTML = '<div class="loading-msg">Searching pet-friendly flights...</div>';
+    title.textContent = 'Searching...';
+    sub.textContent = origin + ' → ' + dest;
 
-  } catch (err) {
-    cards.innerHTML = '<div style="padding:2rem;text-align:center;color:#A32D2D;font-size:14px;">Something went wrong. Please try again.</div>';
-    title.textContent = 'Error';
+    try {
+      const res = await fetch('/api/search?origin=' + origin + '&destination=' + dest + '&date=' + date + '&petWeight=' + weight);
+      const data = await res.json();
+
+      if (!data.offers || data.offers.length === 0) {
+        cards.innerHTML = '<div class="loading-msg">No pet-friendly flights found for this route. Try another destination or date.</div>';
+        title.textContent = 'No results';
+        return;
+      }
+
+      title.textContent = 'Pet-friendly flights ' + origin + ' → ' + dest;
+      sub.textContent = weight + ' kg max · cabin only';
+
+      cards.innerHTML = data.offers.map(o => {
+        const dur = o.duration ? o.duration.replace('PT','').replace('H','h ').replace('M','m') : '';
+        return '<div class="card">' +
+          '<div class="card-airline">' + o.airline + '</div>' +
+          '<div class="card-route">' + o.origin + ' → ' + o.destination + (dur ? ' · ' + dur : '') + '</div>' +
+          '<div class="badge badge-ok">🐾 Cabin allowed</div>' +
+          '<div class="card-price">' + parseFloat(o.price).toFixed(0) + ' ' + o.currency + '</div>' +
+          '<div class="card-fee">+ ' + (o.petFee || '?') + ' ' + (o.petFeeCurrency || 'EUR') + ' pet fee</div>' +
+          '<button class="card-btn">View flight</button>' +
+        '</div>';
+      }).join('');
+
+    } catch (err) {
+      cards.innerHTML = '<div class="loading-msg" style="color:#A32D2D">Something went wrong. Please try again.</div>';
+      title.textContent = 'Error';
+      console.error(err);
+    }
   }
-}
 </script>
 </body>
 </html>
