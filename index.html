@@ -3,40 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>travelwith.pet — coming soon</title>
-  <meta name="description" content="Find flights and stays that actually welcome your dog or cat. Launching soon." />
+  <title>travelwith.pet — Find pet-friendly flights & stays</title>
+  <meta name="description" content="Find flights and stays that actually welcome your dog or cat. Search pet-friendly airlines, check cabin policies, and book accommodation that truly welcomes pets." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #FAFAF8;
-      color: #2C2420;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      text-align: center;
+    :root {
+      --tan: #C47B3A;
+      --tan-light: #E8C49A;
+      --tan-bg: #FBF3EA;
+      --jrt-black: #2C2420;
+      --jrt-gray: #7A6A62;
+      --border: #E8DDD8;
     }
-    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: #2C2420; margin-bottom: 3rem; }
-    .dog-wrap { margin-bottom: 2.5rem; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FAFAF8; color: #2C2420; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: #FAFAF8; position: sticky; top: 0; z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--jrt-black); cursor: pointer; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-link { font-size: 14px; color: var(--jrt-gray); cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; }
+    .nav-link:hover, .nav-link.active { color: var(--jrt-black); border-bottom-color: var(--tan); }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .hero { padding: 3rem 2rem 2rem; text-align: center; }
+    .hero h1 { font-size: 36px; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
+    .hero h1 span { color: var(--tan); }
+    .hero p { font-size: 15px; color: var(--jrt-gray); margin-bottom: 2rem; }
+
+    .search-wrap { max-width: 700px; margin: 0 auto 1rem; }
+    .search-box { background: white; border: 0.5px solid var(--border); border-radius: 50px; padding: 0.875rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 100px; gap: 0; align-items: center; box-shadow: 0 2px 12px rgba(44,36,32,0.06); }
+    .sf { padding: 0 1rem; border-right: 0.5px solid var(--border); }
+    .sf:first-child { padding-left: 0.5rem; }
+    .sf label { display: block; font-size: 10px; font-weight: 500; color: var(--jrt-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .sf input, .sf select { border: none; background: transparent; font-size: 13px; color: var(--jrt-black); width: 100%; outline: none; font-family: inherit; }
+    .search-btn { margin-left: 0.75rem; background: var(--tan); color: white; border: none; border-radius: 50px; padding: 9px 16px; font-size: 13px; cursor: pointer; font-family: inherit; }
+    .search-btn:hover { background: var(--jrt-black); }
+
+    .popular-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .tag { font-size: 12px; color: var(--jrt-gray); border: 0.5px solid var(--border); padding: 4px 14px; border-radius: 20px; cursor: pointer; }
+    .tag:hover { border-color: var(--tan); color: var(--tan); }
+
+    .dog-wrap { display: flex; justify-content: center; margin: 0.5rem 0 2rem; }
     @keyframes chase { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .dog-spin { animation: chase 1.8s linear infinite; transform-origin: 50px 50px; }
-    h1 { font-size: 32px; font-weight: 500; line-height: 1.25; margin-bottom: 0.75rem; color: #2C2420; }
-    h1 span { color: #C47B3A; }
-    .sub { font-size: 15px; color: #7A6A62; margin-bottom: 2.5rem; max-width: 340px; line-height: 1.6; }
-    .form { display: flex; max-width: 380px; width: 100%; border: 1px solid #E0D5CC; border-radius: 50px; overflow: hidden; background: #fff; }
-    .form input { flex: 1; border: none; background: transparent; padding: 11px 18px; font-size: 14px; font-family: inherit; color: #2C2420; outline: none; }
-    .form input::placeholder { color: #B0A098; }
-    .form button { background: #C47B3A; color: white; border: none; padding: 11px 22px; font-size: 13px; cursor: pointer; font-family: inherit; border-radius: 0 50px 50px 0; transition: background 0.2s; }
-    .form button:hover { background: #2C2420; }
-    .note { font-size: 12px; color: #B0A098; margin-top: 1rem; }
+
+    .section { padding: 0 2rem 2rem; max-width: 960px; margin: 0 auto; }
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
+    .section-title { font-size: 17px; font-weight: 500; }
+    .section-sub { font-size: 13px; color: var(--jrt-gray); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+    .card { background: white; border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+    .card-airline { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .card-route { font-size: 12px; color: var(--jrt-gray); margin-bottom: 10px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 20px; margin-bottom: 10px; }
+    .badge-ok { background: var(--tan-bg); color: #7A4A1A; }
+    .badge-no { background: #FCEBEB; color: #A32D2D; }
+    .card-price { font-size: 20px; font-weight: 500; }
+    .card-fee { font-size: 11px; color: var(--jrt-gray); margin-top: 2px; }
+    .card-btn { margin-top: 12px; width: 100%; border: 0.5px solid var(--border); background: transparent; border-radius: 8px; padding: 7px; font-size: 13px; cursor: pointer; font-family: inherit; color: var(--jrt-black); }
+    .card-btn:hover { background: var(--tan-bg); }
+
+    .stay-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 2rem; }
+    .stay-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .stay-img { height: 130px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .stay-body { padding: 1rem; }
+    .stay-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .stay-loc { font-size: 12px; color: var(--jrt-gray); margin-bottom: 8px; }
+    .stay-price { font-size: 14px; font-weight: 500; }
+    .stay-price span { font-size: 12px; font-weight: 400; color: var(--jrt-gray); }
+
+    .divider { border: none; border-top: 0.5px solid var(--border); margin: 0 0 1.5rem; }
+
+    .blog-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
+    .blog-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
+    .blog-hero p { font-size: 15px; color: var(--jrt-gray); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
+    .blog-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; }
+    .blog-card:hover { border-color: var(--tan-light); }
+    .blog-img { height: 140px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 36px; }
+    .blog-body { padding: 1.25rem; }
+    .blog-cat { font-size: 10px; color: var(--tan); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .blog-title { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 8px; }
+    .blog-excerpt { font-size: 13px; color: var(--jrt-gray); line-height: 1.6; margin-bottom: 10px; }
+    .blog-meta { font-size: 11px; color: var(--jrt-gray); }
+
+    .policies-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
+    .policies-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
+    .policies-hero p { font-size: 15px; color: var(--jrt-gray); }
+    .policies-wrap { padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
+    .policy-filters { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .pf { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--border); cursor: pointer; color: var(--jrt-gray); background: white; font-family: inherit; }
+    .pf.active, .pf:hover { background: var(--tan-bg); border-color: var(--tan); color: var(--jrt-black); }
+    .policy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .policy-table th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--jrt-gray); border-bottom: 0.5px solid var(--border); }
+    .policy-table td { padding: 12px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+    .policy-table tr:hover td { background: #FAFAF8; }
+    .dot-ok { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5DCAA5; margin-right: 6px; }
+    .dot-no { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; margin-right: 6px; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--jrt-gray); }
+    .footer-logo { font-size: 14px; font-weight: 500; color: var(--jrt-black); }
   </style>
 </head>
 <body>
-  <div class="logo">
-    <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+
+<nav>
+  <div class="logo" onclick="showPage('home')">
+    <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
       <ellipse cx="8" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
       <ellipse cx="14" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
       <ellipse cx="5" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
@@ -45,8 +119,46 @@
     </svg>
     travelwith.pet
   </div>
+  <div class="nav-links">
+    <div class="nav-link active" id="nav-home" onclick="showPage('home')">Flights & stays</div>
+    <div class="nav-link" id="nav-policies" onclick="showPage('policies')">Airline policies</div>
+    <div class="nav-link" id="nav-blog" onclick="showPage('blog')">Blog</div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1>Travel the world<br><span>with your pet.</span></h1>
+    <p>Find flights and stays that actually welcome your dog or cat.</p>
+    <div class="search-wrap">
+      <div class="search-box">
+        <div class="sf"><label>From</label><input type="text" value="Bucharest (OTP)"/></div>
+        <div class="sf"><label>To</label><input type="text" placeholder="Anywhere"/></div>
+        <div class="sf"><label>Date</label><input type="text" placeholder="Add date"/></div>
+        <div class="sf"><label>Pet weight</label>
+          <select>
+            <option>Under 5 kg</option>
+            <option selected>5 – 8 kg</option>
+            <option>8 – 15 kg</option>
+            <option>Over 15 kg</option>
+          </select>
+        </div>
+        <button class="search-btn">Search</button>
+      </div>
+    </div>
+    <div class="popular-tags">
+      <div class="tag">Vienna</div>
+      <div class="tag">Barcelona</div>
+      <div class="tag">Amsterdam</div>
+      <div class="tag">Rome</div>
+      <div class="tag">Lisbon</div>
+      <div class="tag">Paris</div>
+    </div>
+  </div>
+
   <div class="dog-wrap">
-    <svg width="110" height="110" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <svg width="90" height="90" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <g class="dog-spin">
         <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
         <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
@@ -58,9 +170,6 @@
         <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
         <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
         <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
-        <circle cx="43" cy="48" r="0.8" fill="white"/>
-        <circle cx="57" cy="48" r="0.8" fill="white"/>
-        <ellipse cx="50" cy="56" rx="4.5" ry="3" fill="#E8C49A"/>
         <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
         <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
         <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
@@ -71,12 +180,216 @@
       <path d="M80 73 Q86 68 88 76" stroke="#C47B3A" stroke-width="1" fill="none" stroke-linecap="round"/>
     </svg>
   </div>
-  <h1>Travel the world<br><span>with your pet.</span></h1>
-  <p class="sub">Find flights and stays that actually welcome your dog or cat. Launching soon.</p>
-  <div class="form">
-    <input type="email" placeholder="your@email.com" />
-    <button>Notify me</button>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Pet-friendly flights from Bucharest</div>
+      <div class="section-sub">5–8 kg · cabin only</div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-airline">Austrian Airlines</div>
+        <div class="card-route">OTP → VIE · Direct · 1h 40m</div>
+        <div class="badge badge-ok">🐾 Cabin allowed</div>
+        <div class="card-price">421 lei</div>
+        <div class="card-fee">+ ~65 EUR pet fee</div>
+        <button class="card-btn">View flight</button>
+      </div>
+      <div class="card">
+        <div class="card-airline">Animawings</div>
+        <div class="card-route">OTP → LGW · Direct · 3h 20m</div>
+        <div class="badge badge-ok">🐾 Cabin allowed</div>
+        <div class="card-price">320 lei</div>
+        <div class="card-fee">+ 55 EUR pet fee</div>
+        <button class="card-btn">View flight</button>
+      </div>
+      <div class="card">
+        <div class="card-airline">Lufthansa</div>
+        <div class="card-route">OTP → MUC · Direct · 2h 10m</div>
+        <div class="badge badge-ok">🐾 Cabin allowed</div>
+        <div class="card-price">580 lei</div>
+        <div class="card-fee">+ 72 EUR pet fee</div>
+        <button class="card-btn">View flight</button>
+      </div>
+      <div class="card">
+        <div class="card-airline">British Airways</div>
+        <div class="card-route">OTP → LHR · Direct · 3h 30m</div>
+        <div class="badge badge-no">Cabin not allowed</div>
+        <div class="card-price" style="font-size:13px;color:var(--jrt-gray)">Cargo only via IAG</div>
+        <div class="card-fee">&nbsp;</div>
+        <button class="card-btn">Learn more</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-head">
+      <div class="section-title">Pet-friendly stays</div>
+      <div class="section-sub">Verified by hosts · dogs welcome</div>
+    </div>
+    <div class="stay-cards">
+      <div class="stay-card">
+        <div class="stay-img">🏡</div>
+        <div class="stay-body">
+          <div class="stay-name">Cozy apartment with garden</div>
+          <div class="stay-loc">Vienna, Austria</div>
+          <div class="stay-price">€85 <span>/ night</span></div>
+        </div>
+      </div>
+      <div class="stay-card">
+        <div class="stay-img">🏠</div>
+        <div class="stay-body">
+          <div class="stay-name">Pet-friendly loft, city centre</div>
+          <div class="stay-loc">Barcelona, Spain</div>
+          <div class="stay-price">€95 <span>/ night</span></div>
+        </div>
+      </div>
+      <div class="stay-card">
+        <div class="stay-img">🏘</div>
+        <div class="stay-body">
+          <div class="stay-name">Townhouse with private patio</div>
+          <div class="stay-loc">Lisbon, Portugal</div>
+          <div class="stay-price">€110 <span>/ night</span></div>
+        </div>
+      </div>
+      <div class="stay-card">
+        <div class="stay-img">🌿</div>
+        <div class="stay-body">
+          <div class="stay-name">Studio near Vondelpark</div>
+          <div class="stay-loc">Amsterdam, Netherlands</div>
+          <div class="stay-price">€120 <span>/ night</span></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <p class="note">No spam. Just a heads up when we launch.</p>
+</div>
+
+<!-- POLICIES -->
+<div class="page" id="page-policies">
+  <div class="policies-hero">
+    <h2>Airline pet policies</h2>
+    <p>Updated June 2026 · European routes · cabin & cargo rules at a glance</p>
+  </div>
+  <div class="policies-wrap">
+    <div class="policy-filters">
+      <button class="pf active">All airlines</button>
+      <button class="pf">Cabin allowed</button>
+      <button class="pf">From Romania</button>
+      <button class="pf">Under 8 kg</button>
+    </div>
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th>Airline</th>
+          <th>Cabin</th>
+          <th>Max weight</th>
+          <th>Fee</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Austrian Airlines</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€65–125</td><td>Must book in advance by phone</td></tr>
+        <tr><td><strong>Animawings</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€55/segment</td><td>Romanian charter, up to 4–5 pets/flight</td></tr>
+        <tr><td><strong>airBaltic</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€110 hold</td><td>Limited spots per flight</td></tr>
+        <tr><td><strong>Lufthansa</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€72 Europe</td><td>Snub-nosed breeds cabin only, not hold</td></tr>
+        <tr><td><strong>Air France</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€125 Europe</td><td>Book min. 48h before departure</td></tr>
+        <tr><td><strong>KLM</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>No hold on some Cityhopper Nov–Mar</td></tr>
+        <tr><td><strong>Vueling</strong></td><td><span class="dot-ok"></span>Yes</td><td>10 kg incl. carrier</td><td>€50+</td><td>Up to 5 pets/flight, book online</td></tr>
+        <tr><td><strong>Iberia</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>€40–60</td><td>One of most affordable in Europe</td></tr>
+        <tr><td><strong>TAP Air Portugal</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>Madeira/Azores: limited spots</td></tr>
+        <tr><td><strong>British Airways</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>£800+</td><td>Cargo only via IAG/PetAir UK</td></tr>
+        <tr><td><strong>Ryanair</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Guide/assistance dogs only</td></tr>
+        <tr><td><strong>Wizz Air</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Guide/assistance dogs only</td></tr>
+        <tr><td><strong>Lauda Europe</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Ryanair subsidiary, same policy</td></tr>
+        <tr><td><strong>easyJet</strong></td><td><span class="dot-no"></span>No</td><td>—</td><td>—</td><td>Assistance dogs only</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BLOG -->
+<div class="page" id="page-blog">
+  <div class="blog-hero">
+    <h2>From the blog</h2>
+    <p>Guides, tips and real experiences for traveling with pets.</p>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img">✈️</div>
+      <div class="blog-body">
+        <div class="blog-cat">Flights</div>
+        <div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div>
+        <div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div>
+        <div class="blog-meta">8 min read · June 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">🐾</div>
+      <div class="blog-body">
+        <div class="blog-cat">Destinations</div>
+        <div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div>
+        <div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafés, transport and more.</div>
+        <div class="blog-meta">6 min read · June 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">📋</div>
+      <div class="blog-body">
+        <div class="blog-cat">Documents</div>
+        <div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div>
+        <div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div>
+        <div class="blog-meta">5 min read · June 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">🏨</div>
+      <div class="blog-body">
+        <div class="blog-cat">Stays</div>
+        <div class="blog-title">How to find truly pet-friendly accommodation (not just "pets allowed")</div>
+        <div class="blog-excerpt">There's a big difference between a place that tolerates pets and one that actually welcomes them. Here's how to tell.</div>
+        <div class="blog-meta">4 min read · June 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">🇬🇧</div>
+      <div class="blog-body">
+        <div class="blog-cat">Destinations</div>
+        <div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div>
+        <div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only. Here's the full picture.</div>
+        <div class="blog-meta">7 min read · June 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">⚖️</div>
+      <div class="blog-body">
+        <div class="blog-cat">Tips</div>
+        <div class="blog-title">How to weigh your pet carrier correctly before the airport</div>
+        <div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding. Here's how to avoid it.</div>
+        <div class="blog-meta">3 min read · June 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">travelwith.pet</div>
+  <div>© 2026 · Flights & stays for pet travelers</div>
+</footer>
+
+<script>
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.getElementById('nav-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.pf').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.pf').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
