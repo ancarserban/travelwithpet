@@ -639,16 +639,16 @@ function renderResults(results, species, userLbs, destCode) {
   var countryData = DB.countries[destCode];
   if (countryData && destCode !== 'US') {
     var items = [];
-    if (countryData.microchip === 'TRUE' || countryData.microchip === true) items.push({icon:'ti-cpu', text:'<span>Microchip required</span> (ISO 11784/11785)'});
-    if (countryData.rabies === 'TRUE' || countryData.rabies === true) items.push({icon:'ti-vaccine', text:'<span>Rabies vaccination required</span>'});
-    if (countryData.health_cert === 'TRUE' || countryData.health_cert === true) items.push({icon:'ti-file-certificate', text:'<span>Health certificate required</span>' + (countryData.docs ? ': ' + countryData.docs.substring(0,80) : '')});
-    if (countryData.quarantine_days && parseInt(countryData.quarantine_days) > 0) items.push({icon:'ti-calendar-time', text:'<span>Quarantine: '+countryData.quarantine_days+' days</span>' + (countryData.quarantine_notes ? ' — '+countryData.quarantine_notes.substring(0,60) : '')});
-    if (countryData.restrictions) items.push({icon:'ti-alert-triangle', text:'<span>'+countryData.restrictions.substring(0,100)+'</span>'});
+    if (countryData.microchip === 'TRUE' || countryData.microchip === true) items.push({icon:'ti-cpu', text:'<span>Microchip required<\/span> (ISO 11784/11785)'});
+    if (countryData.rabies === 'TRUE' || countryData.rabies === true) items.push({icon:'ti-vaccine', text:'<span>Rabies vaccination required<\/span>'});
+    if (countryData.health_cert === 'TRUE' || countryData.health_cert === true) items.push({icon:'ti-file-certificate', text:'<span>Health certificate required<\/span>' + (countryData.docs ? ': ' + countryData.docs.substring(0,80) : '')});
+    if (countryData.quarantine_days && parseInt(countryData.quarantine_days) > 0) items.push({icon:'ti-calendar-time', text:'<span>Quarantine: '+countryData.quarantine_days+' days<\/span>' + (countryData.quarantine_notes ? ' — '+countryData.quarantine_notes.substring(0,60) : '')});
+    if (countryData.restrictions) items.push({icon:'ti-alert-triangle', text:'<span>'+countryData.restrictions.substring(0,100)+'<\/span>'});
 
     if (items.length > 0) {
-      var html = '<div class="entry-banner"><h4><i class="ti ti-map-pin" aria-hidden="true"></i>Entry requirements for '+countryData.country+'</h4><ul>';
-      items.forEach(function(it){ html += '<li><i class="ti '+it.icon+'" aria-hidden="true"></i><div>'+it.text+'</div></li>'; });
-      html += '</ul></div>';
+      var html = '<div class="entry-banner"><h4><i class="ti ti-map-pin" aria-hidden="true"><\/i>Entry requirements for '+countryData.country+'<\/h4><ul>';
+      items.forEach(function(it){ html += '<li><i class="ti '+it.icon+'" aria-hidden="true"><\/i><div>'+it.text+'<\/div><\/li>'; });
+      html += '<\/ul><\/div>';
       bannerWrap.innerHTML = html;
     }
   }
@@ -656,7 +656,7 @@ function renderResults(results, species, userLbs, destCode) {
   // Cards
   cardsEl.innerHTML = '';
   if (!results.length) {
-    cardsEl.innerHTML = '<div class="no-results"><i class="ti ti-mood-sad"></i><p>No airlines match these criteria. Try a different destination or weight range.</p><button class="search-btn" onclick="window.scrollTo({top:0,behavior:\'smooth\'})" style="margin-top:1rem;max-width:200px;">Ask Spinning Jack</button></div>';
+    cardsEl.innerHTML = '<div class="no-results"><i class="ti ti-mood-sad"><\/i><p>No airlines match these criteria. Try a different destination or weight range.<\/p><button class="search-btn" onclick="window.scrollTo({top:0,behavior:\'smooth\'})" style="margin-top:1rem;max-width:200px;">Ask Spinning Jack<\/button><\/div>';
   } else {
     results.forEach(function(r) {
       var card = document.createElement('div');
@@ -664,13 +664,13 @@ function renderResults(results, species, userLbs, destCode) {
       card.dataset.status = r.cabinOk ? 'ok' : 'no';
 
       var badge = r.cabinOk
-        ? '<div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"></i> Cabin allowed</div>' +
-          '<div class="jack-verdict">Cleared for takeoff.</div>'
-        : '<div class="pbadge badge-no"><i class="ti ti-circle-x" aria-hidden="true"></i> Cabin not allowed</div>';
+        ? '<div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"><\/i> Cabin allowed<\/div>' +
+          '<div class="jack-verdict">Cleared for takeoff.<\/div>'
+        : '<div class="pbadge badge-no"><i class="ti ti-circle-x" aria-hidden="true"><\/i> Cabin not allowed<\/div>';
 
       var details = '';
       if (r.cabinOk) {
-        if (r.policy.wt_lbs) details += '<strong>Max ' + r.policy.wt_lbs + ' lbs</strong> (' + r.policy.wt_kg + ' kg) with carrier<br>';
+        if (r.policy.wt_lbs) details += '<strong>Max ' + r.policy.wt_lbs + ' lbs<\/strong> (' + r.policy.wt_kg + ' kg) with carrier<br>';
         var soft = r.policy.carrier_soft ? cmToIn(r.policy.carrier_soft) + ' (soft)' : null;
         var hard = r.policy.carrier_hard ? cmToIn(r.policy.carrier_hard) + ' (hard)' : null;
         if (soft && hard && soft !== hard) details += 'Carrier max: ' + soft + '<br>Carrier max: ' + hard + '<br>';
@@ -678,14 +678,14 @@ function renderResults(results, species, userLbs, destCode) {
         else if (hard) details += 'Carrier max: ' + hard + '<br>';
         if (r.policy.fee) details += 'Fee: $' + r.policy.fee + ' each way<br>';
         if (r.policy.max_pets) details += r.policy.max_pets + '<br>';
-        if (r.warnings.length) r.warnings.forEach(function(w){ details += '<span class="warn"><i class="ti ti-alert-triangle"></i> '+w+'</span><br>'; });
+        if (r.warnings.length) r.warnings.forEach(function(w){ details += '<span class="warn"><i class="ti ti-alert-triangle"><\/i> '+w+'<\/span><br>'; });
       } else {
         if (r.issues.length) details += r.issues.join(' · ') + '<br>';
         // show a short note if available
         if (r.policy.notes) {
           var shortNote = r.policy.notes.substring(0,90);
           if (r.policy.notes.length > 90) shortNote += '…';
-          details += '<span style="font-size:11px;opacity:0.8;">'+shortNote+'</span>';
+          details += '<span style="font-size:11px;opacity:0.8;">'+shortNote+'<\/span>';
         }
       }
 
@@ -693,13 +693,13 @@ function renderResults(results, species, userLbs, destCode) {
       var ctaHref = r.airline.url || '#';
 
       card.innerHTML =
-        '<div class="policy-airline">' + r.airline.name + '</div>' +
+        '<div class="policy-airline">' + r.airline.name + '<\/div>' +
         badge +
-        '<div class="policy-detail">' + details + '</div>' +
+        '<div class="policy-detail">' + details + '<\/div>' +
         '<div class="inline-cta">' +
-        '<span class="cta-label">' + ctaLabel + '</span>' +
-        '<a href="' + ctaHref + '" class="cta-link" target="_blank" rel="noopener">Policy <i class="ti ti-external-link" aria-hidden="true"></i></a>' +
-        '</div>';
+        '<span class="cta-label">' + ctaLabel + '<\/span>' +
+        '<a href="' + ctaHref + '" class="cta-link" target="_blank" rel="noopener">Policy <i class="ti ti-external-link" aria-hidden="true"><\/i><\/a>' +
+        '<\/div>';
 
       cardsEl.appendChild(card);
     });
@@ -837,9 +837,9 @@ function acSearch(input, fieldId) {
   drop.innerHTML = matches.map(function(a) {
     return '<div class="ac-item" onmousedown="acSelect(\'' + fieldId + '\',\'' +
       a.iata + '\',\'' + a.city.replace(/'/g,"\\'") + '\')">' +
-      '<span class="ac-iata">' + a.iata + '</span>' +
-      '<span class="ac-name">' + a.name + '</span>' +
-      '<span class="ac-city">' + a.city + '</span></div>';
+      '<span class="ac-iata">' + a.iata + '<\/span>' +
+      '<span class="ac-name">' + a.name + '<\/span>' +
+      '<span class="ac-city">' + a.city + '<\/span><\/div>';
   }).join('');
   drop.classList.add('open');
 }
