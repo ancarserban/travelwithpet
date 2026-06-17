@@ -619,10 +619,10 @@ function doSearch() {
     return fa - fb;
   });
 
-  renderResults(results, species, userLbs, destCode);
+  renderResults(results, species, userLbs, destCode, filterAirline);
 }
 
-function renderResults(results, species, userLbs, destCode) {
+function renderResults(results, species, userLbs, destCode, filterAirline) {
   var section = document.getElementById('results-section');
   var cardsEl = document.getElementById('results-cards');
   var titleEl = document.getElementById('results-title');
