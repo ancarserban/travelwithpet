@@ -6,6 +6,29 @@
   <title>travelwith.pet: Can my dog fly on this route?</title>
   <meta name="description" content="The only flight search that starts with your pet. Check airline pet policies, entry rules, and find pet-friendly stays." />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+  <!-- Favicon: inline SVG paw -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><ellipse cx='8' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='14' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='5' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='17' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='11' cy='14' rx='5' ry='5.5' fill='%23C47B3A'/></svg>" />
+
+  <!-- SEO -->
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="travelwith.pet" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://travelwith.pet/" />
+  <meta property="og:title" content="travelwith.pet: Can my dog fly on this route?" />
+  <meta property="og:description" content="The only flight search that starts with your pet. Check airline pet policies, find pet-friendly stays, and travel with confidence." />
+  <meta property="og:image" content="https://travelwith.pet/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="travelwith.pet: Can my dog fly on this route?" />
+  <meta name="twitter:description" content="The only flight search that starts with your pet. Check airline pet policies and find pet-friendly stays." />
+  <meta name="twitter:image" content="https://travelwith.pet/og-image.png" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://travelwith.pet/" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -67,8 +90,8 @@
 
     .dog-wrap { display: flex; justify-content: center; margin: 1rem 0 1.5rem; }
     @keyframes chase { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .dog-spin { transform-origin: 50px 50px; }
-    .dog-spin.spinning { animation: chase 1.8s linear infinite; }
+    .dog-spin { transform-origin: 50px 50px; animation: chase 1.8s linear infinite; }
+    .dog-spin.stopped { animation: none; }
 
     .results { padding: 0 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
     .results-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
@@ -441,8 +464,8 @@ function switchTab(tab) {
 
 function doSearch() {
   var dog = document.getElementById('jrt');
-  dog.classList.add('spinning');
-  setTimeout(function() { dog.classList.remove('spinning'); }, 2000);
+  dog.classList.add('stopped');
+  setTimeout(function() { dog.classList.remove('stopped'); }, 2000);
 }
 
 document.querySelectorAll('.ptag').forEach(function(btn) {
