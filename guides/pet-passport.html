@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pet Passport: What It Is, How to Get One, and Where It's Required</title>
+  <meta name="description" content="Everything you need to know about pet passports: what they contain, which countries require them, how to get one for your dog or cat, and what to do if you're traveling outside the EU." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><ellipse cx='8' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='14' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='5' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='17' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='11' cy='14' rx='5' ry='5.5' fill='%23C47B3A'/></svg>" />
+  <link rel="canonical" href="https://travelwith.pet/guides/pet-passport" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tan: #C47B3A;
+      --tan-bg: #FBF3EA;
+      --tan-light: #E8C49A;
+      --black: #2C2420;
+      --muted: #7A6A62;
+      --border: #E8DDD8;
+      --bg: #FFFDFB;
+      --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --serif: Georgia, 'Times New Roman', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--serif);
+      background: var(--bg);
+      color: var(--black);
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    /* progress bar */
+    #progress {
+      position: fixed; top: 0; left: 0;
+      height: 3px; width: 0%;
+      background: var(--tan); z-index: 999;
+    }
+
+    /* nav */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      font-family: var(--sans);
+    }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; font-size: 13px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); border-bottom: 2px solid var(--tan); padding-bottom: 2px; }
+
+    /* page wrapper — single centered column */
+    .page {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* breadcrumb */
+    .breadcrumb {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex; gap: 6px; align-items: center;
+      padding: 1.25rem 0 0;
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--tan); }
+
+    /* article header */
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--tan);
+      margin: 2rem 0 0.75rem;
+    }
+    h1 {
+      font-family: var(--sans);
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700; line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .intro {
+      font-size: 18px; line-height: 1.7;
+      color: #4A3C36;
+      border-left: 3px solid var(--tan);
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .meta {
+      font-family: var(--sans);
+      font-size: 12px; color: var(--muted);
+      display: flex; gap: 8px; align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.75rem;
+    }
+
+    /* TOC — simple, single column, no box */
+    .toc { margin-bottom: 2.5rem; }
+    .toc-label {
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .toc ol {
+      list-style: none;
+      padding: 0;
+      border-top: 1.5px solid var(--tan);
+      padding-top: 0.75rem;
+    }
+    .toc ol li { padding: 2px 0; }
+    .toc ol li a {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--black);
+      text-decoration: none;
+      display: block;
+      line-height: 1.6;
+    }
+    .toc ol li a:hover { color: var(--tan); }
+
+    /* sections */
+    section { margin-bottom: 2.75rem; }
+    h2 {
+      font-family: var(--sans);
+      font-size: 22px; font-weight: 700;
+      margin: 2.5rem 0 0.875rem;
+      padding-top: 2.5rem;
+      border-top: 0.5px solid var(--border);
+    }
+    h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    h3 {
+      font-family: var(--sans);
+      font-size: 16px; font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+    }
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--tan); }
+    a:hover { text-decoration: underline; }
+    strong { font-weight: 600; }
+    ul, ol.body-list { padding-left: 1.5rem; margin-bottom: 1rem; }
+    ul li, ol.body-list li { margin-bottom: 0.35rem; line-height: 1.6; }
+
+    /* steps */
+    .steps { list-style: none; padding: 0; }
+    .steps li {
+      display: grid; grid-template-columns: 28px 1fr; gap: 12px;
+      align-items: start; padding: 0.875rem 0;
+      border-bottom: 0.5px solid var(--border);
+      font-size: 16px; line-height: 1.6;
+    }
+    .steps li:last-child { border-bottom: none; }
+    .steps li .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--tan); color: white;
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* callout */
+    .callout {
+      background: var(--tan-bg);
+      border-left: 3px solid var(--tan);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-family: var(--sans);
+      font-size: 14px; line-height: 1.6;
+    }
+    .callout strong { color: var(--tan); }
+
+    /* table */
+    .tbl-wrap { overflow-x: auto; margin: 1.25rem 0; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-family: var(--sans); font-size: 13px; line-height: 1.4;
+    }
+    thead tr { background: var(--black); color: white; }
+    th { padding: 9px 12px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
+    td { padding: 8px 12px; border-bottom: 0.5px solid var(--border); vertical-align: top; }
+    tbody tr:nth-child(even) td { background: var(--tan-bg); }
+
+    /* FAQ */
+    .faq { margin-top: 0.5rem; }
+    .faq-item { border-bottom: 0.5px solid var(--border); }
+    .faq-item:first-child { border-top: 0.5px solid var(--border); }
+    .faq-q {
+      font-family: var(--sans); font-size: 15px; font-weight: 600;
+      padding: 1rem 0;
+      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      user-select: none;
+    }
+    .faq-q::after { content: '+'; font-size: 22px; color: var(--tan); font-weight: 300; flex-shrink: 0; }
+    .faq-item.open .faq-q::after { content: '×'; }
+    .faq-a { display: none; font-size: 15px; line-height: 1.7; color: #4A3C36; padding-bottom: 1rem; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* CTA */
+    .cta-block {
+      background: var(--black); border-radius: 12px;
+      padding: 2rem; text-align: center; margin-top: 3rem;
+    }
+    .cta-block h2 { color: white; font-size: 20px; border: none; padding: 0; margin: 0 0 0.75rem; }
+    .cta-block p { color: #B8A9A2; font-family: var(--sans); font-size: 14px; line-height: 1.6; margin-bottom: 1.25rem; }
+    .cta-btn {
+      display: inline-block; background: var(--tan); color: white;
+      font-family: var(--sans); font-size: 14px; font-weight: 500;
+      padding: 10px 24px; border-radius: 50px; text-decoration: none;
+    }
+    .cta-btn:hover { background: #a8652f; text-decoration: none; }
+
+    /* footer */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--sans); font-size: 12px; color: var(--muted);
+    }
+    .footer-logo { font-size: 14px; font-weight: 500; color: var(--black); }
+    .footer-links { display: flex; gap: 1rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.875rem 1rem; }
+      .nav-links { display: none; }
+      body { font-size: 16px; }
+      h1 { font-size: 24px; }
+      th, td { padding: 6px 8px; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <a class="logo" href="/">
+    <svg width="18" height="18" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <ellipse cx="8" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
+      <ellipse cx="14" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
+      <ellipse cx="5" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
+      <ellipse cx="17" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
+      <ellipse cx="11" cy="14" rx="5" ry="5.5" fill="#C47B3A"/>
+    </svg>
+    travelwith.pet
+  </a>
+  <div class="nav-links">
+    <a href="/">Pet policies</a>
+    <a href="#">Entry rules</a>
+    <a href="#">Insurance</a>
+    <a href="#">Stays</a>
+    <a href="#" class="active">Blog</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="breadcrumb">
+    <a href="/">Home</a> / <a href="/guides/">Guides</a> / Pet Passport
+  </div>
+
+  <p class="eyebrow">Pet Travel Documents</p>
+  <h1>Pet Passport: Everything You Need to Know Before You Travel</h1>
+
+  <p class="intro">A pet passport is an official document that proves your dog or cat has met the health and vaccination requirements to enter another country. It's not a single global standard: what counts as a "pet passport" depends on where you're traveling from and where you're going.</p>
+
+  <div class="meta">
+    <span>Last updated: June 2026</span>
+    <span>·</span>
+    <span>10 min read</span>
+    <span>·</span>
+    <span>Dogs &amp; cats</span>
+  </div>
+
+  <div class="toc" aria-label="In this guide">
+    <p class="toc-label">In this guide</p>
+    <ol>
+      <li><a href="#what-is">What is a pet passport?</a></li>
+      <li><a href="#eu">The EU pet passport</a></li>
+      <li><a href="#non-eu">Non-EU equivalents</a></li>
+      <li><a href="#contains">What it contains</a></li>
+      <li><a href="#how-to-get">How to get one</a></li>
+      <li><a href="#cost">How much does it cost?</a></li>
+      <li><a href="#by-country">Requirements by destination</a></li>
+      <li><a href="#microchip">Microchip</a></li>
+      <li><a href="#rabies">Rabies vaccination and titer test</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </div>
+
+  <section id="what-is">
+    <h2>What Is a Pet Passport?</h2>
+    <p>A pet passport is an official booklet or document issued by a licensed veterinarian that records your pet's identity, microchip number, vaccinations, and health status. It serves as proof that your animal has met the entry requirements of the destination country.</p>
+    <p>The term "pet passport" is used most formally within the European Union, where it's a standardized blue booklet valid across all 27 member states. Outside the EU, the equivalent is typically an official health certificate issued by an accredited or government-authorized veterinarian, sometimes endorsed by a national authority (like the USDA in the United States).</p>
+    <p>Pet passports apply to dogs, cats, and ferrets in most countries. Some destinations have different rules for other animals . This guide focuses on dogs and cats.</p>
+  </section>
+
+  <section id="eu">
+    <h2>The EU Pet Passport</h2>
+    <p>If you live in the European Union, the EU pet passport is the document you need for traveling with your pet within the EU and to certain non-EU countries that accept it. It was introduced in 2004 and standardized across all member states. Since 2014, a revised version has been in use.</p>
+    <h3>Where is it valid?</h3>
+    <p>The EU pet passport is accepted across all 27 EU member states, plus Norway, Iceland, Liechtenstein, Switzerland, and Andorra. It is <strong>not accepted</strong> for entering the UK (since Brexit), Australia, New Zealand, Japan, or the United States.</p>
+    <h3>Who can issue one?</h3>
+    <p>Only veterinarians officially authorized by the relevant national authority in each EU country. Call ahead to confirm before booking an appointment Not every vet is registered for this.</p>
+  </section>
+
+  <section id="non-eu">
+    <h2>Non-EU Countries: The Equivalent Documents</h2>
+    <h3>United States</h3>
+    <p>For international travel from the US, you need a health certificate issued by an <strong>accredited veterinarian</strong> and endorsed by <strong>USDA APHIS</strong>. Endorsement takes 1-3 business days and the certificate is typically valid for 10 days from issue.</p>
+    <h3>United Kingdom</h3>
+    <p>After Brexit, UK residents traveling to EU countries need an <strong>Animal Health Certificate (AHC)</strong>, issued by an Official Veterinarian no more than 10 days before travel. Each trip requires a new AHC.</p>
+    <h3>Canada, Australia, and others</h3>
+    <p>Most countries use a government-issued or government-endorsed health certificate system. Australia and New Zealand have particularly strict requirements including mandatory quarantine Check requirements well in advance.</p>
+  </section>
+
+  <section id="contains">
+    <h2>What a Pet Passport Contains</h2>
+    <p>Whether it's the EU booklet or an equivalent certificate, a valid pet travel document typically records:</p>
+    <ul>
+      <li><strong>Pet's identity:</strong> name, species, breed, sex, date of birth, color/markings</li>
+      <li><strong>Microchip number and date of implantation</strong></li>
+      <li><strong>Owner's name and contact details</strong></li>
+      <li><strong>Rabies vaccination history:</strong> date, vaccine name, batch number, expiry</li>
+      <li><strong>Rabies antibody titer test result</strong> (required for some countries)</li>
+      <li><strong>Tapeworm treatment</strong> (required for UK and some others)</li>
+      <li><strong>Other vaccinations</strong> (distemper, parvovirus, recorded but not always a border requirement)</li>
+      <li><strong>Veterinarian's signature, stamp, and license number</strong></li>
+    </ul>
+  </section>
+
+  <section id="how-to-get">
+    <h2>How to Get a Pet Passport</h2>
+    <p>The process is straightforward but requires advance planning. Don't leave it for the week before travel.</p>
+    <ol class="steps">
+      <li><div class="step-num">1</div><div><strong>Get your pet microchipped</strong>. Must be implanted before or at the same time as the rabies vaccination. If already chipped, confirm it reads correctly.</div></li>
+      <li><div class="step-num">2</div><div><strong>Vaccinate against rabies</strong>. Your vet records this in the passport. The first vaccine requires a 21-day waiting period before travel to most destinations.</div></li>
+      <li><div class="step-num">3</div><div><strong>Get the passport or certificate issued</strong>. In the EU, an authorized vet issues the booklet on the spot. In the US, your vet issues the certificate then you send it to USDA APHIS for endorsement.</div></li>
+      <li><div class="step-num">4</div><div><strong>Check destination-specific requirements</strong>. Some countries require a titer test, tapeworm treatment, or additional waiting periods. These can add 3-6 months to your timeline.</div></li>
+      <li><div class="step-num">5</div><div><strong>Get tapeworm treatment if needed</strong>. Required 1-5 days before arrival in the UK and some other countries. Must be administered and recorded by a vet.</div></li>
+    </ol>
+    <div class="callout">
+      <p><strong>Timeline warning:</strong> If your destination requires a rabies titer test, the full preparation process can take 3-6 months from start to finish. Plan well in advance.</p>
+    </div>
+  </section>
+
+  <section id="cost">
+    <h2>How Much Does a Pet Passport Cost?</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Approximate cost</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>EU pet passport (booklet + vet fee)</td><td>€30–€80</td><td>Varies by country and clinic</td></tr>
+          <tr><td>Rabies vaccination</td><td>€15–€50 / $20–$80</td><td>Often included in passport fee</td></tr>
+          <tr><td>Microchip implantation</td><td>€20–€60 / $25–$75</td><td>One-time cost</td></tr>
+          <tr><td>USDA APHIS endorsement (US)</td><td>$38 per certificate</td><td>Plus overnight shipping</td></tr>
+          <tr><td>UK Animal Health Certificate</td><td>£100–£250</td><td>Required per trip, not reusable</td></tr>
+          <tr><td>Rabies titer test</td><td>$150–$300</td><td>Required for some destinations</td></tr>
+          <tr><td>Tapeworm treatment (recorded)</td><td>€15–€40</td><td>Required for UK entry</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="by-country">
+    <h2>Requirements by Destination</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Destination</th><th>Document</th><th>Titer test?</th><th>Waiting period?</th><th>Quarantine?</th></tr></thead>
+        <tbody>
+          <tr><td>EU (from EU)</td><td>EU pet passport</td><td>No</td><td>21 days post-vacc</td><td>No</td></tr>
+          <tr><td>EU (from US/UK)</td><td>Health cert (USDA/AHC)</td><td>No</td><td>21 days post-vacc</td><td>No</td></tr>
+          <tr><td>United Kingdom</td><td>Animal Health Certificate</td><td>No</td><td>21 days post-vacc</td><td>No (if compliant)</td></tr>
+          <tr><td>United States</td><td>Health cert + USDA endorsement</td><td>No (most origins)</td><td>Varies by origin</td><td>No (usually)</td></tr>
+          <tr><td>Australia</td><td>Import permit + health cert</td><td>Yes</td><td>180 days after titer</td><td>Yes, 10 days min</td></tr>
+          <tr><td>New Zealand</td><td>Import permit + health cert</td><td>Yes</td><td>180 days after titer</td><td>Yes, 10 days</td></tr>
+          <tr><td>Japan</td><td>Health cert (notarized)</td><td>Yes</td><td>180 days after titer</td><td>Yes, up to 180 days</td></tr>
+          <tr><td>Hawaii (US domestic)</td><td>HDOA program documentation</td><td>Yes</td><td>90 days</td><td>5 days or waived</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Always verify requirements with the official veterinary authority of your destination before travel.</p>
+  </section>
+
+  <section id="microchip">
+    <h2>Microchip: The Non-Negotiable First Step</h2>
+    <p>Every country that accepts a pet passport requires an ISO 11784/11785-compliant chip (15-digit standard). Without it, no passport, no health certificate, no entry.</p>
+    <p>The microchip must be implanted <strong>before or at the same time as</strong> the rabies vaccination. If your pet was vaccinated before being chipped, that vaccination doesn't count and the sequence must restart.</p>
+    <p>Keep the chip number written down separately. Chips occasionally fail to scan, and having the number documented speeds up border checks.</p>
+  </section>
+
+  <section id="rabies">
+    <h2>Rabies Vaccination and Titer Test</h2>
+    <p>Rabies vaccination is mandatory for pet travel to almost every country. The first vaccination triggers a 21-day waiting period. Annual or triennial boosters keep the passport valid. If a booster lapses, the clock restarts.</p>
+    <h3>When is a titer test required?</h3>
+    <p>A rabies antibody titer test (RNATT) measures whether your pet has sufficient immunity. It's required for:</p>
+    <ul>
+      <li>Australia and New Zealand</li>
+      <li>Japan</li>
+      <li>Hawaii (from non-approved countries)</li>
+      <li>Some island nations with rabies-free status</li>
+    </ul>
+    <p>The test must be done by an approved laboratory. Results take 2-6 weeks. A passing result (0.5 IU/ml or above) triggers an additional waiting period: 3 months for most destinations, 6 months for Australia, New Zealand, and Japan. Start at least 9 months before your travel date.</p>
+  </section>
+
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq" itemscope itemtype="https://schema.org/FAQPage">
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" itemprop="name">Can I use my EU pet passport to travel to the UK?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. Since Brexit (January 2021), the UK no longer accepts EU pet passports. You need an Animal Health Certificate (AHC) issued by an Official Veterinarian no more than 10 days before each trip. The AHC is required for every trip: it is not reusable like the EU passport.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" itemprop="name">How long is a pet passport valid?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The EU pet passport booklet itself doesn't expire, but the information inside it does. Your pet's rabies vaccination must be kept up to date. If it lapses, the passport is no longer valid for travel until the vaccination is renewed and the 21-day waiting period passes.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" itemprop="name">My pet was vaccinated before being microchipped. Is the vaccination valid?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. The microchip must be implanted before or at the same time as the rabies vaccination. If your pet was vaccinated first, you'll need to get the chip implanted, revaccinate, and wait the required period again.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" itemprop="name">Can I get a pet passport for my cat?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes. The EU pet passport and most equivalent documents cover dogs, cats, and ferrets. Requirements are largely the same: microchip, rabies vaccination, and any destination-specific additions.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" itemprop="name">What happens if I arrive without the correct documents?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Depending on the country: your pet may be held at the border, quarantined at your expense, refused entry and returned to the country of origin, or in rare cases euthanized. Never travel without verifying your documents are complete and current.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" itemprop="name">Which airlines allow pets in the cabin?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Most major US carriers allow small pets in the cabin (under 8-10 kg including carrier) on domestic routes, but policies on weight limits, carrier dimensions, and fees vary. Use our <a href="/">flight search</a> to filter by pet policy and see which airlines accept your pet on a given route.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <h2>Ready to Book a Pet-Friendly Flight?</h2>
+    <p>Once your documents are in order, find a flight on an airline that accepts your pet in the cabin. Our search filters by pet policy so you only see airlines that allow your pet on board.</p>
+    <a href="/" class="cta-btn">Search pet-friendly flights</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">travelwith.pet</div>
+  <div class="footer-links">
+    <a href="#">Pet policies</a>
+    <a href="#">Entry rules</a>
+    <a href="#">Insurance</a>
+    <a href="#">About</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+  var pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+</script>
+
+</body>
+</html>
