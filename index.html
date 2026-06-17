@@ -3,108 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>travelwith.pet — Find pet-friendly flights & stays</title>
-  <meta name="description" content="Find flights and stays that actually welcome your dog or cat." />
+  <title>travelwith.pet: Can my dog fly on this route?</title>
+  <meta name="description" content="The only flight search that starts with your pet. Check airline pet policies, entry rules, and find pet-friendly stays." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --tan: #C47B3A; --tan-light: #E8C49A; --tan-bg: #FBF3EA; --jrt-black: #2C2420; --jrt-gray: #7A6A62; --border: #E8DDD8; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FAFAF8; color: #2C2420; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: #FAFAF8; position: sticky; top: 0; z-index: 100; }
-    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--jrt-black); cursor: pointer; }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-link { font-size: 14px; color: var(--jrt-gray); cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; }
-    .nav-link:hover, .nav-link.active { color: var(--jrt-black); border-bottom-color: var(--tan); }
-    .page { display: none; }
-    .page.active { display: block; }
-    .hero { padding: 3rem 2rem 2rem; text-align: center; }
-    .hero h1 { font-size: 36px; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
+
+    :root {
+      --tan: #C47B3A; --tan-bg: #FBF3EA; --tan-light: #E8C49A;
+      --jrt-black: #2C2420; --jrt-gray: #7A6A62; --border: #E8DDD8;
+      --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --color-bg: #FFFDFB;
+      --color-bg-secondary: #FBF3EA;
+      --color-text: #2C2420;
+      --color-text-muted: #7A6A62;
+      --color-border: #E8DDD8;
+      --color-border-strong: #E0D3CC;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 20px;
+    }
+
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); font-size: 15px; line-height: 1.6; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid var(--color-border); position: sticky; top: 0; background: var(--color-bg); z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--color-text); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; font-size: 13px; }
+    .nav-links a { color: var(--color-text-muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--color-text); }
+    .nav-links a.active { color: var(--color-text); border-bottom: 2px solid var(--tan); padding-bottom: 2px; }
+
+    .hero { padding: 3rem 2rem 0; text-align: center; max-width: 780px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tan); margin-bottom: 0.75rem; }
+    .hero h1 { font-size: 32px; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
     .hero h1 span { color: var(--tan); }
-    .hero p { font-size: 15px; color: var(--jrt-gray); margin-bottom: 2rem; }
-    .search-wrap { max-width: 700px; margin: 0 auto 1rem; position: relative; }
-    .search-box { background: white; border: 0.5px solid var(--border); border-radius: 50px; padding: 0.875rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 100px; align-items: center; box-shadow: 0 2px 12px rgba(44,36,32,0.06); }
-    .sf { padding: 0 1rem; border-right: 0.5px solid var(--border); position: relative; }
-    .sf:first-child { padding-left: 0.5rem; }
-    .sf label { display: block; font-size: 10px; font-weight: 500; color: var(--jrt-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-    .sf input, .sf select { border: none; background: transparent; font-size: 13px; color: var(--jrt-black); width: 100%; outline: none; font-family: inherit; }
-    .search-btn { margin-left: 0.75rem; background: var(--tan); color: white; border: none; border-radius: 50px; padding: 9px 16px; font-size: 13px; cursor: pointer; font-family: inherit; }
+    .hero p { font-size: 15px; color: var(--color-text-muted); margin-bottom: 2rem; line-height: 1.6; }
+
+    .tabs { display: flex; border: 0.5px solid var(--color-border); border-radius: 50px; background: var(--color-bg-secondary); padding: 3px; max-width: 280px; margin: 0 auto 1.5rem; }
+    .tab { flex: 1; padding: 7px 0; font-size: 13px; border-radius: 50px; cursor: pointer; text-align: center; color: var(--color-text-muted); border: none; background: transparent; font-family: var(--font-sans); }
+    .tab.active { background: var(--color-bg); color: var(--color-text); font-weight: 500; border: 0.5px solid var(--color-border); }
+
+    .search-panel { max-width: 768px; margin: 0 auto 1rem; }
+    .search-box { background: var(--color-bg); border: 0.5px solid var(--color-border-strong); border-radius: var(--radius-xl); padding: 1.25rem 1.5rem; box-shadow: 0 2px 12px rgba(44,36,32,0.06); }
+    .search-row { display: grid; gap: 0; align-items: center; }
+    .search-row.row1 { grid-template-columns: 1fr 1fr 1fr; }
+    .search-row.row2 { grid-template-columns: 1fr 1fr 1fr; margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid var(--color-border); align-items: center; }
+    .search-row.flight-row { grid-template-columns: 1fr 1fr 1fr 1fr 100px; }
+    .sf { padding: 0 1rem; border-right: 0.5px solid var(--color-border); }
+    .sf:first-child { padding-left: 0.25rem; }
+    .sf:last-child { border-right: none; }
+    .sf label { display: block; font-size: 10px; font-weight: 500; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .sf input, .sf select { border: none; background: transparent; font-size: 13px; color: var(--color-text); width: 100%; outline: none; font-family: var(--font-sans); }
+    .search-btn { background: var(--tan); color: white; border: none; border-radius: 50px; padding: 10px 16px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); width: 100%; }
     .search-btn:hover { background: var(--jrt-black); }
-    .ac-dropdown { position: absolute; top: calc(100% + 40px); left: 0; background: white; border: 0.5px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(44,36,32,0.12); z-index: 9999; max-height: 220px; overflow-y: auto; min-width: 240px; display: none; }
-    .ac-item { padding: 8px 12px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; }
-    .ac-item:hover { background: var(--tan-bg); }
-    .ac-code { font-weight: 500; color: var(--tan); min-width: 36px; font-size: 12px; }
-    .ac-city { color: var(--jrt-black); }
-    .ac-country { color: var(--jrt-gray); font-size: 11px; }
-    .popular-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
-    .tag { font-size: 12px; color: var(--jrt-gray); border: 0.5px solid var(--border); padding: 4px 14px; border-radius: 20px; cursor: pointer; }
-    .tag:hover { border-color: var(--tan); color: var(--tan); }
-    .dog-wrap { display: flex; justify-content: center; margin: 0 0 1.5rem; }
+
+    #panel-flight { display: none; }
+
+    .popular-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 1rem 0 0.5rem; }
+    .ptag { font-size: 12px; color: var(--color-text-muted); border: 0.5px solid var(--color-border); padding: 3px 12px; border-radius: 20px; cursor: pointer; background: none; font-family: var(--font-sans); }
+    .ptag:hover { border-color: var(--tan); color: var(--tan); }
+
+    .dog-wrap { display: flex; justify-content: center; margin: 1rem 0 1.5rem; }
     @keyframes chase { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .dog-spin { animation: chase 1.8s linear infinite; transform-origin: 50px 50px; }
-    .section { padding: 0 2rem 2rem; max-width: 960px; margin: 0 auto; }
-    .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
-    .section-title { font-size: 17px; font-weight: 500; }
-    .section-sub { font-size: 13px; color: var(--jrt-gray); }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 2rem; }
-    .card { background: white; border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem; }
-    .card-airline { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-    .card-route { font-size: 12px; color: var(--jrt-gray); margin-bottom: 10px; }
-    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 20px; margin-bottom: 10px; }
-    .badge-ok { background: var(--tan-bg); color: #7A4A1A; }
+    .dog-spin { transform-origin: 50px 50px; }
+    .dog-spin.spinning { animation: chase 1.8s linear infinite; }
+
+    .results { padding: 0 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
+    .results-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
+    .results-title { font-size: 16px; font-weight: 500; }
+    .results-verified { font-size: 11px; color: var(--color-text-muted); }
+
+    .policy-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+    .policy-card { background: var(--color-bg); border: 0.5px solid var(--color-border); border-radius: var(--radius-lg); padding: 1rem; }
+    .policy-airline { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+    .pbadge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
+    .badge-ok { background: #E1F5EE; color: #0F6E56; }
     .badge-no { background: #FCEBEB; color: #A32D2D; }
-    .card-price { font-size: 20px; font-weight: 500; }
-    .card-fee { font-size: 11px; color: var(--jrt-gray); margin-top: 2px; }
-    .card-btn { margin-top: 12px; width: 100%; border: 0.5px solid var(--border); background: transparent; border-radius: 8px; padding: 7px; font-size: 13px; cursor: pointer; font-family: inherit; color: var(--jrt-black); }
-    .card-btn:hover { background: var(--tan-bg); }
-    .stay-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 2rem; }
-    .stay-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .stay-img { height: 130px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 32px; }
-    .stay-body { padding: 1rem; }
-    .stay-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-    .stay-loc { font-size: 12px; color: var(--jrt-gray); margin-bottom: 8px; }
-    .stay-price { font-size: 14px; font-weight: 500; }
-    .stay-price span { font-size: 12px; font-weight: 400; color: var(--jrt-gray); }
-    .divider { border: none; border-top: 0.5px solid var(--border); margin: 0 0 1.5rem; }
-    .blog-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
-    .blog-hero h2, .policies-hero h2 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
-    .blog-hero p, .policies-hero p { font-size: 15px; color: var(--jrt-gray); }
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
-    .blog-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; }
-    .blog-card:hover { border-color: var(--tan-light); }
-    .blog-img { height: 140px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 36px; }
-    .blog-body { padding: 1.25rem; }
-    .blog-cat { font-size: 10px; color: var(--tan); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .blog-title { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 8px; }
-    .blog-excerpt { font-size: 13px; color: var(--jrt-gray); line-height: 1.6; margin-bottom: 10px; }
-    .blog-meta { font-size: 11px; color: var(--jrt-gray); }
-    .policies-hero { padding: 2.5rem 2rem 1.5rem; max-width: 960px; margin: 0 auto; }
-    .policies-wrap { padding: 0 2rem 3rem; max-width: 960px; margin: 0 auto; }
-    .policy-filters { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .pf { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--border); cursor: pointer; color: var(--jrt-gray); background: white; font-family: inherit; }
-    .pf.active, .pf:hover { background: var(--tan-bg); border-color: var(--tan); color: var(--jrt-black); }
-    .policy-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .policy-table th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--jrt-gray); border-bottom: 0.5px solid var(--border); }
-    .policy-table td { padding: 12px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
-    .policy-table tr:hover td { background: #FAFAF8; }
-    .dot-ok { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5DCAA5; margin-right: 6px; }
-    .dot-no { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; margin-right: 6px; }
-    footer { border-top: 0.5px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--jrt-gray); }
-    .footer-logo { font-size: 14px; font-weight: 500; color: var(--jrt-black); }
-    .msg { padding: 2rem; text-align: center; color: var(--jrt-gray); font-size: 14px; grid-column: 1/-1; }
+    .policy-detail { font-size: 12px; color: var(--color-text-muted); line-height: 1.6; }
+    .policy-detail strong { color: var(--color-text); }
+    .inline-cta { margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; }
+    .cta-label { font-size: 11px; color: var(--color-text-muted); }
+    .cta-link { font-size: 11px; color: var(--tan); cursor: pointer; font-weight: 500; text-decoration: none; }
+    .cta-link:hover { text-decoration: underline; }
+
+    .divider { border: none; border-top: 0.5px solid var(--color-border); margin: 0 2rem 1.5rem; }
+
+    .section { padding: 0 2rem 2rem; max-width: 960px; margin: 0 auto; }
+    .section-head { margin-bottom: 1.25rem; }
+    .section-title { font-size: 16px; font-weight: 500; margin-bottom: 2px; }
+    .section-sub { font-size: 13px; color: var(--color-text-muted); }
+
+    .insurance-banner { background: var(--tan-bg); border: 0.5px solid var(--tan-light); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+    .insurance-text h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .insurance-text p { font-size: 13px; color: var(--color-text-muted); }
+    .insurance-btn { background: var(--tan); color: white; border: none; border-radius: 50px; padding: 9px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); white-space: nowrap; }
+    .insurance-btn:hover { background: var(--jrt-black); }
+
+    .stay-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stay-card { background: var(--color-bg); border: 0.5px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
+    .stay-img { height: 100px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+    .stay-body { padding: 0.875rem; }
+    .stay-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+    .stay-loc { font-size: 12px; color: var(--color-text-muted); margin-bottom: 6px; }
+    .stay-price { font-size: 13px; font-weight: 500; }
+    .stay-price span { font-size: 12px; font-weight: 400; color: var(--color-text-muted); }
+    .stay-cta { margin-top: 8px; padding-top: 8px; border-top: 0.5px solid var(--color-border); font-size: 11px; color: var(--tan); cursor: pointer; }
+
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .blog-card { background: var(--color-bg); border: 0.5px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
+    .blog-img { height: 90px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--tan); }
+    .blog-body { padding: 0.875rem; }
+    .blog-cat { font-size: 10px; color: var(--tan); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .blog-title { font-size: 13px; font-weight: 500; line-height: 1.4; margin-bottom: 4px; }
+    .blog-meta { font-size: 11px; color: var(--color-text-muted); }
+
+    footer { border-top: 0.5px solid var(--color-border); padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--color-text-muted); margin-top: 1rem; }
+    .footer-logo { font-size: 14px; font-weight: 500; color: var(--color-text); }
+    .footer-links { display: flex; gap: 1rem; }
+    .footer-links a { color: var(--color-text-muted); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0.875rem 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 2rem 1rem 0; }
+      .hero h1 { font-size: 24px; }
+      .search-box { padding: 1rem; border-radius: 12px; }
+      .search-row.row1, .search-row.row2, .search-row.flight-row { grid-template-columns: 1fr; }
+      .sf { padding: 0.5rem 0; border-right: none; border-bottom: 0.5px solid var(--color-border); }
+      .sf:last-child { border-bottom: none; }
+      .search-row.row2 { margin-top: 0; padding-top: 0; border-top: none; }
+      .search-btn { margin-top: 0.75rem; }
+      .policy-cards { grid-template-columns: 1fr; }
+      .stay-cards, .blog-grid { grid-template-columns: 1fr; }
+      .insurance-banner { flex-direction: column; align-items: flex-start; }
+      .results, .section { padding-left: 1rem; padding-right: 1rem; }
+      .divider { margin-left: 1rem; margin-right: 1rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
   </style>
-  <script data-noptimize="1" data-cfasync="false" data-no-defer="1">
-  (function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.src = 'https://tp-em.com/NTQwNTcw.js?t=540570';
-      document.head.appendChild(script);
-  })();
-  </script>
 </head>
 <body>
 
+<h1 class="sr-only">travelwith.pet, pet-first flight and stay search</h1>
+
 <nav>
-  <div class="logo" onclick="showPage('home')">
-    <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+  <a class="logo" href="/">
+    <svg width="18" height="18" viewBox="0 0 22 22" fill="none" aria-hidden="true">
       <ellipse cx="8" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
       <ellipse cx="14" cy="5" rx="2.5" ry="3" fill="#C47B3A"/>
       <ellipse cx="5" cy="10" rx="2" ry="2.5" fill="#C47B3A"/>
@@ -112,415 +158,299 @@
       <ellipse cx="11" cy="14" rx="5" ry="5.5" fill="#C47B3A"/>
     </svg>
     travelwith.pet
-  </div>
+  </a>
   <div class="nav-links">
-    <div class="nav-link active" id="nav-home" onclick="showPage('home')">Flights & stays</div>
-    <div class="nav-link" id="nav-policies" onclick="showPage('policies')">Airline policies</div>
-    <div class="nav-link" id="nav-blog" onclick="showPage('blog')">Blog</div>
+    <a href="#" class="active">Pet policies</a>
+    <a href="#">Entry rules</a>
+    <a href="#">Insurance</a>
+    <a href="#">Stays</a>
+    <a href="#">Blog</a>
   </div>
 </nav>
 
-<div class="page active" id="page-home">
-  <div class="hero">
-    <h1>Travel the world<br><span>with your pet.</span></h1>
-    <p>Find flights and stays that actually welcome your dog or cat.</p>
-    <div class="search-wrap">
-      <div class="search-box">
-        <div class="sf">
-          <label>From</label>
-          <input type="text" id="search-origin" placeholder="City or airport" value="Bucharest (OTP)" autocomplete="off" />
-          <div class="ac-dropdown" id="ac-origin"></div>
+<div class="hero">
+  <div class="hero-eyebrow">The only search that starts with your pet</div>
+  <h1>Can my dog fly <span>on this route?</span></h1>
+  <p>Enter your pet's details.<br>We filter the airlines, check the policies, and show you what's actually possible.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" id="tab-pet" role="tab" aria-selected="true" onclick="switchTab('pet')">Your pet</button>
+    <button class="tab" id="tab-flight" role="tab" aria-selected="false" onclick="switchTab('flight')">Your flight</button>
+  </div>
+
+  <div class="search-panel">
+    <div class="search-box">
+
+      <div id="panel-pet">
+        <div class="search-row row1">
+          <div class="sf">
+            <label>Species</label>
+            <select>
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Bird</option>
+              <option>Rabbit</option>
+            </select>
+          </div>
+          <div class="sf">
+            <label>Breed</label>
+            <input type="text" placeholder="e.g. Jack Russell" />
+          </div>
+          <div class="sf">
+            <label>Weight with carrier</label>
+            <select>
+              <option>Under 5 kg / 11 lbs</option>
+              <option selected>5-8 kg / 11-18 lbs</option>
+              <option>8-15 kg / 18-33 lbs</option>
+              <option>Over 15 kg / 33 lbs</option>
+            </select>
+          </div>
         </div>
-        <div class="sf">
-          <label>To</label>
-          <input type="text" id="search-dest" placeholder="City or airport" autocomplete="off" />
-          <div class="ac-dropdown" id="ac-dest"></div>
+        <div class="search-row row2">
+          <div class="sf">
+            <label>From</label>
+            <input type="text" id="pet-origin" placeholder="City or airport" value="New York (JFK)" />
+          </div>
+          <div class="sf">
+            <label>To (optional)</label>
+            <input type="text" id="pet-dest" placeholder="Anywhere" />
+          </div>
+          <button class="search-btn" onclick="doSearch()">Check eligibility</button>
         </div>
-        <div class="sf">
-          <label>Depart</label>
-          <input type="date" id="search-date" />
+      </div>
+
+      <div id="panel-flight">
+        <div class="search-row flight-row">
+          <div class="sf">
+            <label>From</label>
+            <input type="text" value="New York (JFK)" />
+          </div>
+          <div class="sf">
+            <label>To</label>
+            <input type="text" placeholder="City or airport" />
+          </div>
+          <div class="sf">
+            <label>Depart</label>
+            <input type="date" id="flight-date" />
+          </div>
+          <div class="sf">
+            <label>Pet weight</label>
+            <select>
+              <option>Under 5 kg</option>
+              <option selected>5-8 kg</option>
+              <option>8-15 kg</option>
+            </select>
+          </div>
+          <button class="search-btn">Search</button>
         </div>
-        <div class="sf">
-          <label>Return</label>
-          <input type="date" id="search-return" />
-        </div>
-        <div class="sf">
-          <label>Pet weight</label>
-          <select id="search-weight">
-            <option value="5">Under 5 kg</option>
-            <option value="8" selected>5 - 8 kg</option>
-            <option value="15">8 - 15 kg</option>
-            <option value="20">Over 15 kg</option>
-          </select>
-        </div>
-        <button class="search-btn" onclick="doSearch()">Search</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="popular-tags" aria-label="Browse by airline">
+    <button class="ptag">American Airlines</button>
+    <button class="ptag">Delta</button>
+    <button class="ptag">United</button>
+    <button class="ptag">Southwest</button>
+    <button class="ptag">Alaska Airlines</button>
+  </div>
+</div>
+
+<div class="dog-wrap" aria-hidden="true">
+  <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g id="jrt" class="dog-spin">
+      <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
+      <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+      <ellipse cx="62" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+      <ellipse cx="38" cy="28" rx="5" ry="8" fill="#C47B3A"/>
+      <ellipse cx="62" cy="28" rx="5" ry="8" fill="#C47B3A"/>
+      <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+      <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
+      <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
+      <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
+      <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
+      <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
+      <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
+      <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
+      <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
+    </g>
+    <path d="M76 72 Q88 64 91 76 Q89 83 78 79" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
+    <path d="M80 73 Q86 68 88 76" stroke="#C47B3A" stroke-width="1" fill="none" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<div class="results">
+  <div class="results-head">
+    <div class="results-title">Dog, 5-8 kg: what's possible on JFK routes</div>
+    <div class="results-verified"><i class="ti ti-circle-check" style="color:#0F6E56" aria-hidden="true"></i> Verified June 2026</div>
+  </div>
+  <div class="policy-cards" id="flight-cards">
+    <div class="policy-card">
+      <div class="policy-airline">American Airlines</div>
+      <div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"></i> Cabin allowed</div>
+      <div class="policy-detail"><strong>Max 9 kg</strong> with carrier<br>Fee: $125 domestic<br>Max 7 pets per flight</div>
+      <div class="inline-cta">
+        <span class="cta-label">Need a carrier?</span>
+        <a href="#" class="cta-link">Shop IATA-approved bags <i class="ti ti-external-link" aria-hidden="true"></i></a>
       </div>
     </div>
-    <div class="popular-tags">
-      <div class="tag" onclick="pickDest('VIE','Vienna')">Vienna</div>
-      <div class="tag" onclick="pickDest('BCN','Barcelona')">Barcelona</div>
-      <div class="tag" onclick="pickDest('AMS','Amsterdam')">Amsterdam</div>
-      <div class="tag" onclick="pickDest('FCO','Rome')">Rome</div>
-      <div class="tag" onclick="pickDest('LIS','Lisbon')">Lisbon</div>
-      <div class="tag" onclick="pickDest('CDG','Paris')">Paris</div>
+    <div class="policy-card">
+      <div class="policy-airline">Delta</div>
+      <div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"></i> Cabin allowed</div>
+      <div class="policy-detail"><strong>Max 8.2 kg</strong> with carrier<br>Fee: $95 domestic<br>No snub-nosed breeds</div>
+      <div class="inline-cta">
+        <span class="cta-label">Flying internationally?</span>
+        <a href="#" class="cta-link">Get travel insurance <i class="ti ti-external-link" aria-hidden="true"></i></a>
+      </div>
     </div>
-  </div>
-
-  <div class="dog-wrap">
-    <svg width="90" height="90" viewBox="0 0 100 100">
-      <g class="dog-spin">
-        <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
-        <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-        <ellipse cx="62" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-        <ellipse cx="38" cy="28" rx="5" ry="8" fill="#C47B3A"/>
-        <ellipse cx="62" cy="28" rx="5" ry="8" fill="#C47B3A"/>
-        <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-        <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
-        <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
-        <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
-        <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
-        <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
-        <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
-        <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
-        <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
-      </g>
-      <path d="M76 72 Q88 64 91 76 Q89 83 78 79" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
-      <path d="M80 73 Q86 68 88 76" stroke="#C47B3A" stroke-width="1" fill="none" stroke-linecap="round"/>
-    </svg>
-  </div>
-
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title" id="results-title">Pet-friendly flights from Bucharest</div>
-      <div class="section-sub" id="results-sub">5-8 kg - cabin only</div>
+    <div class="policy-card">
+      <div class="policy-airline">United Airlines</div>
+      <div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"></i> Cabin allowed</div>
+      <div class="policy-detail"><strong>Max 8 kg</strong> with carrier<br>Fee: $125 domestic<br>Book 24h before</div>
+      <div class="inline-cta">
+        <span class="cta-label">Entry docs for destination?</span>
+        <a href="#" class="cta-link">Check entry rules <i class="ti ti-external-link" aria-hidden="true"></i></a>
+      </div>
     </div>
-    <div class="cards" id="flight-cards">
-      <div class="card"><div class="card-airline">Austrian Airlines</div><div class="card-route">OTP - VIE - Direct - 1h 40m</div><div class="badge badge-ok">Cabin allowed</div><div class="card-price">421 lei</div><div class="card-fee">+ ~65 EUR pet fee</div><button class="card-btn">View flight</button></div>
-      <div class="card"><div class="card-airline">Animawings</div><div class="card-route">OTP - LGW - Direct - 3h 20m</div><div class="badge badge-ok">Cabin allowed</div><div class="card-price">320 lei</div><div class="card-fee">+ 55 EUR pet fee</div><button class="card-btn">View flight</button></div>
-      <div class="card"><div class="card-airline">Lufthansa</div><div class="card-route">OTP - MUC - Direct - 2h 10m</div><div class="badge badge-ok">Cabin allowed</div><div class="card-price">580 lei</div><div class="card-fee">+ 72 EUR pet fee</div><button class="card-btn">View flight</button></div>
-      <div class="card"><div class="card-airline">British Airways</div><div class="card-route">OTP - LHR - Direct - 3h 30m</div><div class="badge badge-no">Cabin not allowed</div><div class="card-price" style="font-size:13px;color:var(--jrt-gray)">Cargo only via IAG</div><div class="card-fee">&nbsp;</div><button class="card-btn">Learn more</button></div>
+    <div class="policy-card">
+      <div class="policy-airline">Southwest</div>
+      <div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"></i> Cabin allowed</div>
+      <div class="policy-detail"><strong>Max 9 kg</strong> with carrier<br>Fee: $95 domestic<br>Domestic US only</div>
+      <div class="inline-cta">
+        <span class="cta-label">Best value option</span>
+        <a href="#" class="cta-link">See flights <i class="ti ti-external-link" aria-hidden="true"></i></a>
+      </div>
     </div>
-    <hr class="divider">
-    <div class="section-head">
-      <div class="section-title">Pet-friendly stays</div>
-      <div class="section-sub">Verified by hosts - dogs welcome</div>
+    <div class="policy-card">
+      <div class="policy-airline">Hawaiian Airlines</div>
+      <div class="pbadge badge-no"><i class="ti ti-circle-x" aria-hidden="true"></i> Cabin not allowed</div>
+      <div class="policy-detail">Checked baggage only<br>Hawaii quarantine: 5-day min<br>HDOA pre-approval required</div>
+      <div class="inline-cta">
+        <span class="cta-label">Alternatives to Hawaii?</span>
+        <a href="#" class="cta-link">See options <i class="ti ti-external-link" aria-hidden="true"></i></a>
+      </div>
     </div>
-    <div class="stay-cards">
-      <div class="stay-card"><div class="stay-img">🏡</div><div class="stay-body"><div class="stay-name">Cozy apartment with garden</div><div class="stay-loc">Vienna, Austria</div><div class="stay-price">85 EUR <span>/ night</span></div></div></div>
-      <div class="stay-card"><div class="stay-img">🏠</div><div class="stay-body"><div class="stay-name">Pet-friendly loft, city centre</div><div class="stay-loc">Barcelona, Spain</div><div class="stay-price">95 EUR <span>/ night</span></div></div></div>
-      <div class="stay-card"><div class="stay-img">🏘</div><div class="stay-body"><div class="stay-name">Townhouse with private patio</div><div class="stay-loc">Lisbon, Portugal</div><div class="stay-price">110 EUR <span>/ night</span></div></div></div>
+    <div class="policy-card">
+      <div class="policy-airline">Alaska Airlines</div>
+      <div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"></i> Cabin allowed</div>
+      <div class="policy-detail"><strong>Max 7 kg</strong> with carrier<br>Fee: $100 domestic<br>No dogs to Hawaii</div>
+      <div class="inline-cta">
+        <span class="cta-label">Flying to the Pacific NW?</span>
+        <a href="#" class="cta-link">Get travel insurance <i class="ti ti-external-link" aria-hidden="true"></i></a>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="page" id="page-policies">
-  <div class="policies-hero">
-    <h2>Airline pet policies</h2>
-    <p>Updated June 2026 - European routes - cabin and cargo rules at a glance</p>
-  </div>
-  <div class="policies-wrap">
-    <div class="policy-filters">
-      <button class="pf active">All airlines</button>
-      <button class="pf">Cabin allowed</button>
-      <button class="pf">From Romania</button>
-      <button class="pf">Under 8 kg</button>
+
+
+<hr class="divider">
+
+<div class="section">
+  <div class="insurance-banner">
+    <div class="insurance-text">
+      <h3>Pet travel insurance</h3>
+      <p>Covers vet emergencies abroad, trip cancellation if your pet gets sick, and denied boarding. From $3/day.</p>
     </div>
-    <table class="policy-table">
-      <thead><tr><th>Airline</th><th>Cabin</th><th>Max weight</th><th>Fee</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Austrian Airlines</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>65-125 EUR</td><td>Must book in advance by phone</td></tr>
-        <tr><td><strong>Animawings</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>55 EUR/segment</td><td>Romanian charter, up to 4-5 pets/flight</td></tr>
-        <tr><td><strong>airBaltic</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>110 EUR hold</td><td>Limited spots per flight</td></tr>
-        <tr><td><strong>Lufthansa</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>72 EUR Europe</td><td>Snub-nosed breeds cabin only, not hold</td></tr>
-        <tr><td><strong>Air France</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>125 EUR Europe</td><td>Book min. 48h before departure</td></tr>
-        <tr><td><strong>KLM</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>No hold on some Cityhopper Nov-Mar</td></tr>
-        <tr><td><strong>Vueling</strong></td><td><span class="dot-ok"></span>Yes</td><td>10 kg incl. carrier</td><td>50+ EUR</td><td>Up to 5 pets/flight, book online</td></tr>
-        <tr><td><strong>Iberia</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>40-60 EUR</td><td>One of most affordable in Europe</td></tr>
-        <tr><td><strong>TAP Air Portugal</strong></td><td><span class="dot-ok"></span>Yes</td><td>8 kg incl. carrier</td><td>Varies</td><td>Madeira/Azores: limited spots</td></tr>
-        <tr><td><strong>British Airways</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>800+ GBP</td><td>Cargo only via IAG/PetAir UK</td></tr>
-        <tr><td><strong>Ryanair</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Guide/assistance dogs only</td></tr>
-        <tr><td><strong>Wizz Air</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Guide/assistance dogs only</td></tr>
-        <tr><td><strong>Lauda Europe</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Ryanair subsidiary, same policy</td></tr>
-        <tr><td><strong>easyJet</strong></td><td><span class="dot-no"></span>No</td><td>-</td><td>-</td><td>Assistance dogs only</td></tr>
-      </tbody>
-    </table>
+    <button class="insurance-btn">Compare plans <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
 
-<div class="page" id="page-blog">
-  <div class="blog-hero"><h2>From the blog</h2><p>Guides, tips and real experiences for traveling with pets.</p></div>
+<hr class="divider">
+
+<div class="section">
+  <div class="section-head">
+    <div class="section-title">From the blog</div>
+    <div class="section-sub">Guides written for people who actually travel with their pets</div>
+  </div>
   <div class="blog-grid">
-    <div class="blog-card"><div class="blog-img">✈️</div><div class="blog-body"><div class="blog-cat">Flights</div><div class="blog-title">Which European airlines allow dogs in cabin in 2026?</div><div class="blog-excerpt">A complete guide to pet policies across 100+ European carriers, with weight limits, fees and real traveler tips.</div><div class="blog-meta">8 min read - June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🐾</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Best pet-friendly cities in Europe: a practical guide</div><div class="blog-excerpt">From Lisbon to Amsterdam, these cities make traveling with a dog genuinely easy. Parks, cafes, transport and more.</div><div class="blog-meta">6 min read - June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">📋</div><div class="blog-body"><div class="blog-cat">Documents</div><div class="blog-title">EU pet passport: what it is, how to get one, and when you need it</div><div class="blog-excerpt">Everything you need to know about the EU pet passport before booking any international trip with your dog or cat.</div><div class="blog-meta">5 min read - June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🏨</div><div class="blog-body"><div class="blog-cat">Stays</div><div class="blog-title">How to find truly pet-friendly accommodation</div><div class="blog-excerpt">There is a big difference between a place that tolerates pets and one that actually welcomes them.</div><div class="blog-meta">4 min read - June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">🇬🇧</div><div class="blog-body"><div class="blog-cat">Destinations</div><div class="blog-title">Flying with a dog to the UK: what changed after Brexit</div><div class="blog-excerpt">UK rules are stricter than EU. No cabin travel, AHC required, specific entry points only.</div><div class="blog-meta">7 min read - June 2026</div></div></div>
-    <div class="blog-card"><div class="blog-img">⚖️</div><div class="blog-body"><div class="blog-cat">Tips</div><div class="blog-title">How to weigh your pet carrier correctly before the airport</div><div class="blog-excerpt">Most airlines weigh pet plus carrier together. A few grams over limit can mean denied boarding.</div><div class="blog-meta">3 min read - June 2026</div></div></div>
+    <div class="blog-card">
+      <div class="blog-img"><i class="ti ti-plane" style="font-size:28px" aria-hidden="true"></i></div>
+      <div class="blog-body">
+        <div class="blog-cat">Policies</div>
+        <div class="blog-title">American Airlines pet policy 2026: the complete guide</div>
+        <div class="blog-meta">8 min read</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img"><i class="ti ti-file-certificate" style="font-size:28px" aria-hidden="true"></i></div>
+      <div class="blog-body">
+        <div class="blog-cat">Documents</div>
+        <div class="blog-title">APHIS health certificate: what it is and when you need it</div>
+        <div class="blog-meta">6 min read</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img"><i class="ti ti-shield-check" style="font-size:28px" aria-hidden="true"></i></div>
+      <div class="blog-body">
+        <div class="blog-cat">Insurance</div>
+        <div class="blog-title">Pet travel insurance: what it covers and when it's worth it</div>
+        <div class="blog-meta">5 min read</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="insurance-banner">
+    <div class="insurance-text">
+      <h3>Pet-friendly stays</h3>
+      <p>Find accommodation that genuinely welcomes your dog. Verified by hosts, not just marked "pets allowed".</p>
+    </div>
+    <button class="insurance-btn">Search stays <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
 
 <footer>
   <div class="footer-logo">travelwith.pet</div>
-  <div>2026 - Flights and stays for pet travelers</div>
+  <div class="footer-links">
+    <a href="#">Pet policies</a>
+    <a href="#">Entry rules</a>
+    <a href="#">Insurance</a>
+    <a href="#">About</a>
+  </div>
 </footer>
 
 <script>
-var AIRPORTS = [
-  {code:"OTP",city:"Bucharest",country:"Romania"},
-  {code:"CLJ",city:"Cluj-Napoca",country:"Romania"},
-  {code:"TSR",city:"Timisoara",country:"Romania"},
-  {code:"IAS",city:"Iasi",country:"Romania"},
-  {code:"SBZ",city:"Sibiu",country:"Romania"},
-  {code:"VIE",city:"Vienna",country:"Austria"},
-  {code:"GRZ",city:"Graz",country:"Austria"},
-  {code:"SZG",city:"Salzburg",country:"Austria"},
-  {code:"INN",city:"Innsbruck",country:"Austria"},
-  {code:"LHR",city:"London Heathrow",country:"UK"},
-  {code:"LGW",city:"London Gatwick",country:"UK"},
-  {code:"STN",city:"London Stansted",country:"UK"},
-  {code:"LCY",city:"London City",country:"UK"},
-  {code:"MAN",city:"Manchester",country:"UK"},
-  {code:"EDI",city:"Edinburgh",country:"UK"},
-  {code:"GLA",city:"Glasgow",country:"UK"},
-  {code:"BHX",city:"Birmingham",country:"UK"},
-  {code:"CDG",city:"Paris Charles de Gaulle",country:"France"},
-  {code:"ORY",city:"Paris Orly",country:"France"},
-  {code:"NCE",city:"Nice",country:"France"},
-  {code:"MRS",city:"Marseille",country:"France"},
-  {code:"LYS",city:"Lyon",country:"France"},
-  {code:"TLS",city:"Toulouse",country:"France"},
-  {code:"BOD",city:"Bordeaux",country:"France"},
-  {code:"AMS",city:"Amsterdam",country:"Netherlands"},
-  {code:"EIN",city:"Eindhoven",country:"Netherlands"},
-  {code:"BCN",city:"Barcelona",country:"Spain"},
-  {code:"MAD",city:"Madrid",country:"Spain"},
-  {code:"VLC",city:"Valencia",country:"Spain"},
-  {code:"AGP",city:"Malaga",country:"Spain"},
-  {code:"SVQ",city:"Seville",country:"Spain"},
-  {code:"IBZ",city:"Ibiza",country:"Spain"},
-  {code:"PMI",city:"Palma de Mallorca",country:"Spain"},
-  {code:"TFS",city:"Tenerife South",country:"Spain"},
-  {code:"LPA",city:"Gran Canaria",country:"Spain"},
-  {code:"ACE",city:"Lanzarote",country:"Spain"},
-  {code:"FCO",city:"Rome Fiumicino",country:"Italy"},
-  {code:"CIA",city:"Rome Ciampino",country:"Italy"},
-  {code:"MXP",city:"Milan Malpensa",country:"Italy"},
-  {code:"LIN",city:"Milan Linate",country:"Italy"},
-  {code:"BGY",city:"Milan Bergamo",country:"Italy"},
-  {code:"NAP",city:"Naples",country:"Italy"},
-  {code:"VCE",city:"Venice",country:"Italy"},
-  {code:"FLR",city:"Florence",country:"Italy"},
-  {code:"BLQ",city:"Bologna",country:"Italy"},
-  {code:"PSA",city:"Pisa",country:"Italy"},
-  {code:"BRI",city:"Bari",country:"Italy"},
-  {code:"CTA",city:"Catania",country:"Italy"},
-  {code:"PMO",city:"Palermo",country:"Italy"},
-  {code:"TRN",city:"Turin",country:"Italy"},
-  {code:"LIS",city:"Lisbon",country:"Portugal"},
-  {code:"OPO",city:"Porto",country:"Portugal"},
-  {code:"FAO",city:"Faro",country:"Portugal"},
-  {code:"FNC",city:"Funchal Madeira",country:"Portugal"},
-  {code:"PDL",city:"Ponta Delgada Azores",country:"Portugal"},
-  {code:"FRA",city:"Frankfurt",country:"Germany"},
-  {code:"MUC",city:"Munich",country:"Germany"},
-  {code:"BER",city:"Berlin",country:"Germany"},
-  {code:"HAM",city:"Hamburg",country:"Germany"},
-  {code:"DUS",city:"Dusseldorf",country:"Germany"},
-  {code:"CGN",city:"Cologne",country:"Germany"},
-  {code:"STR",city:"Stuttgart",country:"Germany"},
-  {code:"HAJ",city:"Hannover",country:"Germany"},
-  {code:"NUE",city:"Nuremberg",country:"Germany"},
-  {code:"DRS",city:"Dresden",country:"Germany"},
-  {code:"ZRH",city:"Zurich",country:"Switzerland"},
-  {code:"GVA",city:"Geneva",country:"Switzerland"},
-  {code:"BSL",city:"Basel",country:"Switzerland"},
-  {code:"BRU",city:"Brussels",country:"Belgium"},
-  {code:"CRL",city:"Brussels Charleroi",country:"Belgium"},
-  {code:"CPH",city:"Copenhagen",country:"Denmark"},
-  {code:"ARN",city:"Stockholm",country:"Sweden"},
-  {code:"GOT",city:"Gothenburg",country:"Sweden"},
-  {code:"OSL",city:"Oslo",country:"Norway"},
-  {code:"HEL",city:"Helsinki",country:"Finland"},
-  {code:"RIX",city:"Riga",country:"Latvia"},
-  {code:"TLL",city:"Tallinn",country:"Estonia"},
-  {code:"VNO",city:"Vilnius",country:"Lithuania"},
-  {code:"WAW",city:"Warsaw",country:"Poland"},
-  {code:"KRK",city:"Krakow",country:"Poland"},
-  {code:"GDN",city:"Gdansk",country:"Poland"},
-  {code:"KTW",city:"Katowice",country:"Poland"},
-  {code:"POZ",city:"Poznan",country:"Poland"},
-  {code:"WRO",city:"Wroclaw",country:"Poland"},
-  {code:"PRG",city:"Prague",country:"Czech Republic"},
-  {code:"BRQ",city:"Brno",country:"Czech Republic"},
-  {code:"BTS",city:"Bratislava",country:"Slovakia"},
-  {code:"BUD",city:"Budapest",country:"Hungary"},
-  {code:"SOF",city:"Sofia",country:"Bulgaria"},
-  {code:"VAR",city:"Varna",country:"Bulgaria"},
-  {code:"BOJ",city:"Burgas",country:"Bulgaria"},
-  {code:"ATH",city:"Athens",country:"Greece"},
-  {code:"SKG",city:"Thessaloniki",country:"Greece"},
-  {code:"HER",city:"Heraklion",country:"Greece"},
-  {code:"RHO",city:"Rhodes",country:"Greece"},
-  {code:"CFU",city:"Corfu",country:"Greece"},
-  {code:"IST",city:"Istanbul",country:"Turkey"},
-  {code:"SAW",city:"Istanbul Sabiha",country:"Turkey"},
-  {code:"AYT",city:"Antalya",country:"Turkey"},
-  {code:"DUB",city:"Dublin",country:"Ireland"},
-  {code:"ORK",city:"Cork",country:"Ireland"},
-  {code:"ZAG",city:"Zagreb",country:"Croatia"},
-  {code:"SPU",city:"Split",country:"Croatia"},
-  {code:"DBV",city:"Dubrovnik",country:"Croatia"},
-  {code:"LJU",city:"Ljubljana",country:"Slovenia"},
-  {code:"BEG",city:"Belgrade",country:"Serbia"},
-  {code:"TIA",city:"Tirana",country:"Albania"},
-  {code:"SKP",city:"Skopje",country:"North Macedonia"},
-  {code:"KIV",city:"Chisinau",country:"Moldova"},
-  {code:"TGD",city:"Podgorica",country:"Montenegro"},
-  {code:"TIV",city:"Tivat",country:"Montenegro"},
-  {code:"SJJ",city:"Sarajevo",country:"Bosnia"},
-  {code:"GYD",city:"Baku",country:"Azerbaijan"},
-  {code:"TBS",city:"Tbilisi",country:"Georgia"},
-  {code:"EVN",city:"Yerevan",country:"Armenia"},
-  {code:"KBP",city:"Kyiv Boryspil",country:"Ukraine"},
-  {code:"LWO",city:"Lviv",country:"Ukraine"}
-];
+function switchTab(tab) {
+  var petPanel = document.getElementById('panel-pet');
+  var flightPanel = document.getElementById('panel-flight');
+  var tabPet = document.getElementById('tab-pet');
+  var tabFlight = document.getElementById('tab-flight');
 
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
-  document.getElementById('page-' + page).classList.add('active');
-  document.getElementById('nav-' + page).classList.add('active');
-  window.scrollTo(0, 0);
+  if (tab === 'pet') {
+    petPanel.style.display = 'block';
+    flightPanel.style.display = 'none';
+    tabPet.classList.add('active');
+    tabFlight.classList.remove('active');
+    tabPet.setAttribute('aria-selected', 'true');
+    tabFlight.setAttribute('aria-selected', 'false');
+  } else {
+    petPanel.style.display = 'none';
+    flightPanel.style.display = 'block';
+    tabPet.classList.remove('active');
+    tabFlight.classList.add('active');
+    tabPet.setAttribute('aria-selected', 'false');
+    tabFlight.setAttribute('aria-selected', 'true');
+  }
 }
 
-document.querySelectorAll('.pf').forEach(function(btn) {
+function doSearch() {
+  var dog = document.getElementById('jrt');
+  dog.classList.add('spinning');
+  setTimeout(function() { dog.classList.remove('spinning'); }, 2000);
+}
+
+document.querySelectorAll('.ptag').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    document.querySelectorAll('.pf').forEach(function(b) { b.classList.remove('active'); });
-    this.classList.add('active');
+    var airline = this.textContent.trim();
+    document.getElementById('pet-origin').value = 'New York (JFK)';
   });
 });
-
-function pickDest(code, city) {
-  var input = document.getElementById('search-dest');
-  input.value = city + ' (' + code + ')';
-  input.dataset.code = code;
-  document.getElementById('search-date').focus();
-}
-
-function acSearch(inputEl, dropdownId) {
-  var q = inputEl.value.toLowerCase().trim();
-  var dd = document.getElementById(dropdownId);
-  if (!q || q.length < 1) { dd.style.display = 'none'; return; }
-  var matches = AIRPORTS.filter(function(a) {
-    return a.code.toLowerCase().indexOf(q) === 0 ||
-           a.city.toLowerCase().indexOf(q) !== -1 ||
-           a.country.toLowerCase().indexOf(q) !== -1;
-  }).slice(0, 8);
-  if (matches.length === 0) { dd.style.display = 'none'; return; }
-  dd.innerHTML = matches.map(function(a) {
-    return '<div class="ac-item" onmousedown="selectAc(\'' + dropdownId + '\',\'' + a.code + '\',\'' + a.city + '\')">' +
-      '<span class="ac-code">' + a.code + '</span>' +
-      '<span class="ac-city">' + a.city + '</span>' +
-      '<span class="ac-country">' + a.country + '</span>' +
-      '</div>';
-  }).join('');
-  dd.style.display = 'block';
-}
-
-function selectAc(dropdownId, code, city) {
-  var isOrigin = dropdownId === 'ac-origin';
-  var inputEl = document.getElementById(isOrigin ? 'search-origin' : 'search-dest');
-  inputEl.value = city + ' (' + code + ')';
-  inputEl.dataset.code = code;
-  document.getElementById(dropdownId).style.display = 'none';
-}
-
-function hideAc(dropdownId) {
-  setTimeout(function() {
-    var dd = document.getElementById(dropdownId);
-    if (dd) dd.style.display = 'none';
-  }, 200);
-}
-
-document.getElementById('search-origin').addEventListener('input', function() { acSearch(this, 'ac-origin'); });
-document.getElementById('search-origin').addEventListener('focus', function() { acSearch(this, 'ac-origin'); });
-document.getElementById('search-origin').addEventListener('blur', function() { hideAc('ac-origin'); });
-document.getElementById('search-dest').addEventListener('input', function() { acSearch(this, 'ac-dest'); });
-document.getElementById('search-dest').addEventListener('focus', function() { acSearch(this, 'ac-dest'); });
-document.getElementById('search-dest').addEventListener('blur', function() { hideAc('ac-dest'); });
-
-async function doSearch() {
-  var originInput = document.getElementById('search-origin');
-  var destInput = document.getElementById('search-dest');
-  var origin = originInput.dataset.code;
-  if (!origin) {
-    var m = originInput.value.match(/\(([A-Z]{3})\)/);
-    origin = m ? m[1] : originInput.value.trim().toUpperCase().slice(0,3);
-  }
-  var dest = destInput.dataset.code;
-  if (!dest) {
-    var m2 = destInput.value.match(/\(([A-Z]{3})\)/);
-    dest = m2 ? m2[1] : destInput.value.trim().toUpperCase().slice(0,3);
-  }
-  var date = document.getElementById('search-date').value;
-  var returnDate = document.getElementById('search-return').value;
-  var weight = document.getElementById('search-weight').value;
-
-  if (!dest || dest.length < 3) { alert('Please enter a destination airport.'); return; }
-  if (!date) { alert('Please pick a travel date.'); return; }
-
-  var cards = document.getElementById('flight-cards');
-  var title = document.getElementById('results-title');
-  var sub = document.getElementById('results-sub');
-
-  cards.innerHTML = '<div class="msg">Searching pet-friendly flights...</div>';
-  title.textContent = 'Searching...';
-  sub.textContent = origin + ' to ' + dest;
-
-  try {
-    var url = '/api/search?origin=' + origin + '&destination=' + dest + '&date=' + date + '&petWeight=' + weight;
-    if (returnDate) url += '&returnDate=' + returnDate;
-    var res = await fetch(url);
-    var data = await res.json();
-
-    if (!data.offers || data.offers.length === 0) {
-      cards.innerHTML = '<div class="msg">No pet-friendly flights found. Try another destination or date.</div>';
-      title.textContent = 'No results';
-      return;
-    }
-
-    title.textContent = 'Pet-friendly flights ' + origin + ' to ' + dest;
-    sub.textContent = weight + ' kg max - cabin only';
-
-    var searchDate = date;
-    cards.innerHTML = data.offers.map(function(o) {
-      var dur = o.duration ? o.duration.replace('PT','').replace('H','h ').replace('M','m') : '';
-      var retDur = o.returnDuration ? o.returnDuration.replace('PT','').replace('H','h ').replace('M','m') : '';
-      var routeLabel = o.origin + ' - ' + o.destination;
-      if (o.isRoundTrip) routeLabel += ' / ' + o.destination + ' - ' + o.origin;
-      if (dur) routeLabel += ' - ' + dur;
-      if (retDur) routeLabel += ' / ' + retDur;
-      var stopsLabel = o.stops === 0 ? 'Direct' : o.stops + ' stop' + (o.stops > 1 ? 's' : '');
-      return '<div class="card">' +
-        '<div class="card-airline">' + o.airline + '</div>' +
-        '<div class="card-route">' + routeLabel + '</div>' +
-        '<div style="display:flex;gap:6px;margin-bottom:10px">' +
-        '<div class="badge badge-ok">Cabin allowed</div>' +
-        '<div class="badge" style="background:#f0f0f0;color:#555">' + stopsLabel + '</div>' +
-        '</div>' +
-        '<div class="card-price">' + parseFloat(o.price).toFixed(0) + ' ' + o.currency + '</div>' +
-        '<div class="card-fee">+ ' + (o.petFee || '?') + ' ' + (o.petFeeCurrency || 'EUR') + ' pet fee' + (o.isRoundTrip ? ' (both ways)' : '') + '</div>' +
-        '<a href="https://www.kiwi.com/en/search/results/' + o.origin + '/' + o.destination + '/' + (searchDate || '') + '?affilid=540570" target="_blank" style="display:block;text-decoration:none"><button class="card-btn" style="width:100%;cursor:pointer">View on Kiwi.com</button></a>' +
-        '</div>';
-    }).join('');
-
-  } catch(err) {
-    cards.innerHTML = '<div class="msg" style="color:#A32D2D">Something went wrong. Please try again.</div>';
-    title.textContent = 'Error';
-    console.error(err);
-  }
-}
 </script>
 </body>
 </html>
