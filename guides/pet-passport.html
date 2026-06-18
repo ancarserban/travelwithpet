@@ -6,6 +6,7 @@
   <title>Pet Passport: What It Is, How to Get One, and Where It's Required</title>
   <meta name="description" content="Everything you need to know about pet passports: what they contain, which countries require them, how to get one for your dog or cat, and what to do if you're traveling outside the EU." />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><ellipse cx='8' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='14' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='5' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='17' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='11' cy='14' rx='5' ry='5.5' fill='%23C47B3A'/></svg>" />
   <link rel="canonical" href="https://travelwith.pet/guides/pet-passport" />
   <style>
@@ -26,11 +27,11 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--serif);
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--black);
-      font-size: 18px;
-      line-height: 1.75;
+      font-size: 17px;
+      line-height: 1.72;
     }
 
     /* progress bar */
@@ -82,13 +83,15 @@
       margin: 2rem 0 0.75rem;
     }
     h1 {
-      font-family: var(--sans);
-      font-size: clamp(26px, 4vw, 36px);
-      font-weight: 700; line-height: 1.15;
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 600; line-height: 1.15;
       margin-bottom: 1.25rem;
     }
     .intro {
       font-size: 18px; line-height: 1.7;
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
       color: #4A3C36;
       border-left: 3px solid var(--tan);
       padding-left: 1.25rem;
@@ -132,8 +135,8 @@
     /* sections */
     section { margin-bottom: 2.75rem; }
     h2 {
-      font-family: var(--sans);
-      font-size: 22px; font-weight: 700;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 22px; font-weight: 600;
       margin: 2.5rem 0 0.875rem;
       padding-top: 2.5rem;
       border-top: 0.5px solid var(--border);
@@ -237,10 +240,38 @@
       nav { padding: 0.875rem 1rem; }
       .nav-links { display: none; }
       body { font-size: 16px; }
-      h1 { font-size: 24px; }
+      h1 { font-size: 26px; }
       th, td { padding: 6px 8px; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .blog-grid { grid-template-columns: 1fr; }
     }
+
+    /* Badge */
+    .pbadge { display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;font-family:var(--sans); }
+    .badge-updated { background:#FFF4E0;color:#8A5700;border:1px solid #E8C49A; }
+
+    /* Inline CTA bar */
+    .inline-cta-bar { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--tan-bg);border-left:3px solid var(--tan);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.5rem 0;font-family:var(--sans);font-size:14px; }
+    .inline-cta-bar p { margin:0;line-height:1.5; }
+    .inline-cta-btn { background:var(--tan);color:white;text-decoration:none;font-size:13px;font-weight:500;padding:8px 16px;border-radius:50px;white-space:nowrap; }
+    .inline-cta-btn:hover { background:#a8652f;text-decoration:none; }
+
+    /* Related articles */
+    .related-section { max-width:700px;margin:2rem auto 0;padding:0 1.5rem 3rem;font-family:var(--sans); }
+    .related-title { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:1rem;border-top:0.5px solid var(--border);padding-top:2rem; }
+    .blog-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
+    .blog-card { background:var(--bg);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;text-decoration:none;display:block; }
+    .blog-card:hover { box-shadow:0 2px 12px rgba(44,36,32,0.08); }
+    .blog-img { height:100px;background:var(--tan-bg);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--tan); }
+    .blog-body { padding:0.875rem; }
+    .blog-cat { font-size:10px;color:var(--tan);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px; }
+    .blog-title { font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;color:var(--black); }
+    .blog-meta { font-size:11px;color:var(--muted); }
+
+    /* Mascot animation */
+    @keyframes jackWiggle { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+    .dog-idle { transform-origin:50px 60px;animation:jackWiggle 1.6s ease-in-out infinite; }
+    @media (prefers-reduced-motion:reduce) { .dog-idle { animation:none; } }
   </style>
 </head>
 <body>
@@ -279,8 +310,7 @@
   <p class="intro">A pet passport is an official document that proves your dog or cat has met the health and vaccination requirements to enter another country. It's not a single global standard: what counts as a "pet passport" depends on where you're traveling from and where you're going.</p>
 
   <div class="meta">
-    <span>Last updated: June 2026</span>
-    <span>·</span>
+    <span class="pbadge badge-updated">Updated June 2026</span>
     <span>10 min read</span>
     <span>·</span>
     <span>Dogs &amp; cats</span>
@@ -306,7 +336,7 @@
     <h2>What Is a Pet Passport?</h2>
     <p>A pet passport is an official booklet or document issued by a licensed veterinarian that records your pet's identity, microchip number, vaccinations, and health status. It serves as proof that your animal has met the entry requirements of the destination country.</p>
     <p>The term "pet passport" is used most formally within the European Union, where it's a standardized blue booklet valid across all 27 member states. Outside the EU, the equivalent is typically an official health certificate issued by an accredited or government-authorized veterinarian, sometimes endorsed by a national authority (like the USDA in the United States).</p>
-    <p>Pet passports apply to dogs, cats, and ferrets in most countries. Some destinations have different rules for other animals . This guide focuses on dogs and cats.</p>
+    <p>Pet passports apply to dogs, cats, and ferrets in most countries. Some destinations have different rules for other animals. This guide focuses on dogs and cats.</p>
   </section>
 
   <section id="eu">
@@ -315,7 +345,7 @@
     <h3>Where is it valid?</h3>
     <p>The EU pet passport is accepted across all 27 EU member states, plus Norway, Iceland, Liechtenstein, Switzerland, and Andorra. It is <strong>not accepted</strong> for entering the UK (since Brexit), Australia, New Zealand, Japan, or the United States.</p>
     <h3>Who can issue one?</h3>
-    <p>Only veterinarians officially authorized by the relevant national authority in each EU country. Call ahead to confirm before booking an appointment Not every vet is registered for this.</p>
+    <p>Only veterinarians officially authorized by the relevant national authority in each EU country. Call ahead to confirm before booking an appointment. Not every vet is registered for this.</p>
   </section>
 
   <section id="non-eu">
@@ -325,7 +355,7 @@
     <h3>United Kingdom</h3>
     <p>After Brexit, UK residents traveling to EU countries need an <strong>Animal Health Certificate (AHC)</strong>, issued by an Official Veterinarian no more than 10 days before travel. Each trip requires a new AHC.</p>
     <h3>Canada, Australia, and others</h3>
-    <p>Most countries use a government-issued or government-endorsed health certificate system. Australia and New Zealand have particularly strict requirements including mandatory quarantine Check requirements well in advance.</p>
+    <p>Most countries use a government-issued or government-endorsed health certificate system. Australia and New Zealand have particularly strict requirements including mandatory quarantine. Check requirements well in advance.</p>
   </section>
 
   <section id="contains">
@@ -394,6 +424,10 @@
       </table>
     </div>
     <p>Always verify requirements with the official veterinary authority of your destination before travel.</p>
+    <div class="inline-cta-bar">
+      <p><strong>Check your route now.</strong> See which airlines accept your pet in cabin on your specific route.</p>
+      <a href="/" class="inline-cta-btn">Search pet-friendly flights →</a>
+    </div>
   </section>
 
   <section id="microchip">
@@ -467,11 +501,66 @@
   </section>
 
   <div class="cta-block">
+    <div style="margin-bottom:1.25rem;">
+      <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g class="dog-idle">
+          <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
+          <path d="M29,43 Q30,36 33,26 L43,26 Q45,35 43,41 Q36,44 29,43Z" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+          <path d="M53,41 Q58,30 64,14 Q69,30 71,43Z" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+          <path d="M32,41 Q32,36 35,27 L42,27 Q44,34 41,39 Q36,42 32,41Z" fill="#C47B3A"/>
+          <path d="M56,40 Q59,31 63,18 Q67,31 68,41Z" fill="#C47B3A"/>
+          <path d="M33,26 Q37,34 38,40 Q39,34 43,26Z" fill="#F0E4D4" stroke="#E8C49A" stroke-width="0.8"/>
+          <path d="M35,26 Q37,31 38,37 Q39,31 41,26Z" fill="#C47B3A"/>
+          <path d="M33,26 L43,26" fill="none" stroke="#C47B3A" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+          <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
+          <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
+          <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
+          <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
+          <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
+          <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
+          <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
+          <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
+          <path d="M76,68 C81,71 94,66 89,60" fill="none" stroke="#C47B3A" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
     <h2>Ready to Book a Pet-Friendly Flight?</h2>
     <p>Once your documents are in order, find a flight on an airline that accepts your pet in the cabin. Our search filters by pet policy so you only see airlines that allow your pet on board.</p>
     <a href="/" class="cta-btn">Search pet-friendly flights</a>
   </div>
 
+</div>
+
+<div class="related-section">
+  <p class="related-title">More guides</p>
+  <div class="blog-grid">
+    <a href="#" class="blog-card">
+      <div class="blog-img"><i class="ti ti-plane" aria-hidden="true"></i></div>
+      <div class="blog-body">
+        <div class="blog-cat">Policies</div>
+        <div class="blog-title">American Airlines pet policy 2026: the complete guide</div>
+        <div class="blog-meta">8 min read</div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-img"><i class="ti ti-file-certificate" aria-hidden="true"></i></div>
+      <div class="blog-body">
+        <div class="blog-cat">Documents</div>
+        <div class="blog-title">APHIS health certificate: what it is and when you need it</div>
+        <div class="blog-meta">6 min read</div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-img"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+      <div class="blog-body">
+        <div class="blog-cat">Insurance</div>
+        <div class="blog-title">Pet travel insurance: what it covers and when it's worth it</div>
+        <div class="blog-meta">5 min read</div>
+      </div>
+    </a>
+  </div>
 </div>
 
 <footer>
