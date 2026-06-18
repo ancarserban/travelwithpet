@@ -6,7 +6,9 @@
   <title>travelwith.pet: Can my dog fly on this route?</title>
   <meta name="description" content="The only flight search that starts with your pet. Check airline pet policies, entry rules, and find pet-friendly stays." />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'><ellipse cx='8' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='14' cy='5' rx='2.5' ry='3' fill='%23C47B3A'/><ellipse cx='5' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='17' cy='10' rx='2' ry='2.5' fill='%23C47B3A'/><ellipse cx='11' cy='14' rx='5' ry='5.5' fill='%23C47B3A'/></svg>" />
+  <meta name='impact-site-verification' value='5d265320-d8eb-482d-b289-2fefc956e151'>
   <meta name="robots" content="index, follow" />
   <meta name="author" content="travelwith.pet" />
   <meta property="og:type" content="website" />
@@ -44,9 +46,11 @@
     /* HERO */
     .hero { padding:3rem 2rem 0;text-align:center;max-width:780px;margin:0 auto; }
     .hero-eyebrow { font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--tan);margin-bottom:0.75rem; }
-    .hero h1 { font-size:32px;font-weight:500;line-height:1.2;margin-bottom:0.75rem; }
+    .hero h1 { font-size:46px;font-weight:600;line-height:1.15;font-family:'Lora',Georgia,serif;margin-bottom:0.75rem; }
     .hero h1 span { color:var(--tan); }
-    .hero p { font-size:15px;color:var(--muted);margin-bottom:2rem;line-height:1.6; }
+    .hero p { font-size:15px;color:var(--muted);margin-bottom:0.75rem;line-height:1.6; }
+    .hero-stats { display:flex;gap:10px;justify-content:center;align-items:center;font-size:12px;color:var(--muted);margin-bottom:1.75rem; }
+    .hero-stats .stat-dot { color:var(--border-strong); }
 
     /* TABS */
     .tabs { display:flex;border:0.5px solid var(--border-light);border-radius:50px;background:var(--bg2);padding:3px;max-width:280px;margin:0 auto 1.5rem; }
@@ -55,7 +59,7 @@
 
     /* SEARCH BOX */
     .search-panel { max-width:768px;margin:0 auto 1rem; }
-    .search-box { background:var(--bg);border:0.5px solid var(--border-strong);border-radius:var(--radius-xl);padding:1.25rem 1.5rem;box-shadow:0 2px 12px rgba(44,36,32,0.06); }
+    .search-box { background:var(--bg);border:1px solid var(--border-strong);border-radius:var(--radius-xl);padding:1.25rem 1.5rem;box-shadow:0 2px 18px rgba(44,36,32,0.09); }
 
     .search-row { display:grid;gap:0;align-items:center; }
     .search-row.row1 { grid-template-columns:1fr 1fr 1fr; }
@@ -77,7 +81,7 @@
 
     /* POPULAR TAGS */
     .popular-tags { display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:1rem 0 0.5rem; }
-    .ptag { font-size:12px;color:var(--muted);border:0.5px solid var(--border-light);padding:3px 12px;border-radius:20px;cursor:pointer;background:none;font-family:var(--font-sans); }
+    .ptag { font-size:12px;color:var(--muted);border:0.5px solid var(--border-light);padding:3px 12px;border-radius:20px;cursor:pointer;background:none;font-family:var(--font-sans);white-space:nowrap; }
     .ptag:hover { border-color:var(--tan);color:var(--tan); }
 
     /* Spinning Jack — three states only */
@@ -105,12 +109,17 @@
     .policy-card:hover { box-shadow:0 2px 10px rgba(44,36,32,0.08); }
     .policy-card.card-no { opacity:0.65; }
     .policy-airline { font-size:13px;font-weight:500;margin-bottom:6px; }
-    .pbadge { display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:20px;margin-bottom:8px; }
-    .badge-ok { background:#E1F5EE;color:#0F6E56; }
-    .badge-no { background:#FCEBEB;color:#A32D2D; }
+    .pbadge { display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:4px 10px;border-radius:20px;margin-bottom:10px; }
+    .badge-ok { background:#D0F0E4;color:#0A5E47;border:1px solid #A8DFC8; }
+    .badge-no { background:#FDDEDE;color:#8F1F1F;border:1px solid #F5BABA; }
     .badge-warn { background:#FFF4E0;color:#8A5700; }
-    .jack-verdict { font-size:11px;font-weight:500;color:#0F6E56;letter-spacing:0.02em;margin-bottom:6px; }
+    .jack-verdict { display:none; }
     .policy-detail { font-size:12px;color:var(--muted);line-height:1.65; }
+    .card-primary { display:flex;gap:12px;margin-bottom:8px; }
+    .card-primary-item { flex:1;min-width:0; }
+    .card-primary-label { display:block;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:2px; }
+    .card-primary-val { display:block;font-size:15px;font-weight:600;color:var(--text); }
+    .card-secondary { font-size:11px;color:var(--muted);line-height:1.6; }
     .policy-detail strong { color:var(--text); }
     .policy-detail .warn { color:#8A5700; }
     .inline-cta { margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border-light);display:flex;align-items:center;justify-content:space-between; }
@@ -144,7 +153,7 @@
 
     .blog-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
     .blog-card { background:var(--bg);border:0.5px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden; }
-    .blog-img { height:90px;background:var(--tan-bg);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--tan); }
+    .blog-img { height:120px;background:var(--tan-bg);display:flex;align-items:center;justify-content:center;font-size:38px;color:var(--tan); }
     .blog-body { padding:0.875rem; }
     .blog-cat { font-size:10px;color:var(--tan);font-weight:500;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px; }
     .blog-title { font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px; }
@@ -221,6 +230,13 @@
   <div class="hero-eyebrow">The only search that starts with your pet</div>
   <h1>Can my dog fly <span>on this route?</span></h1>
   <p>Enter your pet's details. We filter the airlines, check the policies, and show you what's actually possible.</p>
+  <div class="hero-stats">
+    <span>12 airlines</span>
+    <span class="stat-dot">·</span>
+    <span>20+ countries</span>
+    <span class="stat-dot">·</span>
+    <span>Policies verified June 2026</span>
+  </div>
 
   <div class="tabs" role="tablist">
     <button class="tab active" id="tab-pet" role="tab" aria-selected="true" onclick="switchTab('pet')">Your pet</button>
@@ -283,7 +299,7 @@
             </select>
           </div>
         </div>
-        <div class="search-row row2" style="grid-template-columns:1fr 1fr 1fr 120px;">
+        <div class="search-row row2" style="grid-template-columns:1fr 1fr 1.8fr 140px;">
           <div class="sf">
             <label for="pet-species">Species</label>
             <select id="pet-species">
@@ -370,14 +386,17 @@
 </div>
 
 <div class="dog-wrap">
-  <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spinning Jack, the travelwith.pet mascot">
+  <svg width="108" height="108" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spinning Jack, the travelwith.pet mascot">
     <title>Spinning Jack</title>
     <g id="jrt" class="dog-idle">
       <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
-      <ellipse cx="38" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-      <ellipse cx="62" cy="30" rx="8" ry="12" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
-      <ellipse cx="38" cy="28" rx="5" ry="8" fill="#C47B3A"/>
-      <ellipse cx="62" cy="28" rx="5" ry="8" fill="#C47B3A"/>
+      <path d="M29,43 Q30,36 33,26 L43,26 Q45,35 43,41 Q36,44 29,43Z" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+      <path d="M53,41 Q58,30 64,14 Q69,30 71,43Z" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+      <path d="M32,41 Q32,36 35,27 L42,27 Q44,34 41,39 Q36,42 32,41Z" fill="#C47B3A"/>
+      <path d="M56,40 Q59,31 63,18 Q67,31 68,41Z" fill="#C47B3A"/>
+      <path d="M33,26 Q37,34 38,40 Q39,34 43,26Z" fill="#F0E4D4" stroke="#E8C49A" stroke-width="0.8"/>
+      <path d="M35,26 Q37,31 38,37 Q39,31 41,26Z" fill="#C47B3A"/>
+      <path d="M33,26 L43,26" fill="none" stroke="#C47B3A" stroke-width="2.5" stroke-linecap="round"/>
       <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
       <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
       <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
@@ -388,9 +407,8 @@
       <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
       <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
       <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
+      <path d="M76,68 C81,71 94,66 89,60" fill="none" stroke="#C47B3A" stroke-width="4" stroke-linecap="round"/>
     </g>
-    <path d="M76 72 Q88 64 91 76 Q89 83 78 79" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
-    <path d="M80 73 Q86 68 88 76" stroke="#C47B3A" stroke-width="1" fill="none" stroke-linecap="round"/>
   </svg>
 </div>
 
@@ -664,34 +682,36 @@ function renderResults(results, species, userLbs, destCode, filterAirline) {
       card.dataset.status = r.cabinOk ? 'ok' : 'no';
 
       var badge = r.cabinOk
-        ? '<div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"><\/i> Cabin allowed<\/div>' +
-          '<div class="jack-verdict">Cleared for takeoff.<\/div>'
+        ? '<div class="pbadge badge-ok"><i class="ti ti-circle-check" aria-hidden="true"><\/i> Cabin allowed<\/div>'
         : '<div class="pbadge badge-no"><i class="ti ti-circle-x" aria-hidden="true"><\/i> Cabin not allowed<\/div>';
 
       var details = '';
       if (r.cabinOk) {
-        if (r.policy.wt_lbs) details += '<strong>Max ' + r.policy.wt_lbs + ' lbs<\/strong> (' + r.policy.wt_kg + ' kg) with carrier<br>';
-        var soft = r.policy.carrier_soft ? cmToIn(r.policy.carrier_soft) + ' (soft)' : null;
-        var hard = r.policy.carrier_hard ? cmToIn(r.policy.carrier_hard) + ' (hard)' : null;
-        if (soft && hard && soft !== hard) details += 'Carrier max: ' + soft + '<br>Carrier max: ' + hard + '<br>';
-        else if (soft) details += 'Carrier max: ' + soft + '<br>';
-        else if (hard) details += 'Carrier max: ' + hard + '<br>';
-        // Fee: skip if value is TRUE/FALSE (data artifact from CSV column shift)
+        // Primary: weight + fee
         var fee = r.policy.fee;
-        if (fee && fee !== 'TRUE' && fee !== 'FALSE') details += 'Fee: $' + fee + ' each way<br>';
-        else if (fee === 'TRUE' || fee === 'FALSE') details += 'Fee: see official policy<br>';
-        // Max pets: only show if it's a meaningful string, not just a bare number
+        var feeStr = (fee && fee !== 'TRUE' && fee !== 'FALSE') ? '$' + fee : (fee === 'TRUE' || fee === 'FALSE') ? 'See policy' : null;
+        var primary = '<div class="card-primary">';
+        if (r.policy.wt_lbs) primary += '<div class="card-primary-item"><span class="card-primary-label">Max weight<\/span><span class="card-primary-val">' + r.policy.wt_lbs + ' lbs<\/span><\/div>';
+        if (feeStr) primary += '<div class="card-primary-item"><span class="card-primary-label">Fee each way<\/span><span class="card-primary-val">' + feeStr + '<\/span><\/div>';
+        primary += '<\/div>';
+        details += primary;
+        // Secondary: carrier dims + limits
+        var soft = r.policy.carrier_soft ? cmToIn(r.policy.carrier_soft) : null;
+        var hard = r.policy.carrier_hard ? cmToIn(r.policy.carrier_hard) : null;
+        var secondary = [];
+        if (soft && hard && soft !== hard) secondary.push('Soft ' + soft + ' · Hard ' + hard);
+        else if (soft) secondary.push('Carrier: ' + soft);
+        else if (hard) secondary.push('Carrier: ' + hard);
         var mp = r.policy.max_pets;
         if (mp) {
           var mpStr = String(mp).trim();
-          // If it's just a number, add context
-          if (/^\d+$/.test(mpStr)) details += 'Max ' + mpStr + ' carriers per flight<br>';
-          else details += mpStr + '<br>';
+          if (/^\d+$/.test(mpStr)) secondary.push('Max ' + mpStr + ' carriers/flight');
+          else secondary.push(mpStr);
         }
-        if (r.warnings.length) r.warnings.forEach(function(w){ details += '<span class="warn"><i class="ti ti-alert-triangle"><\/i> '+w+'<\/span><br>'; });
+        if (secondary.length) details += '<div class="card-secondary">' + secondary.join('<br>') + '<\/div>';
+        if (r.warnings.length) r.warnings.forEach(function(w){ details += '<div class="warn" style="font-size:11px;margin-top:6px;"><i class="ti ti-alert-triangle"><\/i> '+w+'<\/div>'; });
       } else {
         if (r.issues.length) details += r.issues.join(' · ') + '<br>';
-        // show a short note if available
         if (r.policy.notes) {
           var shortNote = r.policy.notes.substring(0,90);
           if (r.policy.notes.length > 90) shortNote += '…';
