@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Travel with a Cat: Planes, Cars, Carriers, and Keeping Them Calm</title>
+  <meta name="description" content="A practical guide to traveling with a cat: how to fly with a cat in the cabin, how to do a long car trip, choosing a carrier, the litter and food logistics, and whether to sedate. Built for real trips, not theory." />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='9' r='6' fill='%23FAFAF8'/><ellipse cx='5' cy='5.5' rx='2.5' ry='3.5' fill='%23C47B3A'/><ellipse cx='11' cy='5.5' rx='2.5' ry='3.5' fill='%23C47B3A'/><ellipse cx='5' cy='9' rx='3.5' ry='3' fill='%23C47B3A'/><circle cx='8' cy='9' r='4.5' fill='%23FAFAF8'/><circle cx='6.2' cy='8.2' r='1.1' fill='%231A1A18'/><circle cx='9.8' cy='8.2' r='1.1' fill='%231A1A18'/><ellipse cx='8' cy='10.5' rx='1.2' ry='0.9' fill='%231A1A18'/></svg>" />
+  <!-- slug: /guides/how-to-travel-with-a-cat -->
+  <link rel="canonical" href="https://travelwith.pet/guides/how-to-travel-with-a-cat" />
+  <meta name="impact-site-verification" value="5d265320-d8eb-482d-b289-2fefc956e151">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --tan: #C47B3A; --tan-bg: #FBF3EA; --tan-light: #E8C49A;
+      --black: #2C2420; --muted: #7A6A62; --border: #E8DDD8; --bg: #FFFDFB;
+      --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--black); font-size: 17px; line-height: 1.72; }
+
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--tan); z-index: 999; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; font-size: 13px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); border-bottom: 2px solid var(--tan); padding-bottom: 2px; }
+
+    .page { max-width: 700px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+    .breadcrumb { font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; padding: 1.25rem 0 0; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--tan); }
+
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tan); margin: 2rem 0 0.75rem; }
+    h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(28px, 4vw, 40px); font-weight: 600; line-height: 1.15; margin-bottom: 1.25rem; }
+    .intro { font-size: 18px; line-height: 1.7; font-family: 'Lora', Georgia, serif; font-style: italic; color: #4A3C36; border-left: 3px solid var(--tan); padding-left: 1.25rem; margin-bottom: 1rem; }
+    .meta { font-size: 12px; color: var(--muted); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding-bottom: 1.5rem; border-bottom: 0.5px solid var(--border); margin-bottom: 1.75rem; }
+
+    .toc { margin-bottom: 2.5rem; }
+    .toc-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .toc ol { list-style: none; padding: 0; border-top: 1.5px solid var(--tan); padding-top: 0.75rem; }
+    .toc ol li { padding: 2px 0; }
+    .toc ol li a { font-size: 14px; color: var(--black); text-decoration: none; display: block; line-height: 1.6; }
+    .toc ol li a:hover { color: var(--tan); }
+
+    section { margin-bottom: 2.75rem; }
+    h2 { font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 600; margin: 2.5rem 0 0.875rem; padding-top: 2.5rem; border-top: 0.5px solid var(--border); }
+    h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+    h3 { font-size: 16px; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--tan); }
+    a:hover { text-decoration: underline; }
+    strong { font-weight: 600; }
+    ul, ol.body-list { padding-left: 1.5rem; margin-bottom: 1rem; }
+    ul li, ol.body-list li { margin-bottom: 0.35rem; line-height: 1.6; }
+
+    .steps { list-style: none; padding: 0; }
+    .steps > li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; padding: 0.875rem 0; border-bottom: 0.5px solid var(--border); font-size: 16px; line-height: 1.6; }
+    .steps > li:last-child { border-bottom: none; }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--tan); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+    .callout { background: var(--tan-bg); border-left: 3px solid var(--tan); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 14px; line-height: 1.6; }
+    .callout strong { color: var(--tan); }
+    .callout-warn { background: #FCEEE9; border-left-color: #C0532E; }
+    .callout-warn strong { color: #C0532E; }
+
+    .tbl-wrap { overflow-x: auto; margin: 1.25rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.4; }
+    thead tr { background: var(--black); color: white; }
+    th { padding: 9px 12px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
+    td { padding: 8px 12px; border-bottom: 0.5px solid var(--border); vertical-align: top; }
+    tbody tr:nth-child(even) td { background: var(--tan-bg); }
+    td strong { font-weight: 700; }
+
+    .checklist { list-style: none; padding: 0; margin: 1rem 0; }
+    .checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 0.6rem 0; border-bottom: 0.5px solid var(--border); font-size: 15px; line-height: 1.5; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: ''; width: 18px; height: 18px; border: 1.5px solid var(--tan-light); border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: block; }
+
+    .faq { margin-top: 0.5rem; }
+    .faq-item { border-bottom: 0.5px solid var(--border); }
+    .faq-item:first-child { border-top: 0.5px solid var(--border); }
+    .faq-q { font-size: 15px; font-weight: 600; padding: 1rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; user-select: none; }
+    .faq-q::after { content: '+'; font-size: 22px; color: var(--tan); font-weight: 300; flex-shrink: 0; }
+    .faq-item.open .faq-q::after { content: '×'; }
+    .faq-a { display: none; font-size: 15px; line-height: 1.7; color: #4A3C36; padding-bottom: 1rem; }
+    .faq-item.open .faq-a { display: block; }
+
+    .pbadge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+    .badge-updated { background: #FFF4E0; color: #8A5700; border: 1px solid #E8C49A; }
+
+    .inline-cta-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; background: var(--tan-bg); border-left: 3px solid var(--tan); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 14px; }
+    .inline-cta-bar p { margin: 0; line-height: 1.5; }
+    .inline-cta-btn { background: var(--tan); color: white; text-decoration: none; font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: 50px; white-space: nowrap; }
+    .inline-cta-btn:hover { background: #a8652f; text-decoration: none; }
+
+    .cta-block { background: var(--black); border-radius: 12px; padding: 2rem; text-align: center; margin-top: 3rem; }
+    .cta-block h2 { color: white; font-size: 20px; border: none; padding: 0; margin: 0 0 0.75rem; }
+    .cta-block p { color: #B8A9A2; font-size: 14px; line-height: 1.6; margin-bottom: 1.25rem; }
+    .cta-btn { display: inline-block; background: var(--tan); color: white; font-size: 14px; font-weight: 500; padding: 10px 24px; border-radius: 50px; text-decoration: none; }
+    .cta-btn:hover { background: #a8652f; text-decoration: none; }
+
+    .related-section { max-width: 700px; margin: 2rem auto 0; padding: 0 1.5rem 3rem; }
+    .related-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 1rem; border-top: 0.5px solid var(--border); padding-top: 2rem; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .blog-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; display: block; }
+    .blog-card:hover { box-shadow: 0 2px 12px rgba(44,36,32,0.08); }
+    .blog-img { height: 100px; background: var(--tan-bg); display: flex; align-items: center; justify-content: center; color: var(--tan); }
+    .blog-img svg { width: 36px; height: 36px; }
+    .blog-body { padding: 0.875rem; }
+    .blog-cat { font-size: 10px; color: var(--tan); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .blog-title { font-size: 13px; font-weight: 500; line-height: 1.4; margin-bottom: 4px; color: var(--black); }
+    .blog-meta { font-size: 11px; color: var(--muted); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); }
+    .footer-logo { font-size: 14px; font-weight: 500; color: var(--black); }
+    .footer-links { display: flex; gap: 1rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+
+    @keyframes jackWiggle { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+    .dog-idle { transform-origin: 50px 60px; animation: jackWiggle 1.6s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .dog-idle { animation: none; } }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.875rem 1rem; }
+      .nav-links { display: none; }
+      body { font-size: 16px; }
+      h1 { font-size: 26px; }
+      th, td { padding: 6px 8px; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <a class="logo" href="/">
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="9" r="6" fill="#FAFAF8"/>
+      <ellipse cx="5" cy="5.5" rx="2.5" ry="3.5" fill="#C47B3A"/>
+      <ellipse cx="11" cy="5.5" rx="2.5" ry="3.5" fill="#C47B3A"/>
+      <ellipse cx="5" cy="9" rx="3.5" ry="3" fill="#C47B3A"/>
+      <circle cx="8" cy="9" r="4.5" fill="#FAFAF8"/>
+      <circle cx="6.2" cy="8.2" r="1.1" fill="#1A1A18"/>
+      <circle cx="9.8" cy="8.2" r="1.1" fill="#1A1A18"/>
+      <ellipse cx="8" cy="10.5" rx="1.2" ry="0.9" fill="#1A1A18"/>
+    </svg>
+    travelwith.pet
+  </a>
+  <div class="nav-links">
+    <a href="/">Pet policies</a>
+    <a href="#">Entry rules</a>
+    <a href="#">Insurance</a>
+    <a href="#">Stays</a>
+    <a href="/guides.html" class="active">Guides</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="breadcrumb">
+    <a href="/">Home</a> / <a href="/guides.html">Guides</a> / How to Travel with a Cat
+  </div>
+
+  <p class="eyebrow">Cats &amp; Travel</p>
+  <h1>How to Travel with a Cat: Planes, Cars, and Keeping Them Calm</h1>
+
+  <p class="intro">Cats are not small dogs. They don't want to see the world, they want their world to stay exactly where they left it. Traveling with a cat is less about adventure and more about damage control: keeping a creature who hates change as calm and contained as possible from door to door. Done right, it's far easier than people fear. Here's how.</p>
+
+  <div class="meta">
+    <span class="pbadge badge-updated">Updated June 2026</span>
+    <span>11 min read</span>
+    <span>·</span>
+    <span>Cats</span>
+  </div>
+
+  <div class="toc" aria-label="In this guide">
+    <p class="toc-label">In this guide</p>
+    <ol>
+      <li><a href="#before">Before you go: the basics</a></li>
+      <li><a href="#carrier">Choosing and prepping the carrier</a></li>
+      <li><a href="#plane">Flying with a cat</a></li>
+      <li><a href="#car">Long car trips with a cat</a></li>
+      <li><a href="#litter-food">Litter, food, and water on the road</a></li>
+      <li><a href="#calm">Keeping your cat calm: sedation and alternatives</a></li>
+      <li><a href="#arrival">Arriving somewhere new</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#checklist">Travel checklist</a></li>
+    </ol>
+  </div>
+
+  <section id="before">
+    <h2>Before You Go: The Basics</h2>
+    <p>Most of the work of traveling with a cat happens before you leave the house. A few decisions made early make the difference between a quiet trip and a stressful one.</p>
+    <ul>
+      <li><strong>Vet check first.</strong> If you're traveling far or flying, get a checkup. For air travel you'll often need a health certificate dated within a specific window, and for international trips the requirements jump significantly.</li>
+      <li><strong>Microchip and ID.</strong> A collar with a tag is good; a microchip is better. Cats bolt in unfamiliar places, and a chip is what reunites you if the worst happens.</li>
+      <li><strong>Acclimate the carrier weeks ahead,</strong> not the morning of. More on that below, because it's the single biggest thing you can do.</li>
+      <li><strong>Know the rules of where you're going.</strong> A domestic car trip needs almost nothing. Crossing a border with a cat can mean rabies vaccinations, certificates, and waiting periods.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>Flying internationally?</strong> Cats face the same entry requirements as dogs in most countries: microchip, rabies vaccination, health certificate, and sometimes a titer test. Start early, some destinations require months of preparation. See our guides on the <a href="/guides/pet-passport.html">pet passport</a> and <a href="/guides/usda-pet-health-certificate.html">USDA health certificate</a>.</p>
+    </div>
+  </section>
+
+  <section id="carrier">
+    <h2>Choosing and Prepping the Carrier</h2>
+    <p>The carrier is your cat's safe room for the entire trip. Get this right and everything else gets easier.</p>
+    <h3>What to look for</h3>
+    <ul>
+      <li><strong>Hard-sided for cars, soft-sided for cabin flights.</strong> A rigid carrier protects better in a vehicle; a soft one fits under an airplane seat and flexes into the space.</li>
+      <li><strong>Big enough to stand, turn around, and lie down,</strong> but not cavernous. Cats feel safer in a snug space, and airlines require the cat to be able to do all three inside the carrier.</li>
+      <li><strong>Top-loading or a wide door.</strong> Lowering a reluctant cat in from above is far easier than pushing one through a small front opening.</li>
+      <li><strong>Leak-resistant base.</strong> Accidents happen on long trips. A removable, washable liner saves you.</li>
+    </ul>
+    <h3>The part everyone skips</h3>
+    <p>Leave the carrier out in your home for two to three weeks before the trip, door open, with a soft blanket and the occasional treat inside. The goal is for the carrier to stop being "the thing that means the vet" and become just another napping spot. A cat that walks into the carrier on its own is a cat that travels calmly.</p>
+    <div class="callout callout-warn">
+      <p><strong>Never let a cat loose in a moving car.</strong> A panicked cat under the brake pedal is a genuine danger. However much they protest, they stay in the carrier, secured by a seatbelt, the entire drive.</p>
+    </div>
+  </section>
+
+  <section id="plane">
+    <h2>Flying with a Cat</h2>
+    <p>Flying sounds like the scary option but is often the gentlest, it's over fast. The key is understanding cabin versus cargo, and the rules that apply.</p>
+    <h3>Cabin vs cargo</h3>
+    <p>Almost always, you want your cat in the cabin with you. Most airlines allow one cat in an approved soft carrier that fits under the seat in front of you, for a fee, usually somewhere between 95 and 150 dollars each way. The cat stays in the carrier the whole flight; it doesn't come out.</p>
+    <p>Cargo is the hold, where larger animals travel. For a cat, cabin is safer, calmer, and almost always available because cats are small. Avoid cargo for a cat unless you genuinely have no other option.</p>
+    <h3>How the day works</h3>
+    <ol class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div><strong>Book the pet spot in advance.</strong> Airlines cap the number of in-cabin pets per flight. Call ahead, don't assume there's room.</div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div><strong>Skip the big meal before the flight.</strong> A light meal a few hours ahead reduces the chance of nausea. Don't withhold water.</div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div><strong>At security, you carry the cat through.</strong> The carrier goes through the X-ray belt empty while you hold your cat (or walk it through on a harness). This is the one moment your cat is out of the carrier, so a harness and a firm grip matter.</div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div><strong>At the gate and on board,</strong> the carrier stays under the seat. Talk to your cat quietly. Most cats go silent and still once the engines start.</div>
+      </li>
+    </ol>
+    <div class="inline-cta-bar">
+      <p><strong>Not sure which airlines take cats in the cabin on your route?</strong> Compare pet policies side by side before you book.</p>
+      <a href="/" class="inline-cta-btn">Search pet-friendly flights →</a>
+    </div>
+  </section>
+
+  <section id="car">
+    <h2>Long Car Trips with a Cat</h2>
+    <p>Road trips are where cats and owners most often come undone, because they last for hours and there's nowhere to hide. The good news is that a well-prepared cat usually settles into sleeping for most of the drive.</p>
+    <ul>
+      <li><strong>Secure the carrier with a seatbelt</strong> on the back seat, away from airbags, where it won't slide or tip.</li>
+      <li><strong>Cover it partly with a light cloth.</strong> Reducing the visual chaos of a moving world outside calms most cats. Leave airflow.</li>
+      <li><strong>Drive smoothly and keep the cabin cool.</strong> Hard braking and heat are the two things that turn a dozing cat into a distressed one.</li>
+      <li><strong>Plan stops, but don't open the carrier.</strong> Offer water through the door during breaks. Only open the carrier inside a closed vehicle or a secured indoor space, never in the open at a rest stop.</li>
+      <li><strong>For multi-day drives,</strong> book pet-friendly accommodation in advance and set up the litter box and a familiar blanket as soon as you arrive.</li>
+    </ul>
+    <div class="callout callout-warn">
+      <p><strong>Never leave a cat alone in a parked car.</strong> Interior temperatures climb to lethal levels within minutes, even with windows cracked, even on a mild day. If you need to stop somewhere you can't bring the cat, that's a problem to solve before you leave, not at the rest stop.</p>
+    </div>
+  </section>
+
+  <section id="litter-food">
+    <h2>Litter, Food, and Water on the Road</h2>
+    <p>For any trip longer than a few hours, you need a plan for the basics. Cats are fussy about toileting, and a stressed cat may refuse a strange litter box entirely.</p>
+    <h3>Litter</h3>
+    <p>A collapsible or disposable travel litter box solves the space problem. Bring litter from home in a sealed bag, the familiar smell matters more than you'd think. On a flight, your cat won't use a box mid-air, so offer one before departure and immediately on arrival. On a long drive, set up the box only inside a secured space during overnight stops, never expect a cat to use one in a moving car.</p>
+    <h3>Food and water</h3>
+    <p>Keep feeding light and on the cat's normal food, a new diet plus travel stress is a recipe for an upset stomach. Offer water at every stop. Many cats won't eat or drink much while traveling, which is normal for a day; if it stretches longer than 24 hours, check in with a vet.</p>
+    <div class="callout">
+      <p><strong>One small trick:</strong> a piece of clothing you've worn, tucked into the carrier, gives your cat your scent to anchor to. It's a surprisingly effective comfort in an unfamiliar place.</p>
+    </div>
+  </section>
+
+  <section id="calm">
+    <h2>Keeping Your Cat Calm: Sedation and Alternatives</h2>
+    <p>This is the question almost every cat owner asks before a trip: should I sedate my cat? The honest answer is that it depends, and it's a conversation to have with your vet, not a decision to make from a blog.</p>
+    <h3>Why sedation is not the default</h3>
+    <p>Many vets and airlines advise against sedating cats for air travel, because sedatives can affect breathing and temperature regulation at altitude, and a sedated cat can't balance itself if the carrier shifts. For most short flights, a calm, well-acclimated cat in a familiar carrier does better unsedated than drugged.</p>
+    <h3>What vets may suggest instead</h3>
+    <ul>
+      <li><strong>Anti-anxiety medication</strong> like gabapentin, prescribed for the specific trip. This is different from heavy sedation, it lowers anxiety while keeping the cat functional. It has become a common vet recommendation for travel-anxious cats.</li>
+      <li><strong>Pheromone sprays</strong> applied to the carrier before travel, which mimic the calming scent cats produce naturally.</li>
+      <li><strong>Carrier acclimation,</strong> which remains the most effective and lowest-risk approach of all.</li>
+    </ul>
+    <div class="callout callout-warn">
+      <p><strong>Never give a cat human medication or guess a dose.</strong> Over-the-counter human sedatives and many "calming" products can be dangerous or fatal for cats. Anything your cat takes for travel should come from your vet, dosed for your specific animal.</p>
+    </div>
+  </section>
+
+  <section id="arrival">
+    <h2>Arriving Somewhere New</h2>
+    <p>The trip isn't over when you arrive, in some ways the riskiest moment is the first hour in a new place, when a frightened cat is most likely to bolt.</p>
+    <ul>
+      <li><strong>Set up one small room first.</strong> Don't release your cat into a whole unfamiliar house or hotel room at once. Pick one room, set up litter, water, food, and a familiar blanket, and let the cat decide when to explore.</li>
+      <li><strong>Check for escape routes</strong> before opening the carrier: open windows, gaps under doors, balconies. Cats find them.</li>
+      <li><strong>Let them hide.</strong> A cat that disappears under the bed for a few hours is a cat that's coping. Don't drag them out. They'll emerge when they feel safe.</li>
+      <li><strong>Keep the routine.</strong> Same food, same feeding times, the familiar blanket. Consistency is what tells a cat the world is still okay.</li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq" itemscope itemtype="https://schema.org/FAQPage">
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" itemprop="name">How do you travel with a cat on a plane?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Book an in-cabin pet spot in advance, since airlines limit how many pets fly per flight. Bring an airline-approved soft carrier that fits under the seat, feed your cat lightly a few hours before, and carry the cat through security while the empty carrier is X-rayed. On board, the carrier stays under the seat in front of you for the whole flight. Most cats go quiet once the engines start.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" itemprop="name">Should I sedate my cat for travel?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Usually not, and many vets and airlines advise against sedation for air travel because it can affect breathing and balance at altitude. A calm, carrier-acclimated cat typically travels better unsedated. If your cat is severely anxious, talk to your vet about anti-anxiety medication like gabapentin, which lowers stress without heavy sedation. Never use human medication or guess a dose.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" itemprop="name">How do I travel long distance with a cat in a car?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Keep the cat in a hard-sided carrier secured with a seatbelt on the back seat, partly covered to reduce visual stress. Drive smoothly, keep the car cool, and offer water at stops through the carrier door without letting the cat out in the open. For multi-day trips, book pet-friendly stays and set up a litter box and familiar blanket at each overnight stop. Never leave a cat alone in a parked car.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" itemprop="name">How far can a cat travel in a day?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">A cat can physically tolerate a full day of car travel if it's well prepared and the carrier is secure, cool, and quiet. The limit is usually stress and toileting, not distance. Plan to stop every few hours to offer water, and break very long journeys into multiple days with overnight stays where the cat can use a litter box and decompress. Most cats sleep through the bulk of a calm drive.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" itemprop="name">Will my cat use a litter box while traveling?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Rarely in a moving car or on a plane, most cats hold it. Offer a litter box before departure and immediately on arrival, and during overnight stops on long drives. Bring litter from home, since the familiar scent makes a cat far more likely to use a strange box. A collapsible travel litter box handles the space problem. It's normal for a cat to skip toileting for many hours while traveling.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" itemprop="name">Can I take my cat to another country?</div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes, but cats face the same import rules as dogs in most countries: an ISO microchip, rabies vaccination, an official health certificate, and sometimes a rabies titer test and waiting period. Strict destinations like Australia, Japan, and Hawaii can require months of preparation. Check the specific requirements early, and see our guides on the pet passport and country entry rules to plan the timeline.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2>Cat Travel Checklist</h2>
+    <ul class="checklist">
+      <li>Carrier acclimated at home for two to three weeks before the trip</li>
+      <li>Vet check done, plus health certificate if flying or crossing a border</li>
+      <li>Microchip and ID tag current</li>
+      <li>Airline pet spot booked in advance for cabin travel</li>
+      <li>Harness and leash for the security checkpoint</li>
+      <li>Collapsible litter box and litter from home</li>
+      <li>Normal food and water, fed lightly before departure</li>
+      <li>A worn piece of your clothing in the carrier for scent</li>
+      <li>Any vet-prescribed anti-anxiety medication, correctly dosed</li>
+      <li>Pet-friendly accommodation booked for overnight stops</li>
+    </ul>
+    <p style="font-size: 13px; color: var(--muted); margin-top: 1.5rem;">This guide is general information, not veterinary advice. Sedation, medication, and fitness to travel are decisions for your veterinarian, who knows your individual cat. Always confirm airline and country requirements directly before you travel, as rules change.</p>
+  </section>
+
+  <div class="cta-block">
+    <div style="margin-bottom: 1.25rem;">
+      <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g class="dog-idle">
+          <circle cx="50" cy="50" r="32" fill="#FAFAF8" stroke="#E8C49A" stroke-width="1"/>
+          <path d="M29,43 Q30,36 33,26 L43,26 Q45,35 43,41 Q36,44 29,43Z" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+          <path d="M53,41 Q58,30 64,14 Q69,30 71,43Z" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+          <path d="M32,41 Q32,36 35,27 L42,27 Q44,34 41,39 Q36,42 32,41Z" fill="#C47B3A"/>
+          <path d="M56,40 Q59,31 63,18 Q67,31 68,41Z" fill="#C47B3A"/>
+          <path d="M35,26 Q37,31 38,37 Q39,31 41,26Z" fill="#C47B3A"/>
+          <path d="M33,26 L43,26" fill="none" stroke="#C47B3A" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="50" cy="54" r="20" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8"/>
+          <ellipse cx="44" cy="44" rx="10" ry="8" fill="#C47B3A"/>
+          <circle cx="44" cy="49" r="5" fill="#FAFAF8"/>
+          <circle cx="44" cy="49" r="2.5" fill="#2C2420"/>
+          <circle cx="58" cy="49" r="2.5" fill="#2C2420"/>
+          <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#2C2420"/>
+          <path d="M45 62 Q50 67 55 62" stroke="#2C2420" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="34" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(-15 34 66)"/>
+          <ellipse cx="66" cy="66" rx="5" ry="7" fill="#FAFAF8" stroke="#E8C49A" stroke-width="0.8" transform="rotate(15 66 66)"/>
+          <ellipse cx="34" cy="65" rx="3" ry="5" fill="#C47B3A" transform="rotate(-15 34 65)"/>
+          <path d="M76,68 C81,71 94,66 89,60" fill="none" stroke="#C47B3A" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <h2>Flying With Your Cat? Find the Right Airline</h2>
+    <p>Cabin pet spots are limited and policies vary by carrier: fees, carrier sizes, and how many cats fly per flight. Compare airline pet policies on your route before you book.</p>
+    <a href="/" class="cta-btn">Search pet-friendly flights</a>
+  </div>
+
+</div>
+
+<div class="related-section">
+  <p class="related-title">More guides</p>
+  <div class="blog-grid">
+    <a href="/guides/pet-passport.html" class="blog-card">
+      <div class="blog-img">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C47B3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="11" r="3"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="9" y1="7" x2="11" y2="7"/></svg>
+      </div>
+      <div class="blog-body">
+        <div class="blog-cat">Documents</div>
+        <div class="blog-title">Pet Passport: Everything You Need to Know Before You Travel</div>
+        <div class="blog-meta">10 min read</div>
+      </div>
+    </a>
+    <a href="/guides/usda-pet-health-certificate.html" class="blog-card">
+      <div class="blog-img">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C47B3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+      </div>
+      <div class="blog-body">
+        <div class="blog-cat">Documents</div>
+        <div class="blog-title">USDA Pet Health Certificate: The Complete Guide for Traveling with Pets</div>
+        <div class="blog-meta">12 min read</div>
+      </div>
+    </a>
+    <a href="/guides/traveling-to-japan-with-a-dog.html" class="blog-card">
+      <div class="blog-img">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C47B3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 4.5 8 12 8 12s8-7.5 8-12a8 8 0 0 0-8-8z"/></svg>
+      </div>
+      <div class="blog-body">
+        <div class="blog-cat">Entry rules</div>
+        <div class="blog-title">Traveling to Japan with a Dog: The Complete Import Guide</div>
+        <div class="blog-meta">12 min read</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">travelwith.pet</div>
+  <div class="footer-links">
+    <a href="/about.html">About</a>
+    <a href="#" onclick="window.location='mailto:'+'hello'+'@'+'travelwith.pet';return false;">Contact</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+  var pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+document.querySelectorAll('.faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
